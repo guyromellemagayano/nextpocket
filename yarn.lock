@@ -4693,7 +4693,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-auth@npm:^4.22.1":
+"next-auth@npm:^4.23.2":
   version: 4.23.2
   resolution: "next-auth@npm:4.23.2"
   dependencies:
@@ -4807,7 +4807,7 @@ __metadata:
     husky: ^8.0.3
     lint-staged: ^13.3.0
     next: ^13.5.4
-    next-auth: ^4.22.1
+    next-auth: ^4.23.2
     postcss: ^8.4.31
     postcss-focus-visible: ^9.0.0
     postgres: ^3.3.5
