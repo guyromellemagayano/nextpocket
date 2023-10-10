@@ -26,7 +26,7 @@
     "clsx": "^1.2.1",
     "focus-visible": "^5.2.0",
     "next": "^13.5.4",
-    "next-auth": "^4.22.1",
+    "next-auth": "^4.23.2",
     "postcss-focus-visible": "^9.0.0",
     "postgres": "^3.3.5",
     "react": "18.2.0",
