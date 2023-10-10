@@ -1,9 +1,9 @@
-import type { Config } from 'tailwindcss';
-import defaultTheme from 'tailwindcss/defaultTheme';
+import type { Config } from 'tailwindcss'
+import defaultTheme from 'tailwindcss/defaultTheme'
 
-import aspectRatio from '@tailwindcss/aspect-ratio';
-import forms from '@tailwindcss/forms';
-import typography from '@tailwindcss/typography';
+import aspectRatio from '@tailwindcss/aspect-ratio'
+import forms from '@tailwindcss/forms'
+import typography from '@tailwindcss/typography'
 
 const config: Config = {
   content: ['./{components,app,hooks,lib,utils}/**/*.{js?(x),ts?(x)}'],
@@ -16,6 +16,6 @@ const config: Config = {
     },
   },
   plugins: [forms, typography, aspectRatio],
-};
+}
 
-export default config;
+export default config
