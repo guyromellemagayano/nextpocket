@@ -7,13 +7,11 @@ import { ICardProps } from '@interfaces'
 
 /**
  * Renders a card component.
- * @param {ICardProps} props - component props
- * @returns {JSX.Element} - rendered component
  */
 const Card: FC<ICardProps> = ({
-  heading,
-  subheading,
-  image,
+  heading = '',
+  subheading = '',
+  image = '#',
   href = '#',
 }): JSX.Element => {
   return (
@@ -27,10 +25,10 @@ const Card: FC<ICardProps> = ({
             {heading}
           </h3>
         </div>
-        <Paragraph
-          className="mt-1 truncate text-sm text-gray-500"
-          message={subheading}
-        />
+
+        <Paragraph className="mt-1 truncate text-sm text-gray-500">
+          {subheading}
+        </Paragraph>
       </div>
 
       <Image
