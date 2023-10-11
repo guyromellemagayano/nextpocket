@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
+import { Button } from '@components'
 import { IFormProps } from '@interfaces'
 
 /**
@@ -99,12 +100,12 @@ const Form: FC<IFormProps> = ({ data, onSubmit }): JSX.Element => {
         </div>
       </div>
       <div className="flex justify-evenly border-t border-gray-900/10 px-4 py-4 sm:px-8">
-        <button
+        <Button
           type="submit"
           className="bg-indigo-600 hover:bg-indigo-500 rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
           Save
-        </button>
+        </Button>
       </div>
     </form>
   )

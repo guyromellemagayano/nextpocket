@@ -4,10 +4,9 @@ export type {
   INotesPageNotesData,
 } from './app'
 export type {
+  IButtonProps,
   ICardProps,
-  IFormDataProps,
   IFormProps,
-  IImageProps,
   ILayoutProps,
   IListProps,
   IMessageProps,

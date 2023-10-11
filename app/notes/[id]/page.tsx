@@ -14,7 +14,14 @@ import { TrashIcon } from '@heroicons/react/20/solid'
 import { useRouter } from 'next/navigation'
 import { mutate } from 'swr'
 
-import { Article, Image, Message, Paragraph, Section } from '@components'
+import {
+  Article,
+  Button,
+  Image,
+  Message,
+  Paragraph,
+  Section,
+} from '@components'
 import { NOTES_COLLECTION_FORM_DATA, NOTE_PAGE_API_URL } from '@config'
 import { Dialog, Transition } from '@headlessui/react'
 import { request } from '@helpers'
@@ -196,14 +203,14 @@ const Avatar: FC<IAvatarProps> = ({
                     </div>
                   </div>
                   <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-1 sm:gap-3">
-                    <button
+                    <Button
                       ref={cancelButtonRef}
                       type="button"
                       className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
                       onClick={() => setOpen(false)}
                     >
                       Close
-                    </button>
+                    </Button>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
@@ -212,7 +219,7 @@ const Avatar: FC<IAvatarProps> = ({
         </Dialog>
       </Transition.Root>
 
-      <button
+      <Button
         type="button"
         className={clsx(
           'flex-none rounded-full bg-gray-50 overflow-hidden',
@@ -225,7 +232,7 @@ const Avatar: FC<IAvatarProps> = ({
         }}
       >
         <Image src={src} width={width} height={height} alt="" {...props} />
-      </button>
+      </Button>
     </>
   )
 }
@@ -339,7 +346,7 @@ const NotePage: FC = ({ params }: any): JSX.Element => {
                     className="mt-1 text-xs leading-5 text-gray-500"
                   />
                 </div>
-                <button
+                <Button
                   type="button"
                   className="flex-none rounded-full bg-gray-50 overflow-hidden w-6 h-6"
                   onClick={handleDeleteOnClick}
@@ -348,7 +355,7 @@ const NotePage: FC = ({ params }: any): JSX.Element => {
                     className="h-6 w-6 flex-none text-red-600"
                     aria-hidden="true"
                   />
-                </button>
+                </Button>
               </div>
             </div>
           </Article>

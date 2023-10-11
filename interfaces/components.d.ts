@@ -1,11 +1,13 @@
-import { HTMLAttributes, ReactNode } from 'react'
+import { ButtonHTMLAttributes, HTMLAttributes, ReactNode, Ref } from 'react'
+
 import { INotesPageNotesData } from './app'
+import { INotesCollectionFormData } from './data'
 
 export interface ICardProps {
-  heading: string
-  subheading: string
-  image: string
-  href: string
+  heading?: string
+  subheading?: string
+  image?: string
+  href?: string
 }
 
 export interface IListProps
@@ -15,42 +17,25 @@ export interface IListProps
   [key: string]: any
 }
 
-export interface IImageProps {
-  src: string
-  alt?: string
-  width: number
-  height: number
-  [key: string]: any
-}
-
 export interface IFormProps {
-  data: IFormDataProps[]
+  data: INotesCollectionFormData[]
   onSubmit: (e: any) => void
-  [key: string]: any
 }
 
-export interface IFormDataProps {
-  id?: string
-  placeholder?: string
-  type: string
-  required: boolean
-  minLength: number
-  maxLength: number
-  [key: string]: any
-}
-
-export interface IMessageProps {
+export interface IMessageProps extends HTMLAttributes<HTMLDivElement> {
   message?: string
-  [key: string]: any
 }
 
 export interface IParagraphProps
-  extends MouseEvent<HTMLParagraphElement, MouseEvent> {
+  extends HTMLAttributes<HTMLParagraphElement, MouseEvent> {
   message?: string
-  [key: string]: any
 }
 
 export interface ILayoutProps {
   children: ReactNode
-  [key: string]: any
+}
+
+export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  ref?: Ref<HTMLButtonElement>
+  className?: string
 }
