@@ -1,13 +1,8 @@
-import { IUseRequestData } from './hooks'
+import { INotesCollectionFormData } from './data'
+import { IRequestData } from './helpers'
 
-export interface INotesPageNotesData extends IUseRequestData {
+export interface INotesPageNotesData extends IRequestData {
   value?: string
-}
-
-export interface IRootLayoutPageLinksData {
-  label: string
-  href: string
-  description?: string
 }
 
 export interface IEditableFormProps {
@@ -20,23 +15,13 @@ export interface IEditableFormProps {
   [key: string]: any
 }
 
-export interface IAvatarSelectedFieldProps {
-  id: string
-  placeholder: string
-  type: string
-  required: boolean
-  minLength: number
-  maxLength: number
-}
-
 export interface IAvatarProps {
   src: string
   width: number
   height: number
   field: keyof INotesPageNotesData
-  params?: any
-  selectedField?: IAvatarSelectedFieldProps
-  editableData?: IUseRequestData
+  selectedField?: INotesCollectionFormData
+  editableData?: IRequestData
   isEditing: boolean
   [key: string]: any
 }

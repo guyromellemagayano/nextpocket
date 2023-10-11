@@ -1,4 +1,6 @@
-export const NOTES_COLLECTION_FORM_DATA = [
+import { INotesCollectionFormData, IPageLinks } from '@interfaces'
+
+export const NOTES_COLLECTION_FORM_DATA: INotesCollectionFormData[] = [
   {
     id: 'title',
     placeholder: 'Title',
@@ -39,4 +41,9 @@ export const NOTES_COLLECTION_FORM_DATA = [
     minLength: 2,
     maxLength: 255,
   },
+]
+
+export const PAGE_LINKS: IPageLinks[] = [
+  { name: 'Home', href: '/' },
+  { name: 'Notes', href: '/notes' },
 ]
