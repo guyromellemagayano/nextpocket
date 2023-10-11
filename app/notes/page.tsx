@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
-import { FC } from 'react'
+import { FC, useCallback } from 'react'
 
 import { Form, List, Message, Section, Sidebar } from '@components'
 import {
@@ -8,7 +9,7 @@ import {
   NOTES_PAGE_API_URL,
   NOTE_PAGE_API_URL,
 } from '@config'
-import { useRequest } from '@hooks'
+import { request } from '@helpers'
 import { INotesPageNotesData } from '@interfaces'
 import { swr } from '@lib'
 
@@ -22,21 +23,24 @@ const NotesPage: FC = (): JSX.Element => {
   const notes: INotesPageNotesData[] =
     (data?.items as INotesPageNotesData[]) || []
 
-  const handleSubmit = async (formData: INotesPageNotesData): Promise<void> => {
-    await useRequest({
-      url: NOTE_PAGE_API_URL,
-      method: 'POST',
-      data: formData,
-    })
+  const handleSubmit = useCallback(
+    async (formData: INotesPageNotesData): Promise<void> => {
+      await request({
+        url: NOTE_PAGE_API_URL,
+        method: 'POST',
+        data: formData,
+      })
 
-    mutate(NOTES_PAGE_API_URL)
-  }
+      mutate(NOTES_PAGE_API_URL)
+    },
+    [],
+  )
 
   return (
     <div className="flex justify-center w-full my-6 mx-auto lg:max-w-3xl">
       <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
         <Sidebar
-          className="flex flex-1 flex-col self-start md:sticky md:top-5"
+          className="flex flex-1 flex-col self-start md:sticky md:top-20"
           aria-label="Sidebar"
         >
           <Form data={NOTES_COLLECTION_FORM_DATA} onSubmit={handleSubmit} />

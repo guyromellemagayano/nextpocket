@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
 import {
@@ -9,17 +10,17 @@ import {
   useState,
 } from 'react'
 
-import { Dialog, Transition } from '@headlessui/react'
 import { TrashIcon } from '@heroicons/react/20/solid'
-import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
 import { mutate } from 'swr'
 
 import { Article, Image, Message, Paragraph, Section } from '@components'
 import { NOTES_COLLECTION_FORM_DATA, NOTE_PAGE_API_URL } from '@config'
-import { useRequest } from '@hooks'
-import { IAvatarProps, IEditableFormProps, IUseRequestData } from '@interfaces'
+import { Dialog, Transition } from '@headlessui/react'
+import { request } from '@helpers'
+import { IAvatarProps, IEditableFormProps, IRequestData } from '@interfaces'
 import { swr } from '@lib'
+import clsx from 'clsx'
 
 const EditableForm: FC<IEditableFormProps> = ({
   field,
@@ -30,7 +31,7 @@ const EditableForm: FC<IEditableFormProps> = ({
   height,
   ...props
 }) => {
-  const [editableData, setEditableData] = useState<IUseRequestData | null>(null)
+  const [editableData, setEditableData] = useState<IRequestData | null>(null)
 
   const collection = data
     ? NOTES_COLLECTION_FORM_DATA.map(item => ({
@@ -49,14 +50,16 @@ const EditableForm: FC<IEditableFormProps> = ({
     setEditableData(prevData => ({ ...prevData, [field]: e.target.value }))
   }
 
-  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>): void => {
+  const handleKeyPress = async (
+    e: KeyboardEvent<HTMLInputElement>,
+  ): Promise<void> => {
     if (e.key === 'Enter') {
-      const request = useRequest({
+      const req = await request({
         method: 'PATCH',
         url: `${NOTE_PAGE_API_URL + params.id}`,
         data: editableData,
       })
-      mutate(`${NOTE_PAGE_API_URL + params.id}`, request, false)
+      mutate(`${NOTE_PAGE_API_URL + params.id}`, req, false)
       props.setIsEditing()
     } else if (e.key === 'Escape') {
       mutate(`${NOTE_PAGE_API_URL + params.id}`, data, false)
@@ -119,11 +122,9 @@ const EditableForm: FC<IEditableFormProps> = ({
 const Avatar: FC<IAvatarProps> = ({
   src,
   field,
-  params,
   selectedField,
   editableData,
   isEditing,
-  setIsEditing,
   width,
   height,
   ...props
@@ -169,6 +170,7 @@ const Avatar: FC<IAvatarProps> = ({
                       src={src}
                       width={width}
                       height={height}
+                      alt=""
                       className="mt-3 mx-auto flex h-12 w-12 items-center justify-center rounded-full"
                       {...props}
                     />
@@ -185,7 +187,7 @@ const Avatar: FC<IAvatarProps> = ({
                         />
                       ) : (
                         <Paragraph
-                          className="text-sm text-gray-500 text-ellipsis overflow-hidden"
+                          className="text-sm text-gray-500 text-ellipsis truncate"
                           message={editableData?.[field]}
                           onClick={props.onEditStatus}
                           {...props}
@@ -222,7 +224,7 @@ const Avatar: FC<IAvatarProps> = ({
           setOpen(true)
         }}
       >
-        <Image src={src} width={width} height={height} {...props} />
+        <Image src={src} width={width} height={height} alt="" {...props} />
       </button>
     </>
   )
@@ -249,12 +251,12 @@ const NotePage: FC = ({ params }: any): JSX.Element => {
     }
   }
 
-  const handleDeleteOnClick = (): void => {
-    const request = useRequest({
+  const handleDeleteOnClick = async (): Promise<void> => {
+    const req = await request({
       method: 'DELETE',
       url: `${NOTE_PAGE_API_URL + params.id}`,
     })
-    mutate(`${NOTE_PAGE_API_URL + params.id}`, request, false)
+    mutate(`${NOTE_PAGE_API_URL + params.id}`, req, false)
     router.push('/notes', { scroll: false })
   }
 
@@ -277,25 +279,25 @@ const NotePage: FC = ({ params }: any): JSX.Element => {
   }
 
   return (
-    <div className="flex justify-center w-full my-6 mx-auto lg:max-w-3xl">
+    <div className="flex w-full my-6 mx-auto lg:max-w-3xl  max-w-7xl items-center justify-between gap-x-6 p-6 lg:px-8">
       <div className="grid grid-cols-1 gap-x-8 gap-y-8 w-full">
         <Section
-          className="flex flex-1 flex-col my-6 md:col-span-2"
+          className="flex flex-1 flex-col my-6 px-6 md:px-0 md:col-span-2"
           aria-label="Content"
         >
-          <Article className="flex justify-between gap-x-6 py-5">
-            <div className="flex min-w-0 gap-x-4 items-start">
-              <EditableForm
-                field="avatar"
-                params={params}
-                data={data}
-                isEditing={currentlyEditing === 'avatar'}
-                setIsEditing={() => setCurrentlyEditing(null)}
-                onEditStatus={() => handleEditStatus('avatar')}
-                width={48}
-                height={48}
-              />
-              <div className="min-w-0 flex-auto">
+          <Article className="flex min-w-0 gap-x-4 items-start">
+            <EditableForm
+              field="avatar"
+              params={params}
+              data={data}
+              isEditing={currentlyEditing === 'avatar'}
+              setIsEditing={() => setCurrentlyEditing(null)}
+              onEditStatus={() => handleEditStatus('avatar')}
+              width={48}
+              height={48}
+            />
+            <div className="flex gap-y-3 flex-col sm:flex-row flex-auto justify-between">
+              <div className="min-w-0">
                 <EditableForm
                   field="name"
                   params={params}
@@ -315,38 +317,39 @@ const NotePage: FC = ({ params }: any): JSX.Element => {
                   className="mt-1 truncate text-xs leading-5 text-gray-500"
                 />
               </div>
-            </div>
-            <div className="flex shrink-1 items-center gap-x-8">
-              <div className="hidden sm:flex sm:flex-col sm:items-end">
-                <EditableForm
-                  field="company"
-                  params={params}
-                  data={data}
-                  isEditing={currentlyEditing === 'company'}
-                  setIsEditing={() => setCurrentlyEditing(null)}
-                  onEditStatus={() => handleEditStatus('company')}
-                  className="text-sm leading-6 text-gray-900"
-                />
-                <EditableForm
-                  field="department"
-                  params={params}
-                  data={data}
-                  isEditing={currentlyEditing === 'department'}
-                  setIsEditing={() => setCurrentlyEditing(null)}
-                  onEditStatus={() => handleEditStatus('department')}
-                  className="mt-1 text-xs leading-5 text-gray-500"
-                />
+
+              <div className="flex shrink-1 items-center gap-x-8">
+                <div className="items-start sm:flex sm:flex-col md:items-end">
+                  <EditableForm
+                    field="company"
+                    params={params}
+                    data={data}
+                    isEditing={currentlyEditing === 'company'}
+                    setIsEditing={() => setCurrentlyEditing(null)}
+                    onEditStatus={() => handleEditStatus('company')}
+                    className="text-sm leading-6 text-gray-900"
+                  />
+                  <EditableForm
+                    field="department"
+                    params={params}
+                    data={data}
+                    isEditing={currentlyEditing === 'department'}
+                    setIsEditing={() => setCurrentlyEditing(null)}
+                    onEditStatus={() => handleEditStatus('department')}
+                    className="mt-1 text-xs leading-5 text-gray-500"
+                  />
+                </div>
+                <button
+                  type="button"
+                  className="flex-none rounded-full bg-gray-50 overflow-hidden w-6 h-6"
+                  onClick={handleDeleteOnClick}
+                >
+                  <TrashIcon
+                    className="h-6 w-6 flex-none text-red-600"
+                    aria-hidden="true"
+                  />
+                </button>
               </div>
-              <button
-                type="button"
-                className="flex-none rounded-full bg-gray-50 overflow-hidden w-6 h-6"
-                onClick={handleDeleteOnClick}
-              >
-                <TrashIcon
-                  className="h-6 w-6 flex-none text-red-600"
-                  aria-hidden="true"
-                />
-              </button>
             </div>
           </Article>
         </Section>
