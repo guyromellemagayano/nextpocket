@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * This module exports three React functional components that can be used to render the main content of a layout.
  * @module Content
