@@ -29,11 +29,14 @@ export interface IMessageProps extends HTMLAttributes<HTMLDivElement> {
 export interface IParagraphProps
   extends HTMLAttributes<HTMLParagraphElement, MouseEvent> {
   className?: string
-  children: string | ReactNode
+  children: ReactNode
+  [key: string]: any
 }
 
 export interface ILayoutProps {
+  className?: string
   children: ReactNode
+  [key: string]: any
 }
 
 export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
