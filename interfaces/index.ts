@@ -2,7 +2,6 @@ export type {
   IAvatarProps,
   IEditableFormProps,
   INotesPageNotesData,
-  IRootLayoutPageLinksData,
 } from './app'
 export type {
   ICardProps,
@@ -14,12 +13,13 @@ export type {
   IMessageProps,
   IParagraphProps,
 } from './components'
+export type { INotesCollectionFormData, IPageLinks } from './data'
 export type {
   IHandleDeleteProps,
   IHandleGetProps,
   IHandlePostProps,
   IHandlePutProps,
-  IUseRequestData,
-  IUseRequestProps,
-} from './hooks'
+  IRequestData,
+  IRequestProps,
+} from './helpers'
 export type { IErrorResponse, ISwr } from './lib'

@@ -5,6 +5,7 @@
       "@app": ["./app"],
       "@components": ["./components"],
       "@config": ["./config"],
+      "@helpers": ["./helpers"],
       "@hooks": ["./hooks"],
       "@interfaces": ["./interfaces"],
       "@lib": ["./lib"],

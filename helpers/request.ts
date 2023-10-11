@@ -8,7 +8,7 @@ import {
   IHandleGetProps,
   IHandlePostProps,
   IHandlePutProps,
-  IUseRequestProps,
+  IRequestProps,
 } from '@interfaces'
 import { axios } from '@lib'
 
@@ -124,12 +124,12 @@ const handleDelete = async <T = any>({
     .then(res => res.data)
     .catch(err => handleError(err))
 
-const useRequest = async <T = any>({
+const request = async <T = any>({
   method,
   url,
   data,
   options,
-}: IUseRequestProps): Promise<void | Awaited<T>> => {
+}: IRequestProps): Promise<void | Awaited<T>> => {
   switch (method) {
     case 'GET':
       return await handleGet<T>({ url, options })
@@ -146,4 +146,4 @@ const useRequest = async <T = any>({
   }
 }
 
-export default useRequest
+export default request
