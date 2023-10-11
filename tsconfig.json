@@ -8,6 +8,7 @@
       "@hooks": ["./hooks"],
       "@interfaces": ["./interfaces"],
       "@lib": ["./lib"],
+      "@providers": ["./providers"],
       "@styles/*": ["./styles/*"],
       "@types": ["./types"],
       "@utils": ["./utils"]
