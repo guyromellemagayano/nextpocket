@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
-import { FC, useCallback } from 'react'
+import { FC } from 'react'
 
 import { Form, List, Message, Section, Sidebar } from '@components'
 import {
@@ -23,18 +23,15 @@ const NotesPage: FC = (): JSX.Element => {
   const notes: INotesPageNotesData[] =
     (data?.items as INotesPageNotesData[]) || []
 
-  const handleSubmit = useCallback(
-    async (formData: INotesPageNotesData): Promise<void> => {
-      await request({
-        url: NOTE_PAGE_API_URL,
-        method: 'POST',
-        data: formData,
-      })
+  const handleSubmit = async (formData: INotesPageNotesData): Promise<void> => {
+    await request({
+      url: NOTE_PAGE_API_URL,
+      method: 'POST',
+      data: formData,
+    })
 
-      mutate(NOTES_PAGE_API_URL)
-    },
-    [],
-  )
+    mutate(NOTES_PAGE_API_URL)
+  }
 
   return (
     <div className="flex justify-center w-full my-6 mx-auto lg:max-w-3xl">
