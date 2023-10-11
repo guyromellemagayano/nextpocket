@@ -14,35 +14,38 @@ import { IFormProps } from '@interfaces'
  */
 const Form: FC<IFormProps> = ({ data, onSubmit }): JSX.Element => {
   const formSchema = yup.object().shape(
-    data.reduce((acc, curr) => {
-      switch (curr.type) {
-        case 'email':
-          acc[curr.id] = yup
-            .string()
-            .required()
-            .email()
-            .min(curr.minLength)
-            .max(curr.maxLength)
-          break
-        case 'url':
-          acc[curr.id] = yup
-            .string()
-            .required()
-            .url()
-            .min(curr.minLength)
-            .max(curr.maxLength)
-          break
-        default:
-          acc[curr.id] = yup
-            .string()
-            .required()
-            .min(curr.minLength)
-            .max(curr.maxLength)
-          break
-      }
+    data.reduce(
+      (acc, curr) => {
+        switch (curr.type) {
+          case 'email':
+            acc[curr.id] = yup
+              .string()
+              .required()
+              .email()
+              .min(curr.minLength)
+              .max(curr.maxLength)
+            break
+          case 'url':
+            acc[curr.id] = yup
+              .string()
+              .required()
+              .url()
+              .min(curr.minLength)
+              .max(curr.maxLength)
+            break
+          default:
+            acc[curr.id] = yup
+              .string()
+              .required()
+              .min(curr.minLength)
+              .max(curr.maxLength)
+            break
+        }
 
-      return acc
-    }, {} as { [key: string]: yup.StringSchema }),
+        return acc
+      },
+      {} as { [key: string]: yup.StringSchema },
+    ),
   )
 
   const {
