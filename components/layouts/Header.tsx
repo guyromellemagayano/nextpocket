@@ -8,6 +8,9 @@ import Link from 'next/link'
 import { Button } from '@components'
 import { PAGE_LINKS } from '@config'
 
+/**
+ * Header component that displays the navigation bar and menu for the NextPocket website.
+ */
 const Header: FC = (): JSX.Element => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false)
 
