@@ -119,10 +119,11 @@ const EditableForm: FC<IEditableFormProps> = ({
   ) : (
     <Paragraph
       className="text-sm font-semibold leading-6 text-gray-900"
-      message={data[field]}
       onClick={props.onEditStatus}
       {...props}
-    />
+    >
+      {data[field]}
+    </Paragraph>
   )
 }
 
@@ -195,10 +196,11 @@ const Avatar: FC<IAvatarProps> = ({
                       ) : (
                         <Paragraph
                           className="text-sm text-gray-500 text-ellipsis truncate"
-                          message={editableData?.[field]}
                           onClick={props.onEditStatus}
                           {...props}
-                        />
+                        >
+                          {editableData?.[field]}
+                        </Paragraph>
                       )}
                     </div>
                   </div>
