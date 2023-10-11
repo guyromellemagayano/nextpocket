@@ -16,10 +16,12 @@ const inter = Inter({
 })
 
 const RootLayout = ({ children }: ILayoutProps): JSX.Element => {
+  const defaultBodyClassnames: string = 'md:px-3 md:py-6'
+
   return (
     <AuthProvider>
       <html lang="en">
-        <body className={clsx(inter.className, 'md:px-3 md:py-6')}>
+        <body className={clsx(inter.className, defaultBodyClassnames)}>
           <Header />
           <Main>{children}</Main>
         </body>
