@@ -28,7 +28,8 @@ export interface IMessageProps extends HTMLAttributes<HTMLDivElement> {
 
 export interface IParagraphProps
   extends HTMLAttributes<HTMLParagraphElement, MouseEvent> {
-  message?: string
+  className?: string
+  children: string | ReactNode
 }
 
 export interface ILayoutProps {
