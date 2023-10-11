@@ -5,9 +5,6 @@ import { IListProps } from '@interfaces'
 
 /**
  * Renders a list of items with cards.
- * @param {boolean} ordered - Whether the list should be ordered or not.
- * @param {Array} data - An array of objects containing the data to be rendered.
- * @returns {JSX.Element} - A JSX element representing the list.
  */
 const List: FC<IListProps> = ({
   ordered = false,

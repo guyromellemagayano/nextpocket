@@ -10,8 +10,6 @@ import { IFormProps } from '@interfaces'
 
 /**
  * Defines the Yup validation schema for the form.
- * @param data An array of objects containing the form field information.
- * @returns A Yup object schema with validation rules for each form field.
  */
 const Form: FC<IFormProps> = ({ data, onSubmit }): JSX.Element => {
   const formSchema = yup.object().shape(
