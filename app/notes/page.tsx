@@ -35,9 +35,9 @@ const NotesPage: FC = (): JSX.Element => {
 
   return (
     <div className="flex justify-center w-full my-6 mx-auto lg:max-w-3xl">
-      <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 md:grid-cols-3">
         <Sidebar
-          className="flex flex-1 flex-col self-start md:sticky md:top-20"
+          className="flex flex-1 flex-col self-start sm:sticky md:top-20"
           aria-label="Sidebar"
         >
           <Form data={NOTES_COLLECTION_FORM_DATA} onSubmit={handleSubmit} />
