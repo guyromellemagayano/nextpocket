@@ -6,7 +6,10 @@ export type {
 export type {
   IButtonProps,
   ICardProps,
+  ICommonProps,
   IFormProps,
+  IGithubSvgImageProps,
+  IHeadingProps,
   ILayoutProps,
   IListProps,
   IMessageProps,
