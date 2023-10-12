@@ -44,6 +44,9 @@ export const NOTES_COLLECTION_FORM_DATA: INotesCollectionFormData[] = [
 ]
 
 export const PAGE_LINKS: IPageLinks[] = [
-  { name: 'Home', href: '/' },
-  { name: 'Notes', href: '/notes' },
+  { name: 'Home', slug: 'home', href: '/' },
+  { name: 'Notes', slug: 'notes', href: '/notes' },
+  { name: 'Log in', slug: 'login', href: '/login' },
+  { name: 'View profile', slug: 'profile', href: '/profile' },
+  { name: 'Log out', slug: 'logout', href: '/logout' },
 ]
