@@ -15,19 +15,15 @@ const inter = Inter({
   variable: '--font-inter',
 })
 
-const RootLayout = ({ children }: ILayoutProps): JSX.Element => {
-  const defaultBodyClassnames: string = 'md:px-3 md:py-6'
-
-  return (
-    <AuthProvider>
-      <html lang="en">
-        <body className={clsx(inter.className, defaultBodyClassnames)}>
-          <Header />
-          <Main>{children}</Main>
-        </body>
-      </html>
-    </AuthProvider>
-  )
-}
+const RootLayout = ({ children }: ILayoutProps): JSX.Element => (
+  <AuthProvider>
+    <html lang="en">
+      <body className={clsx(inter.className)}>
+        <Header />
+        <Main>{children}</Main>
+      </body>
+    </html>
+  </AuthProvider>
+)
 
 export default RootLayout
