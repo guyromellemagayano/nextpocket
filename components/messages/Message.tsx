@@ -4,14 +4,17 @@ import { IMessageProps } from '@interfaces'
 
 /**
  * A message component that displays a loading message.
- * @param message The message to display while loading.
- * @returns A JSX element representing the loader component.
  */
 const Message: FC<IMessageProps> = ({
-  message = 'Loading...',
+  className,
+  children,
   ...props
 }): JSX.Element => {
-  return <div {...props}>{message}</div>
+  return (
+    <div className={className} {...props}>
+      {children}
+    </div>
+  )
 }
 
 export default Message

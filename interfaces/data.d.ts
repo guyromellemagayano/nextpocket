@@ -9,5 +9,6 @@ export interface INotesCollectionFormData {
 
 export interface IPageLinks {
   name: string
+  slug: string
   href: string
 }

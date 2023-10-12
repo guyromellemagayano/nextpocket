@@ -3,6 +3,12 @@ import { ButtonHTMLAttributes, HTMLAttributes, ReactNode, Ref } from 'react'
 import { INotesPageNotesData } from './app'
 import { INotesCollectionFormData } from './data'
 
+export interface ICommonProps {
+  className?: string
+  children?: ReactNode
+  [key: string]: any
+}
+
 export interface ICardProps {
   heading?: string
   subheading?: string
@@ -22,24 +28,41 @@ export interface IFormProps {
   onSubmit: (e: any) => void
 }
 
-export interface IMessageProps extends HTMLAttributes<HTMLDivElement> {
-  message?: string
+export interface IMessageProps
+  extends HTMLAttributes<HTMLDivElement>,
+    ICommonProps {
+  ref?: Ref<HTMLDivElement>
 }
 
 export interface IParagraphProps
-  extends HTMLAttributes<HTMLParagraphElement, MouseEvent> {
-  className?: string
-  children: ReactNode
-  [key: string]: any
+  extends HTMLAttributes<HTMLParagraphElement, MouseEvent>,
+    ICommonProps {
+  ref?: Ref<HTMLParagraphElement>
 }
 
-export interface ILayoutProps {
-  className?: string
-  children: ReactNode
-  [key: string]: any
+export interface IHeadingProps
+  extends HTMLAttributes<HTMLHeadingElement, MouseEvent>,
+    ICommonProps {
+  ref?: Ref<HTMLHeadingElement>
+  size?:
+    | 'h1'
+    | 'H1'
+    | 'h2'
+    | 'H2'
+    | 'h3'
+    | 'H3'
+    | 'h4'
+    | 'H4'
+    | 'h5'
+    | 'H5'
+    | 'h6'
+    | 'H6'
 }
 
-export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  ref?: Ref<HTMLButtonElement>
-  className?: string
-}
+export interface ILayoutProps extends ICommonProps {}
+
+export interface IButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement>,
+    ICommonProps {}
+
+export interface IGithubSvgImageProps extends ICommonProps {}
