@@ -1,3 +1,5 @@
+'use client'
+
 import { FC, useState } from 'react'
 
 import { Dialog } from '@headlessui/react'
@@ -7,6 +9,7 @@ import Link from 'next/link'
 
 import { Button } from '@components'
 import { PAGE_LINKS } from '@config'
+import clsx from 'clsx'
 
 /**
  * Header component that displays the navigation bar and menu for the NextPocket website.
@@ -17,7 +20,7 @@ const Header: FC = (): JSX.Element => {
   const navigation = PAGE_LINKS
 
   return (
-    <header className="bg-white md:sticky md:top-0 relative z-10">
+    <header className="bg-white sm:sticky md:top-0 relative z-10 border-b-2 border-gray-100">
       <nav
         className="mx-auto flex max-w-7xl items-center justify-between gap-x-6 p-6 lg:px-8"
         aria-label="Global"
@@ -35,7 +38,7 @@ const Header: FC = (): JSX.Element => {
           </a>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
-          {navigation.map(item => (
+          {navigation.slice(0, 2).map(item => (
             <Link
               key={item.name}
               href={item.href}
@@ -46,18 +49,19 @@ const Header: FC = (): JSX.Element => {
           ))}
         </div>
         <div className="flex flex-1 items-center justify-end gap-x-6">
-          <Link
-            href="#"
-            className="hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900"
-          >
-            Log in
-          </Link>
-          <Link
-            href="#"
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Sign up
-          </Link>
+          {navigation.slice(-2).map(item => (
+            <Link
+              key={item.name}
+              href={item.href}
+              className={clsx(
+                item.slug === 'profile'
+                  ? 'rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+                  : 'hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900',
+              )}
+            >
+              {item.name}
+            </Link>
+          ))}
         </div>
         <div className="flex lg:hidden">
           <Button
@@ -90,12 +94,19 @@ const Header: FC = (): JSX.Element => {
                 alt=""
               />
             </a>
-            <a
-              href="#"
-              className="ml-auto rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Sign up
-            </a>
+
+            {navigation
+              .filter(item => item.slug === 'profile')
+              .map(item => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="ml-auto rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  {item.name}
+                </Link>
+              ))}
+
             <Button
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-gray-700"
@@ -108,23 +119,19 @@ const Header: FC = (): JSX.Element => {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                {navigation.map(item => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    {item.name}
-                  </a>
-                ))}
-              </div>
-              <div className="py-6">
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Log in
-                </a>
+                {navigation
+                  .filter(
+                    item => item.slug !== 'login' && item.slug !== 'profile',
+                  )
+                  .map(item => (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >
+                      {item.name}
+                    </a>
+                  ))}
               </div>
             </div>
           </div>
