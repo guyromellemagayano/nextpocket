@@ -13,8 +13,8 @@ import {
 import { Dialog, Transition } from '@headlessui/react'
 import { TrashIcon } from '@heroicons/react/20/solid'
 import clsx from 'clsx'
-import { usePathname, useRouter } from 'next/navigation'
-import { mutate } from 'swr'
+import { useRouter } from 'next/navigation'
+import useSWR, { mutate } from 'swr'
 
 import {
   Article,
@@ -28,7 +28,7 @@ import { NOTES_COLLECTION_FORM_DATA, NOTE_PAGE_API_URL } from '@config'
 import { request } from '@helpers'
 import { useRedirect } from '@hooks'
 import { IAvatarProps, IEditableFormProps, IRequestData } from '@interfaces'
-import { swr } from '@lib'
+import { fetcher } from '@utils'
 
 const EditableForm: FC<IEditableFormProps> = ({
   field,
@@ -115,7 +115,7 @@ const EditableForm: FC<IEditableFormProps> = ({
       onChange={handleInputChange}
       onKeyDown={handleKeyPress}
       value={editableData[field]}
-      className="block w-full rounded-md border-0 py-1 my-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+      className="my-2 block w-full rounded-md border-0 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
     />
   ) : (
     <Paragraph
@@ -180,7 +180,7 @@ const Avatar: FC<IAvatarProps> = ({
                       width={width}
                       height={height}
                       alt=""
-                      className="mt-3 mx-auto flex h-12 w-12 items-center justify-center rounded-full"
+                      className="mx-auto mt-3 flex h-12 w-12 items-center justify-center rounded-full"
                       {...props}
                     />
                     <div className="mt-3 text-center sm:mt-5">
@@ -192,11 +192,11 @@ const Avatar: FC<IAvatarProps> = ({
                           onChange={props.onChange}
                           onKeyDown={props.onKeyPress}
                           value={editableData[field]}
-                          className="block w-full rounded-md border-0 py-1 my-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          className="my-2 block w-full rounded-md border-0 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                       ) : (
                         <Paragraph
-                          className="text-sm text-gray-500 text-ellipsis truncate"
+                          className="truncate text-ellipsis text-sm text-gray-500"
                           onClick={props.onEditStatus}
                           {...props}
                         >
@@ -225,7 +225,7 @@ const Avatar: FC<IAvatarProps> = ({
       <Button
         type="button"
         className={clsx(
-          'flex-none rounded-full bg-gray-50 overflow-hidden',
+          'flex-none overflow-hidden rounded-full bg-gray-50',
           width && `w-${width}px`,
           height && `h-${height}px`,
         )}
@@ -248,10 +248,10 @@ const Avatar: FC<IAvatarProps> = ({
  */
 const NotePage: FC = ({ params }: any): JSX.Element => {
   const { session, status } = useRedirect()
-  const pathname = usePathname()
 
-  const { data, error, isLoading, isValidating } = swr(
+  const { data, error, isLoading, isValidating } = useSWR(
     `${NOTE_PAGE_API_URL + params.id}`,
+    fetcher,
   )
   const [currentlyEditing, setCurrentlyEditing] = useState<string | null>(null)
   const router = useRouter()
@@ -275,21 +275,21 @@ const NotePage: FC = ({ params }: any): JSX.Element => {
 
   if (!session && status === 'unauthenticated')
     return (
-      <Message className="min-h-screen h-full flex items-center justify-center">
+      <Message className="flex h-full min-h-screen items-center justify-center">
         Access Denied
       </Message>
     )
 
   if (status === 'loading')
     return (
-      <Message className="min-h-screen h-full flex items-center justify-center">
+      <Message className="flex h-full min-h-screen items-center justify-center">
         Loading...
       </Message>
     )
 
   if (isLoading || isValidating) {
     return (
-      <Message className="min-h-screen h-full flex items-center justify-center">
+      <Message className="flex h-full min-h-screen items-center justify-center">
         Loading...
       </Message>
     )
@@ -297,18 +297,18 @@ const NotePage: FC = ({ params }: any): JSX.Element => {
 
   if (error) {
     return (
-      <Message className="min-h-screen h-full flex items-center justify-center">{`Failed to load data, ${error.message}`}</Message>
+      <Message className="flex h-full min-h-screen items-center justify-center">{`Failed to load data, ${error.message}`}</Message>
     )
   }
 
   return (
-    <div className="flex w-full my-6 mx-auto lg:max-w-3xl  max-w-7xl items-center justify-between gap-x-6 p-6 lg:px-8">
-      <div className="grid grid-cols-1 gap-x-8 gap-y-8 w-full">
+    <div className="mx-auto my-6 flex w-full max-w-7xl  items-center justify-between gap-x-6 p-6 lg:max-w-3xl lg:px-8">
+      <div className="grid w-full grid-cols-1 gap-x-8 gap-y-8">
         <Section
-          className="flex flex-1 flex-col my-6 px-6 md:px-0 md:col-span-2"
+          className="my-6 flex flex-1 flex-col px-6 md:col-span-2 md:px-0"
           aria-label="Content"
         >
-          <Article className="flex min-w-0 gap-x-4 items-start">
+          <Article className="flex min-w-0 items-start gap-x-4">
             <EditableForm
               field="avatar"
               params={params}
@@ -319,7 +319,7 @@ const NotePage: FC = ({ params }: any): JSX.Element => {
               width={48}
               height={48}
             />
-            <div className="flex gap-y-3 flex-col sm:flex-row flex-auto justify-between">
+            <div className="flex flex-auto flex-col justify-between gap-y-3 sm:flex-row">
               <div className="min-w-0">
                 <EditableForm
                   field="name"
@@ -341,7 +341,7 @@ const NotePage: FC = ({ params }: any): JSX.Element => {
                 />
               </div>
 
-              <div className="flex shrink-1 items-center gap-x-8">
+              <div className="shrink-1 flex items-center gap-x-8">
                 <div className="items-start sm:flex sm:flex-col md:items-end">
                   <EditableForm
                     field="company"
@@ -364,7 +364,7 @@ const NotePage: FC = ({ params }: any): JSX.Element => {
                 </div>
                 <Button
                   type="button"
-                  className="flex-none rounded-full bg-gray-50 overflow-hidden w-6 h-6"
+                  className="h-6 w-6 flex-none overflow-hidden rounded-full bg-gray-50"
                   onClick={handleDeleteOnClick}
                 >
                   <TrashIcon

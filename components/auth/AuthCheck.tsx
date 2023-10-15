@@ -7,9 +7,7 @@ import { ICommonProps } from '@interfaces'
 const AuthCheck: FC<ICommonProps> = ({ children }): JSX.Element => {
   const { data: session, status } = useSession()
 
-  // console.log(session, status)
-
-  if (status === 'authenticated') {
+  if (session && status === 'authenticated') {
     return <>{children}</>
   } else {
     return <></>
