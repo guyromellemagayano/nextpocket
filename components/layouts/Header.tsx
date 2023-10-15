@@ -30,6 +30,11 @@ const Header: FC = (): JSX.Element => {
       ? arrayFilter(navigation, 'slug', ['login'], undefined, false)
       : arrayFilter(navigation, 'slug', ['profile', 'logout'], undefined, false)
 
+  const sidebarCtaLink =
+    !session && status === 'unauthenticated'
+      ? arrayFilter(navigation, 'slug', ['login'], undefined, false)
+      : arrayFilter(navigation, 'slug', ['profile'], undefined, false)
+
   return (
     <header className="bg-white sm:sticky md:top-0 relative z-10 border-b-2 border-gray-100">
       <nav
@@ -126,17 +131,15 @@ const Header: FC = (): JSX.Element => {
               />
             </a>
 
-            {navigation
-              .filter(item => item.slug === 'profile')
-              .map(item => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="ml-auto rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  {item.name}
-                </Link>
-              ))}
+            {sidebarCtaLink.map(item => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="ml-auto rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                {item.name}
+              </Link>
+            ))}
 
             <Button
               type="button"
@@ -150,19 +153,15 @@ const Header: FC = (): JSX.Element => {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                {navigation
-                  .filter(
-                    item => item.slug !== 'login' && item.slug !== 'profile',
-                  )
-                  .map(item => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
+                {middleLinks.map(item => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
