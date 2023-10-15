@@ -1,12 +1,16 @@
 import { ButtonHTMLAttributes, HTMLAttributes, ReactNode, Ref } from 'react'
+import { ICommonProps } from './components.d'
 
 import { INotesPageNotesData } from './app'
 import { INotesCollectionFormData } from './data'
 
 export interface ICommonProps {
-  className?: string
   children?: ReactNode
   [key: string]: any
+}
+
+export interface ICommonComponentProps extends ICommonProps {
+  className?: string
 }
 
 export interface ICardProps {
@@ -30,19 +34,19 @@ export interface IFormProps {
 
 export interface IMessageProps
   extends HTMLAttributes<HTMLDivElement>,
-    ICommonProps {
+    ICommonComponentProps {
   ref?: Ref<HTMLDivElement>
 }
 
 export interface IParagraphProps
   extends HTMLAttributes<HTMLParagraphElement, MouseEvent>,
-    ICommonProps {
+    ICommonComponentProps {
   ref?: Ref<HTMLParagraphElement>
 }
 
 export interface IHeadingProps
   extends HTMLAttributes<HTMLHeadingElement, MouseEvent>,
-    ICommonProps {
+    ICommonComponentProps {
   ref?: Ref<HTMLHeadingElement>
   size?:
     | 'h1'
@@ -59,10 +63,10 @@ export interface IHeadingProps
     | 'H6'
 }
 
-export interface ILayoutProps extends ICommonProps {}
+export interface ILayoutProps extends ICommonComponentProps {}
 
 export interface IButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
-    ICommonProps {}
+    ICommonComponentProps {}
 
-export interface IGithubSvgImageProps extends ICommonProps {}
+export interface IGithubSvgImageProps extends ICommonComponentProps {}
