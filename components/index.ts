@@ -1,3 +1,4 @@
+export { default as AuthCheck } from './auth/AuthCheck'
 export { default as Button } from './buttons/Button'
 export { default as Card } from './cards/Card'
 export { default as Form } from './forms/Form'
