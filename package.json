@@ -12,8 +12,8 @@
     "commit": "git cz",
     "dev": "next dev",
     "lint": "yarn lint:fix && yarn lint:format",
-    "lint:fix": "eslint '*.{js,ts,tsx}' --quiet --fix --color --ignore-path .gitignore",
-    "lint:format": "prettier '*.{js,ts,tsx}' --write --ignore-path .gitignore",
+    "lint:fix": "eslint '**/*.{js,ts,tsx}' --quiet --fix --color --ignore-path .gitignore",
+    "lint:format": "prettier '**/*.{js,ts,tsx}' --write --ignore-path .gitignore",
     "precommit": "lint-staged",
     "prepare": "husky install",
     "start": "next start"
