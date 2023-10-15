@@ -9,7 +9,7 @@ import { Article, Section } from '@components'
  */
 const Home: FC = (): JSX.Element => {
   return (
-    <Section className="flex justify-center w-full my-6 min-h-screen mx-auto items-center">
+    <Section className="mx-auto my-6 flex min-h-screen w-full items-center justify-center">
       <Article className="text-center">
         <h1>Home Page</h1>
       </Article>

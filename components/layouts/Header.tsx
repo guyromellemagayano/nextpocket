@@ -36,7 +36,7 @@ const Header: FC = (): JSX.Element => {
       : arrayFilter(navigation, 'slug', ['profile'], undefined, false)
 
   return (
-    <header className="bg-white sm:sticky md:top-0 relative z-10 border-b-2 border-gray-100">
+    <header className="relative z-10 border-b-2 border-gray-100 bg-white sm:sticky md:top-0">
       <nav
         className="mx-auto flex max-w-7xl items-center justify-between gap-x-6 p-6 lg:px-8"
         aria-label="Global"

@@ -100,7 +100,7 @@ const Form: FC<IFormProps> = ({ data, onSubmit }): JSX.Element => {
       <div className="flex justify-evenly border-t border-gray-900/10 px-4 py-4 sm:px-8">
         <Button
           type="submit"
-          className="bg-indigo-600 hover:bg-indigo-500 rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
           Save
         </Button>
