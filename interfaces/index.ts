@@ -6,6 +6,7 @@ export type {
 export type {
   IButtonProps,
   ICardProps,
+  ICommonComponentProps,
   ICommonProps,
   IFormProps,
   IGithubSvgImageProps,
