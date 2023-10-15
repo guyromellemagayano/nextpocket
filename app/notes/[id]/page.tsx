@@ -10,8 +10,10 @@ import {
   useState,
 } from 'react'
 
+import { Dialog, Transition } from '@headlessui/react'
 import { TrashIcon } from '@heroicons/react/20/solid'
-import { useRouter } from 'next/navigation'
+import clsx from 'clsx'
+import { usePathname, useRouter } from 'next/navigation'
 import { mutate } from 'swr'
 
 import {
@@ -23,11 +25,10 @@ import {
   Section,
 } from '@components'
 import { NOTES_COLLECTION_FORM_DATA, NOTE_PAGE_API_URL } from '@config'
-import { Dialog, Transition } from '@headlessui/react'
 import { request } from '@helpers'
+import { useRedirect } from '@hooks'
 import { IAvatarProps, IEditableFormProps, IRequestData } from '@interfaces'
 import { swr } from '@lib'
-import clsx from 'clsx'
 
 const EditableForm: FC<IEditableFormProps> = ({
   field,
@@ -246,6 +247,9 @@ const Avatar: FC<IAvatarProps> = ({
  * @returns {JSX.Element} - The note page component.
  */
 const NotePage: FC = ({ params }: any): JSX.Element => {
+  const { session, status } = useRedirect()
+  const pathname = usePathname()
+
   const { data, error, isLoading, isValidating } = swr(
     `${NOTE_PAGE_API_URL + params.id}`,
   )
@@ -269,21 +273,31 @@ const NotePage: FC = ({ params }: any): JSX.Element => {
     router.push('/notes', { scroll: false })
   }
 
+  if (!session && status === 'unauthenticated')
+    return (
+      <Message className="min-h-screen h-full flex items-center justify-center">
+        Access Denied
+      </Message>
+    )
+
+  if (status === 'loading')
+    return (
+      <Message className="min-h-screen h-full flex items-center justify-center">
+        Loading...
+      </Message>
+    )
+
   if (isLoading || isValidating) {
     return (
-      <Message
-        className="min-h-screen h-full flex items-center justify-center"
-        message="Loading..."
-      />
+      <Message className="min-h-screen h-full flex items-center justify-center">
+        Loading...
+      </Message>
     )
   }
 
   if (error) {
     return (
-      <Message
-        className="min-h-screen h-full flex items-center justify-center"
-        message={`Failed to load data, ${error.message}`}
-      />
+      <Message className="min-h-screen h-full flex items-center justify-center">{`Failed to load data, ${error.message}`}</Message>
     )
   }
 
