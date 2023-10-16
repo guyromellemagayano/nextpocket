@@ -1,4 +1,4 @@
-import { TRequestData } from '../types/helpers'
+import { TRequestData } from './helpers'
 
 export type TNotesPageNotesData = TRequestData & {
   value?: string

@@ -1,14 +1,4 @@
 export type {
-  THandleDeleteProps,
-  THandleGetProps,
-  THandlePostProps,
-  THandlePutProps,
-  TRequestCommonProps,
-  TRequestData,
-  TRequestProps,
-} from '../types/helpers'
-export type { TNotesPageNotesData } from './app'
-export type {
   IButtonProps,
   ICardProps,
   ICommonComponentProps,
