@@ -9,3 +9,4 @@ export type {
   TRequestData,
   TRequestProps,
 } from './helpers'
+export type { TAxiosErrorResponse } from './lib'
