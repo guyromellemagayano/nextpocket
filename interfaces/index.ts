@@ -11,5 +11,4 @@ export type {
   IMessageProps,
   IParagraphProps,
 } from './components'
-export type { INotesCollectionFormData, IPageLinks } from './data'
 export type { IErrorResponse, ISwr } from './lib'

@@ -1,4 +1,4 @@
-export interface INotesCollectionFormData {
+export type TNotesCollectionFormData = {
   id: string
   placeholder: string
   type: string
@@ -7,7 +7,7 @@ export interface INotesCollectionFormData {
   maxLength: number
 }
 
-export interface IPageLinks {
+export type TPageLinks = {
   name: string
   slug: string
   href: string
