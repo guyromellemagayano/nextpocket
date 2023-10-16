@@ -1,8 +1,13 @@
 export type {
-  IAvatarProps,
-  IEditableFormProps,
-  INotesPageNotesData,
-} from './app'
+  THandleDeleteProps,
+  THandleGetProps,
+  THandlePostProps,
+  THandlePutProps,
+  TRequestCommonProps,
+  TRequestData,
+  TRequestProps,
+} from '../types/helpers'
+export type { TNotesPageNotesData } from './app'
 export type {
   IButtonProps,
   ICardProps,
@@ -17,12 +22,4 @@ export type {
   IParagraphProps,
 } from './components'
 export type { INotesCollectionFormData, IPageLinks } from './data'
-export type {
-  IHandleDeleteProps,
-  IHandleGetProps,
-  IHandlePostProps,
-  IHandlePutProps,
-  IRequestData,
-  IRequestProps,
-} from './helpers'
 export type { IErrorResponse, ISwr } from './lib'

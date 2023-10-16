@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
 import {
@@ -27,19 +26,52 @@ import {
 import { NOTES_COLLECTION_FORM_DATA, NOTE_PAGE_API_URL } from '@config'
 import { request } from '@helpers'
 import { useRedirect } from '@hooks'
-import { IAvatarProps, IEditableFormProps, IRequestData } from '@interfaces'
+import {
+  INotesCollectionFormData,
+  TNotesPageNotesData,
+  TRequestData,
+} from '@interfaces'
 import { fetcher } from '@utils'
 
-const EditableForm: FC<IEditableFormProps> = ({
+type IAvatarProps = {
+  src: string
+  width: number
+  height: number
+  field: keyof TNotesPageNotesData
+  selectedField?: INotesCollectionFormData
+  editableData?: TRequestData
+  isEditing: boolean
+  setIsEditing: () => void
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  onKeyPress: (e: KeyboardEvent<HTMLInputElement>) => void
+  onEditStatus: () => void
+  [key: string]: any
+}
+
+type TEditableFormProps = {
+  field: keyof TNotesPageNotesData
+  params?: any
+  data?: TNotesPageNotesData
+  isEditing: boolean
+  width?: number
+  height?: number
+  setIsEditing: () => void
+  onEditStatus: () => void
+  [key: string]: any
+}
+
+const EditableForm: FC<TEditableFormProps> = ({
   field,
   params,
   data,
   isEditing,
   width,
   height,
+  setIsEditing,
+  onEditStatus,
   ...props
 }) => {
-  const [editableData, setEditableData] = useState<IRequestData | null>(null)
+  const [editableData, setEditableData] = useState<TRequestData | null>(null)
 
   const collection = data
     ? NOTES_COLLECTION_FORM_DATA.map(item => ({
@@ -68,10 +100,10 @@ const EditableForm: FC<IEditableFormProps> = ({
         data: editableData,
       })
       mutate(`${NOTE_PAGE_API_URL + params.id}`, req, false)
-      props.setIsEditing()
+      setIsEditing()
     } else if (e.key === 'Escape') {
       mutate(`${NOTE_PAGE_API_URL + params.id}`, data, false)
-      props.setIsEditing()
+      setIsEditing()
     }
   }
 
@@ -94,10 +126,10 @@ const EditableForm: FC<IEditableFormProps> = ({
         selectedField={selectedField}
         editableData={editableData}
         isEditing={isEditing}
-        setIsEditing={props.setIsEditing}
+        setIsEditing={setIsEditing}
         onChange={handleInputChange}
         onKeyPress={handleKeyPress}
-        onEditStatus={props.onEditStatus}
+        onEditStatus={onEditStatus}
         {...props}
       />
     )
@@ -120,7 +152,7 @@ const EditableForm: FC<IEditableFormProps> = ({
   ) : (
     <Paragraph
       className="text-sm font-semibold leading-6 text-gray-900"
-      onClick={props.onEditStatus}
+      onClick={onEditStatus}
       {...props}
     >
       {data[field]}
@@ -134,8 +166,12 @@ const Avatar: FC<IAvatarProps> = ({
   selectedField,
   editableData,
   isEditing,
+  setIsEditing,
   width,
   height,
+  onChange,
+  onKeyPress,
+  onEditStatus,
   ...props
 }): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false)
@@ -189,15 +225,15 @@ const Avatar: FC<IAvatarProps> = ({
                           type={selectedField.type}
                           name={selectedField.id}
                           placeholder={selectedField.placeholder}
-                          onChange={props.onChange}
-                          onKeyDown={props.onKeyPress}
+                          onChange={onChange}
+                          onKeyDown={onKeyPress}
                           value={editableData[field]}
                           className="my-2 block w-full rounded-md border-0 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                       ) : (
                         <Paragraph
                           className="truncate text-ellipsis text-sm text-gray-500"
-                          onClick={props.onEditStatus}
+                          onClick={onEditStatus}
                           {...props}
                         >
                           {editableData?.[field]}
@@ -230,7 +266,7 @@ const Avatar: FC<IAvatarProps> = ({
           height && `h-${height}px`,
         )}
         onClick={() => {
-          props.setIsEditing
+          setIsEditing
           setOpen(true)
         }}
       >

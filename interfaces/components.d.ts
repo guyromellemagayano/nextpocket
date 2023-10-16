@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes, HTMLAttributes, ReactNode, Ref } from 'react'
 import { ICommonProps } from './components.d'
 
-import { INotesPageNotesData } from './app'
+import { TNotesPageNotesData } from './app'
 import { INotesCollectionFormData } from './data'
 
 export interface ICommonProps {
@@ -22,7 +22,7 @@ export interface ICardProps {
 
 export interface IListProps
   extends HTMLAttributes<HTMLUListElement | HTMLOListElement> {
-  data: INotesPageNotesData[]
+  data: TNotesPageNotesData[]
   ordered?: boolean
   [key: string]: any
 }
