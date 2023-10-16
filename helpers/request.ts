@@ -4,11 +4,11 @@ import { AxiosError } from 'axios'
 
 import {
   IErrorResponse,
-  IHandleDeleteProps,
-  IHandleGetProps,
-  IHandlePostProps,
-  IHandlePutProps,
-  IRequestProps,
+  THandleDeleteProps,
+  THandleGetProps,
+  THandlePostProps,
+  THandlePutProps,
+  TRequestProps,
 } from '@interfaces'
 import { axios } from '@lib'
 
@@ -48,7 +48,7 @@ const handleError = <T = any>(
 const handleGet = async <T = any>({
   url,
   options,
-}: IHandleGetProps): Promise<void | Awaited<T>> =>
+}: THandleGetProps): Promise<void | Awaited<T>> =>
   await axios
     .get<T>(url, options)
     .then(res => res.data)
@@ -66,7 +66,7 @@ const handlePost = async <T = any>({
   url,
   data,
   options,
-}: IHandlePostProps): Promise<void | Awaited<T>> =>
+}: THandlePostProps): Promise<void | Awaited<T>> =>
   await axios
     .post<T>(url, data, options)
     .then(res => res.data)
@@ -84,7 +84,7 @@ const handlePut = async <T = any>({
   url,
   data,
   options,
-}: IHandlePutProps): Promise<void | Awaited<T>> =>
+}: THandlePutProps): Promise<void | Awaited<T>> =>
   await axios
     .put<T>(url, data, options)
     .then(res => res.data)
@@ -101,7 +101,7 @@ const handlePatch = async <T = any>({
   url,
   data,
   options,
-}: IHandlePutProps): Promise<void | Awaited<T>> =>
+}: THandlePutProps): Promise<void | Awaited<T>> =>
   await axios
     .patch<T>(url, data, options)
     .then(res => res.data)
@@ -118,7 +118,7 @@ const handlePatch = async <T = any>({
 const handleDelete = async <T = any>({
   url,
   options,
-}: IHandleDeleteProps): Promise<void | Awaited<T>> =>
+}: THandleDeleteProps): Promise<void | Awaited<T>> =>
   await axios
     .delete<T>(url, options)
     .then(res => res.data)
@@ -129,7 +129,7 @@ const request = async <T = any>({
   url,
   data,
   options,
-}: IRequestProps): Promise<void | Awaited<T>> => {
+}: TRequestProps): Promise<void | Awaited<T>> => {
   switch (method) {
     case 'GET':
       return await handleGet<T>({ url, options })

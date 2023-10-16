@@ -10,7 +10,7 @@ import {
 } from '@config'
 import { request } from '@helpers'
 import { useRedirect } from '@hooks'
-import { INotesPageNotesData } from '@interfaces'
+import { TNotesPageNotesData } from '@interfaces'
 import { fetcher } from '@utils'
 import useSWR from 'swr'
 
@@ -25,10 +25,10 @@ const NotesPage: FC = (): JSX.Element => {
     fetcher,
   )
 
-  const notes: INotesPageNotesData[] =
-    (data?.items as INotesPageNotesData[]) || []
+  const notes: TNotesPageNotesData[] =
+    (data?.items as TNotesPageNotesData[]) || []
 
-  const handleSubmit = async (formData: INotesPageNotesData): Promise<void> => {
+  const handleSubmit = async (formData: TNotesPageNotesData): Promise<void> => {
     await request({
       url: NOTE_PAGE_API_URL,
       method: 'POST',
