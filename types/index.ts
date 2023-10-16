@@ -1,3 +1,4 @@
+export type { TNotesPageNotesData } from './app'
 export type {
   THandleDeleteProps,
   THandleGetProps,

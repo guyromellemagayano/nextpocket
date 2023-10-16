@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes, HTMLAttributes, ReactNode, Ref } from 'react'
 import { ICommonProps } from './components.d'
 
-import { TNotesPageNotesData } from './app'
+import { TNotesPageNotesData } from '../types/app'
 import { INotesCollectionFormData } from './data'
 
 export interface ICommonProps {
