@@ -11,4 +11,3 @@ export type {
   IMessageProps,
   IParagraphProps,
 } from './components'
-export type { IErrorResponse, ISwr } from './lib'
