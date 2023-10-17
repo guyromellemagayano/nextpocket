@@ -21,7 +21,7 @@ export type TRequestData = {
 export type THandleGetProps = TRequestCommonProps
 
 export type THandlePostProps = TRequestCommonProps & {
-  data: TRequestData | object
+  data?: TRequestData | object
 }
 
 export type THandlePutProps = THandlePostProps
