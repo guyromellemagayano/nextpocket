@@ -1,11 +1,11 @@
 import { FC } from 'react'
 
-import { IMessageProps } from '@interfaces'
+import { TMessageProps } from '@types'
 
 /**
  * A message component that displays a loading message.
  */
-const Message: FC<IMessageProps> = ({
+const Message: FC<TMessageProps> = ({
   className,
   children,
   ...props

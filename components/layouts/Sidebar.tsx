@@ -1,11 +1,13 @@
+'use client'
+
 import { FC } from 'react'
 
-import { ILayoutProps } from '@interfaces'
+import { TLayoutProps } from '@types'
 
 /**
  * Sidebar component for the layout.
  */
-const Sidebar: FC<ILayoutProps> = ({ children, ...props }): JSX.Element => {
+const Sidebar: FC<TLayoutProps> = ({ children, ...props }): JSX.Element => {
   return <aside {...props}>{children}</aside>
 }
 

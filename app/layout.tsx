@@ -1,12 +1,14 @@
 'use client'
 
+import { FC } from 'react'
+
 import clsx from 'clsx'
 import 'focus-visible'
 import { Inter } from 'next/font/google'
 
 import { Header, Main } from '@components'
-import { ILayoutProps } from '@interfaces'
 import { AuthProvider } from '@providers'
+import { TLayoutProps } from '@types'
 
 import '@styles/globals.css'
 
@@ -15,7 +17,7 @@ const inter = Inter({
   variable: '--font-inter',
 })
 
-const RootLayout = ({ children }: ILayoutProps): JSX.Element => (
+const RootLayout: FC<TLayoutProps> = ({ children }): JSX.Element => (
   <AuthProvider>
     <html lang="en">
       <body className={clsx(inter.className)}>

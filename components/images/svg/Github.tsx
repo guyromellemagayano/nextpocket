@@ -1,10 +1,13 @@
-import { IGithubSvgImageProps } from '@interfaces'
+'use client'
+
 import { FC } from 'react'
+
+import { TSvgImageProps } from '@types'
 
 /**
  * Renders a GitHub SVG image.
  */
-const GithubSvgImage: FC<IGithubSvgImageProps> = ({
+const GithubSvgImage: FC<TSvgImageProps> = ({
   className,
   ...props
 }): JSX.Element => (

@@ -1,11 +1,11 @@
 import { FC } from 'react'
 
-import { IHeadingProps } from '@interfaces'
+import { THeadingProps } from '@types'
 
 /**
  * Heading component that renders any valid heading from `h1` to `h6`.
  */
-const Heading: FC<IHeadingProps> = ({
+const Heading: FC<THeadingProps> = ({
   children,
   className,
   size,

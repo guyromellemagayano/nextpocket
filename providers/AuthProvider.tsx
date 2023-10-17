@@ -1,13 +1,15 @@
 'use client'
 
+import { FC } from 'react'
+
 import { SessionProvider } from 'next-auth/react'
 
-import { ILayoutProps } from '@interfaces'
+import { TLayoutProps } from '@types'
 
 /**
  * Provides authentication context to the app.
  */
-const AuthProvider = ({ children }: ILayoutProps): JSX.Element => (
+const AuthProvider: FC<TLayoutProps> = ({ children }): JSX.Element => (
   <SessionProvider>{children}</SessionProvider>
 )
 

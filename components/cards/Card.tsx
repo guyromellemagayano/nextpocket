@@ -1,14 +1,16 @@
+'use client'
+
 import { FC } from 'react'
 
 import Link from 'next/link'
 
 import { Image, Paragraph } from '@components'
-import { ICardProps } from '@interfaces'
+import { TCardProps } from '@types'
 
 /**
  * Renders a card component.
  */
-const Card: FC<ICardProps> = ({
+const Card: FC<TCardProps> = ({
   heading = '',
   subheading = '',
   image = '#',

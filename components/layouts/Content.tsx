@@ -1,12 +1,13 @@
 'use client'
 
-import { ILayoutProps } from '@interfaces'
 import { FC } from 'react'
+
+import { TLayoutProps } from '@types'
 
 /**
  * Renders the main content of the layout.
  */
-export const Main: FC<ILayoutProps> = ({
+export const Main: FC<TLayoutProps> = ({
   children,
   className,
   ...props
@@ -19,7 +20,7 @@ export const Main: FC<ILayoutProps> = ({
 /**
  * Renders a section of the layout.
  */
-export const Section: FC<ILayoutProps> = ({
+export const Section: FC<TLayoutProps> = ({
   children,
   className,
   ...props
@@ -32,7 +33,7 @@ export const Section: FC<ILayoutProps> = ({
 /**
  * Renders an article of the layout.
  */
-export const Article: FC<ILayoutProps> = ({
+export const Article: FC<TLayoutProps> = ({
   children,
   className,
   ...props

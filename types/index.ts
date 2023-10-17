@@ -1,4 +1,16 @@
 export type { TNotesPageNotesData } from './app'
+export type {
+  TButtonProps,
+  TCardProps,
+  TCommonProps,
+  TFormProps,
+  THeadingProps,
+  TLayoutProps,
+  TListProps,
+  TMessageProps,
+  TParagraphProps,
+  TSvgImageProps,
+} from './components'
 export type { TNotesCollectionFormData, TPageLinks } from './data'
 export type {
   THandleDeleteProps,
