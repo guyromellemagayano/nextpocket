@@ -1,11 +1,11 @@
+import { Session } from 'next-auth'
 import { useSession } from 'next-auth/react'
 
 import { PAGE_LINKS } from '@config'
-import { IPageLinks } from '@interfaces'
-import { Session } from 'next-auth'
+import { TPageLinks } from '@types'
 
 const useRedirect = (): {
-  navigation: IPageLinks[]
+  navigation: TPageLinks[]
   session: Session
   status: string
 } => {
