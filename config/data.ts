@@ -1,6 +1,6 @@
-import { INotesCollectionFormData, IPageLinks } from '@interfaces'
+import { TNotesCollectionFormData, TPageLinks } from '@types'
 
-export const NOTES_COLLECTION_FORM_DATA: INotesCollectionFormData[] = [
+export const NOTES_COLLECTION_FORM_DATA: TNotesCollectionFormData[] = [
   {
     id: 'title',
     placeholder: 'Title',
@@ -43,7 +43,7 @@ export const NOTES_COLLECTION_FORM_DATA: INotesCollectionFormData[] = [
   },
 ]
 
-export const PAGE_LINKS: IPageLinks[] = [
+export const PAGE_LINKS: TPageLinks[] = [
   { name: 'Home', slug: 'home', href: '/' },
   { name: 'Notes', slug: 'notes', href: '/notes' },
   { name: 'Log in', slug: 'login', href: '/login' },
