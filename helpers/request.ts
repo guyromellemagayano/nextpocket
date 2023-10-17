@@ -140,7 +140,7 @@ const handleDelete = async <T = any>({
  * @returns A promise that resolves with the response data, or void if there is no response data.
  * @throws An error if an invalid request method is provided.
  */
-const request = async <T = any>({
+const request = async <T = unknown>({
   method,
   url,
   data,
