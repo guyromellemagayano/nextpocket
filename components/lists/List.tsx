@@ -1,12 +1,14 @@
+'use client'
+
 import { FC } from 'react'
 
 import { Card } from '@components'
-import { IListProps } from '@interfaces'
+import { TListProps } from '@types'
 
 /**
  * Renders a list of items with cards.
  */
-const List: FC<IListProps> = ({
+const List: FC<TListProps> = ({
   ordered = false,
   data = [],
   ...props

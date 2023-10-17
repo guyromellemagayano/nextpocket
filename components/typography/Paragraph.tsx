@@ -1,11 +1,11 @@
 import { FC } from 'react'
 
-import { IParagraphProps } from '@interfaces'
+import { TParagraphProps } from '@types'
 
 /**
  * Paragraph component that renders a <p> tag with a message.
  */
-const Paragraph: FC<IParagraphProps> = ({
+const Paragraph: FC<TParagraphProps> = ({
   children,
   className,
   ...props

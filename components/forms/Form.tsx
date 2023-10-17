@@ -1,3 +1,5 @@
+'use client'
+
 import { FC } from 'react'
 
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -6,12 +8,12 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import { Button } from '@components'
-import { IFormProps } from '@interfaces'
+import { TFormProps } from '@types'
 
 /**
  * Defines the Yup validation schema for the form.
  */
-const Form: FC<IFormProps> = ({ data, onSubmit }): JSX.Element => {
+const Form: FC<TFormProps> = ({ data, onSubmit }): JSX.Element => {
   const formSchema = yup.object().shape(
     data.reduce(
       (acc, curr) => {

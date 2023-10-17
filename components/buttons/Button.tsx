@@ -1,11 +1,13 @@
+'use client'
+
 import { FC } from 'react'
 
-import { IButtonProps } from '@interfaces'
+import { TButtonProps } from '@types'
 
 /**
  * A reusable button component.
  */
-const Button: FC<IButtonProps> = ({ className, ...props }): JSX.Element => {
+const Button: FC<TButtonProps> = ({ className, ...props }): JSX.Element => {
   return <button className={className} {...props} />
 }
 

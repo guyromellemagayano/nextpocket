@@ -27,10 +27,10 @@ import { NOTES_COLLECTION_FORM_DATA, NOTE_PAGE_API_URL } from '@config'
 import { request } from '@helpers'
 import { useRedirect } from '@hooks'
 import {
-  INotesCollectionFormData,
+  TNotesCollectionFormData,
   TNotesPageNotesData,
   TRequestData,
-} from '@interfaces'
+} from '@types'
 import { fetcher } from '@utils'
 
 type IAvatarProps = {
@@ -38,7 +38,7 @@ type IAvatarProps = {
   width: number
   height: number
   field: keyof TNotesPageNotesData
-  selectedField?: INotesCollectionFormData
+  selectedField?: TNotesCollectionFormData
   editableData?: TRequestData
   isEditing: boolean
   setIsEditing: () => void

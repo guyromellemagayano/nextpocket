@@ -10,7 +10,7 @@ import {
 } from '@config'
 import { request } from '@helpers'
 import { useRedirect } from '@hooks'
-import { TNotesPageNotesData } from '@interfaces'
+import { TNotesPageNotesData } from '@types'
 import { fetcher } from '@utils'
 import useSWR from 'swr'
 
