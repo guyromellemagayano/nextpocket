@@ -5,3 +5,5 @@ export type TArrayFilterProps = (
   conditionValue?: any,
   exclude?: boolean,
 ) => any[]
+
+export type TDatetimeProps = (data: string) => string
