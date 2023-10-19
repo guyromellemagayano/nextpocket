@@ -10,13 +10,19 @@
   "scripts": {
     "build": "next build",
     "commit": "git cz",
+    "component:headless": "cypress run --component",
+    "component": "cypress open --component",
     "dev": "next dev",
-    "lint": "yarn lint:fix && yarn lint:format",
+    "e2e:headless": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\"",
+    "e2e": "start-server-and-test dev http://localhost:3000 \"cypress open --e2e\"",
     "lint:fix": "eslint '**/*.{js,ts,tsx}' --quiet --fix --color --ignore-path .gitignore",
     "lint:format": "prettier '**/*.{js,ts,tsx}' --write --ignore-path .gitignore",
+    "lint": "yarn lint:fix && yarn lint:format",
     "precommit": "lint-staged",
     "prepare": "husky install",
-    "start": "next start"
+    "start": "next start",
+    "test:ci": "jest --ci",
+    "test": "jest --watch"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
