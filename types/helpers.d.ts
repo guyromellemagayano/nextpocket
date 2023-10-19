@@ -30,5 +30,15 @@ export type THandlePutProps = THandlePostProps
 export type THandleDeleteProps = TRequestCommonProps
 
 export type TRequestProps = THandlePostProps & {
-  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
+  method:
+    | 'GET'
+    | 'get'
+    | 'POST'
+    | 'post'
+    | 'PUT'
+    | 'put'
+    | 'PATCH'
+    | 'patch'
+    | 'DELETE'
+    | 'delete'
 }
