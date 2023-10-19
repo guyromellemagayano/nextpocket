@@ -23,7 +23,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "jsx-a11y", "prettier"],
+  "plugins": ["react", "jsx-a11y", "prettier", "testing-library"],
   "rules": {
     "semi": ["error", "never"],
     "react/react-in-jsx-scope": "off",
@@ -49,6 +49,13 @@
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/semi": ["error", "never"]
       }
+    },
+    {
+      "files": [
+        "**/__tests__/**/*.[jt]s?(x)",
+        "**/?(*.)+(spec|test).[jt]s?(x)"
+      ],
+      "extends": ["plugin:testing-library/react"]
     }
   ]
 }
