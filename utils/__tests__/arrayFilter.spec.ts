@@ -10,11 +10,7 @@ describe('arrayFilter', () => {
 
   it('filters by key and value array (include)', () => {
     // const result = arrayFilter(sampleArray, 'name', ['John', 'Jane'])
-    const result = arrayFilter({
-      array: sampleArray,
-      key: 'name',
-      values: ['John', 'Jane'],
-    })
+    const result = arrayFilter(sampleArray, 'name', ['John', 'Jane'])
     expect(result).toEqual([
       { id: 1, name: 'John' },
       { id: 2, name: 'Jane' },
@@ -22,12 +18,7 @@ describe('arrayFilter', () => {
   })
 
   it('filters by key and value array (exclude)', () => {
-    const result = arrayFilter({
-      array: sampleArray,
-      key: 'name',
-      values: ['John', 'Jane'],
-      exclude: true,
-    })
+    const result = arrayFilter(sampleArray, 'name', ['Doe', 'Smith'], true)
     expect(result).toEqual([
       { id: 3, name: 'Doe' },
       { id: 4, name: 'Smith' },
@@ -35,12 +26,7 @@ describe('arrayFilter', () => {
   })
 
   it('filters with conditionValue (truthy)', () => {
-    const result = arrayFilter({
-      array: sampleArray,
-      key: 'name',
-      values: ['John', 'Jane'],
-      conditionValue: true,
-    })
+    const result = arrayFilter(sampleArray, 'name', ['John', 'Jane'], true)
     expect(result).toEqual([
       { id: 1, name: 'John' },
       { id: 2, name: 'Jane' },
@@ -48,12 +34,7 @@ describe('arrayFilter', () => {
   })
 
   it('filters with conditionValue (falsy)', () => {
-    const result = arrayFilter({
-      array: sampleArray,
-      key: 'name',
-      values: ['Doe', 'Smith'],
-      conditionValue: false,
-    })
+    const result = arrayFilter(sampleArray, 'name', ['Doe', 'Smith'], false)
     expect(result).toEqual([
       { id: 3, name: 'Doe' },
       { id: 4, name: 'Smith' },
