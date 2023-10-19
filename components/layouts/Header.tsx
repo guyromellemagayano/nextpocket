@@ -22,18 +22,30 @@ const Header: FC = (): JSX.Element => {
 
   const middleLinks =
     !session && status === 'unauthenticated'
-      ? arrayFilter(navigation, 'slug', ['home'], undefined, false)
-      : arrayFilter(navigation, 'slug', ['home', 'notes'], undefined, false)
+      ? arrayFilter({
+          array: navigation,
+          key: 'slug',
+          values: ['home'],
+        })
+      : arrayFilter({
+          array: navigation,
+          key: 'slug',
+          values: ['home', 'notes'],
+        })
 
   const rightLinks =
     !session && status === 'unauthenticated'
-      ? arrayFilter(navigation, 'slug', ['login'], undefined, false)
-      : arrayFilter(navigation, 'slug', ['profile', 'logout'], undefined, false)
+      ? arrayFilter({ array: navigation, key: 'slug', values: ['login'] })
+      : arrayFilter({
+          array: navigation,
+          key: 'slug',
+          values: ['profile', 'logout'],
+        })
 
   const sidebarCtaLink =
     !session && status === 'unauthenticated'
-      ? arrayFilter(navigation, 'slug', ['login'], undefined, false)
-      : arrayFilter(navigation, 'slug', ['profile'], undefined, false)
+      ? arrayFilter({ array: navigation, key: 'slug', values: ['login'] })
+      : arrayFilter({ array: navigation, key: 'slug', values: ['profile'] })
 
   return (
     <header className="relative z-10 border-b-2 border-gray-100 bg-white sm:sticky md:top-0">

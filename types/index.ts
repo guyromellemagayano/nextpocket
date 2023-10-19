@@ -25,3 +25,4 @@ export type {
 } from './helpers'
 export type { TUseRedirect } from './hooks'
 export type { TAxiosErrorResponse } from './lib'
+export type { TArrayFilterProps } from './utils'
