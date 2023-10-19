@@ -14,6 +14,7 @@ const moduleNameMapper = pathsToModuleNameMapper(compilerOptions.paths, {
 const config: Config = {
   preset: 'ts-jest',
   verbose: true,
+  setupFiles: ['<rootDir>/jest.setup.ts'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testEnvironment: 'jest-environment-jsdom',
   moduleNameMapper: {
