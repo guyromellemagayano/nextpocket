@@ -7,3 +7,5 @@ export type TArrayFilterProps = (
 ) => any[]
 
 export type TDatetimeProps = (data: string) => string
+
+export type TFetcherProps = (url: string) => Promise<void | Awaited<T>>
