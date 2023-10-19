@@ -7,14 +7,16 @@
   "env": {
     "browser": true,
     "es2021": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "extends": [
     "next/core-web-vitals",
     "eslint:recommended",
     "prettier",
     "plugin:react/recommended",
-    "plugin:jsx-a11y/recommended"
+    "plugin:jsx-a11y/recommended",
+    "plugin:jest/recommended"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -23,7 +25,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "jsx-a11y", "prettier", "testing-library"],
+  "plugins": ["react", "jsx-a11y", "prettier", "testing-library", "jest"],
   "rules": {
     "semi": ["error", "never"],
     "react/react-in-jsx-scope": "off",
