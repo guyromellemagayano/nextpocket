@@ -105,7 +105,7 @@ const EditableForm: FC<TEditableFormProps> = ({
     return null
   }
 
-  return isEditing ? (
+  return isEditing && editableData?.[field] ? (
     <input
       type={selectedField.type}
       name={selectedField.id}
@@ -121,7 +121,7 @@ const EditableForm: FC<TEditableFormProps> = ({
       onClick={onEditStatus}
       {...props}
     >
-      {data[field]}
+      {data?.[field]}
     </Paragraph>
   )
 }
@@ -249,14 +249,6 @@ const Avatar: FC<TAvatarProps> = ({
  * @returns {JSX.Element} - The note page component.
  */
 const NotePage: FC<any> = ({ params }): JSX.Element => {
-  if (!params?.id) {
-    return (
-      <Message className="flex h-full min-h-screen items-center justify-center">
-        Error: No note ID provided
-      </Message>
-    )
-  }
-
   const { session, status } = useRedirect()
 
   const SWR = useSWR(`${NOTE_PAGE_API_URL + params?.id}`, fetcher)
@@ -293,6 +285,14 @@ const NotePage: FC<any> = ({ params }): JSX.Element => {
         Loading...
       </Message>
     )
+
+  if (!params?.id) {
+    return (
+      <Message className="flex h-full min-h-screen items-center justify-center">
+        Error: No note ID provided
+      </Message>
+    )
+  }
 
   if (SWR?.isLoading || SWR?.isValidating) {
     return (
