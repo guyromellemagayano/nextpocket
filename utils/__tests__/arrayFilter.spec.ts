@@ -9,7 +9,6 @@ describe('arrayFilter', () => {
   ]
 
   it('filters by key and value array (include)', () => {
-    // const result = arrayFilter(sampleArray, 'name', ['John', 'Jane'])
     const result = arrayFilter(sampleArray, 'name', ['John', 'Jane'])
     expect(result).toEqual([
       { id: 1, name: 'John' },
