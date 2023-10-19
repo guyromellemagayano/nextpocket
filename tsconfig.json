@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@app": ["./app"],
+      "@app/*": ["./app/*"],
       "@components": ["./components"],
       "@config": ["./config"],
       "@helpers": ["./helpers"],
@@ -36,6 +36,13 @@
       }
     ]
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts", ".next/types/**/*.ts"],
+  "include": [
+    "**/*.js",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.d.ts",
+    ".next/types/**/*.ts",
+    "global.d.ts"
+  ],
   "exclude": ["node_modules", ".next"]
 }
