@@ -3,7 +3,7 @@
 import { FC } from 'react'
 
 import { Card } from '@components'
-import { TListProps } from '@types'
+import { TListProps, TRequestData } from '@types'
 
 /**
  * Renders a list of items with cards.
@@ -13,23 +13,25 @@ const List: FC<TListProps> = ({
   data = [],
   ...props
 }): JSX.Element => {
-  const renderList = data.map(({ id, company, avatar, title }) => {
-    const notesLink = `/notes/${id}`
+  const renderList = data.map(
+    ({ id, company, avatar, title }: TRequestData): JSX.Element => {
+      const notesLink = `/notes/${id}`
 
-    return (
-      <li
-        key={id}
-        className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow"
-      >
-        <Card
-          heading={company}
-          subheading={title}
-          image={avatar}
-          href={notesLink}
-        />
-      </li>
-    )
-  })
+      return (
+        <li
+          key={id}
+          className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow"
+        >
+          <Card
+            heading={company}
+            subheading={title}
+            image={avatar}
+            href={notesLink}
+          />
+        </li>
+      )
+    },
+  )
 
   if (data.length === 0) return null
 
