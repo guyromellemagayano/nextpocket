@@ -14,24 +14,20 @@ const moduleNameMapper = pathsToModuleNameMapper(compilerOptions.paths, {
 const config: Config = {
   preset: 'ts-jest',
   verbose: true,
-  setupFiles: ['<rootDir>/jest.setup.ts'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testEnvironment: 'jest-environment-jsdom',
-  moduleNameMapper: {
-    ...moduleNameMapper,
-  },
-  transform: { '\\.[jt]sx?$': 'ts-jest' },
-  moduleFileExtensions: ['js', 'ts', 'tsx'],
+  moduleNameMapper,
+  moduleFileExtensions: ['js', 'ts', 'jsx', 'tsx'],
   transformIgnorePatterns: ['node_modules/(?!(jose)/)'],
   collectCoverage: true,
   collectCoverageFrom: [
-    './app/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './helpers/**/*.{ts,tsx}',
-    './hooks/**/*.{ts,tsx}',
-    './providers/**/*.{ts,tsx}',
-    './utils/**/*.{ts,tsx}',
+    '<rootDir>/app/**/*.[jt]sx?$',
+    '<rootDir>/components/**/*.[jt]sx?$',
+    '<rootDir>/helpers/**/*.[jt]sx?$',
+    '<rootDir>/hooks/**/*.[jt]sx?$',
+    '<rootDir>/providers/**/*.[jt]sx?$',
+    '<rootDir>/utils/**/*.[jt]sx?$',
   ],
 }
 
-module.exports = createJestConfig(config)
+export default createJestConfig(config)
