@@ -1,19 +1,14 @@
 'use client'
 
-import {
-  ChangeEvent,
-  FC,
-  Fragment,
-  KeyboardEvent,
-  useRef,
-  useState,
-} from 'react'
+import { ChangeEvent, FC, KeyboardEvent, useState } from 'react'
+
+import { TrashIcon } from '@heroicons/react/20/solid'
+import { useRouter } from 'next/navigation'
+import { Fragment, useRef } from 'react'
+import useSWR, { mutate } from 'swr'
 
 import { Dialog, Transition } from '@headlessui/react'
-import { TrashIcon } from '@heroicons/react/20/solid'
 import clsx from 'clsx'
-import { useRouter } from 'next/navigation'
-import useSWR, { mutate } from 'swr'
 
 import {
   Article,
@@ -26,39 +21,8 @@ import {
 import { NOTES_COLLECTION_FORM_DATA, NOTE_PAGE_API_URL } from '@config'
 import { request } from '@helpers'
 import { useRedirect } from '@hooks'
-import {
-  TNotesCollectionFormData,
-  TNotesPageNotesData,
-  TRequestData,
-} from '@types'
+import { TAvatarProps, TEditableFormProps, TRequestData } from '@types'
 import { fetcher } from '@utils'
-
-type IAvatarProps = {
-  src: string
-  width: number
-  height: number
-  field: keyof TNotesPageNotesData
-  selectedField?: TNotesCollectionFormData
-  editableData?: TRequestData
-  isEditing: boolean
-  setIsEditing: () => void
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void
-  onKeyPress: (e: KeyboardEvent<HTMLInputElement>) => void
-  onEditStatus: () => void
-  [key: string]: any
-}
-
-type TEditableFormProps = {
-  field: keyof TNotesPageNotesData
-  params?: any
-  data?: TNotesPageNotesData
-  isEditing: boolean
-  width?: number
-  height?: number
-  setIsEditing: () => void
-  onEditStatus: () => void
-  [key: string]: any
-}
 
 const EditableForm: FC<TEditableFormProps> = ({
   field,
@@ -103,6 +67,8 @@ const EditableForm: FC<TEditableFormProps> = ({
       setIsEditing()
     } else if (e.key === 'Escape') {
       mutate(`${NOTE_PAGE_API_URL + params.id}`, data, false)
+      console.log(field)
+
       setIsEditing()
     }
   }
@@ -139,7 +105,7 @@ const EditableForm: FC<TEditableFormProps> = ({
     return null
   }
 
-  return isEditing && editableData?.[field] ? (
+  return isEditing ? (
     <input
       type={selectedField.type}
       name={selectedField.id}
@@ -160,7 +126,7 @@ const EditableForm: FC<TEditableFormProps> = ({
   )
 }
 
-const Avatar: FC<IAvatarProps> = ({
+const Avatar: FC<TAvatarProps> = ({
   src,
   field,
   selectedField,
@@ -282,13 +248,18 @@ const Avatar: FC<IAvatarProps> = ({
  * @param {string} params.id - The ID of the note.
  * @returns {JSX.Element} - The note page component.
  */
-const NotePage: FC = ({ params }: any): JSX.Element => {
+const NotePage: FC<any> = ({ params }): JSX.Element => {
+  if (!params?.id) {
+    return (
+      <Message className="flex h-full min-h-screen items-center justify-center">
+        Error: No note ID provided
+      </Message>
+    )
+  }
+
   const { session, status } = useRedirect()
 
-  const { data, error, isLoading, isValidating } = useSWR(
-    `${NOTE_PAGE_API_URL + params.id}`,
-    fetcher,
-  )
+  const SWR = useSWR(`${NOTE_PAGE_API_URL + params?.id}`, fetcher)
   const [currentlyEditing, setCurrentlyEditing] = useState<string | null>(null)
   const router = useRouter()
 
@@ -323,7 +294,7 @@ const NotePage: FC = ({ params }: any): JSX.Element => {
       </Message>
     )
 
-  if (isLoading || isValidating) {
+  if (SWR?.isLoading || SWR?.isValidating) {
     return (
       <Message className="flex h-full min-h-screen items-center justify-center">
         Loading...
@@ -331,9 +302,11 @@ const NotePage: FC = ({ params }: any): JSX.Element => {
     )
   }
 
-  if (error) {
+  if (SWR?.error) {
     return (
-      <Message className="flex h-full min-h-screen items-center justify-center">{`Failed to load data, ${error.message}`}</Message>
+      <Message className="flex h-full min-h-screen items-center justify-center">
+        Failed to load data
+      </Message>
     )
   }
 
@@ -348,7 +321,7 @@ const NotePage: FC = ({ params }: any): JSX.Element => {
             <EditableForm
               field="avatar"
               params={params}
-              data={data}
+              data={SWR?.data || null}
               isEditing={currentlyEditing === 'avatar'}
               setIsEditing={() => setCurrentlyEditing(null)}
               onEditStatus={() => handleEditStatus('avatar')}
@@ -360,7 +333,7 @@ const NotePage: FC = ({ params }: any): JSX.Element => {
                 <EditableForm
                   field="name"
                   params={params}
-                  data={data}
+                  data={SWR?.data || null}
                   isEditing={currentlyEditing === 'name'}
                   setIsEditing={() => setCurrentlyEditing(null)}
                   onEditStatus={() => handleEditStatus('name')}
@@ -369,7 +342,7 @@ const NotePage: FC = ({ params }: any): JSX.Element => {
                 <EditableForm
                   field="title"
                   params={params}
-                  data={data}
+                  data={SWR?.data || null}
                   isEditing={currentlyEditing === 'title'}
                   setIsEditing={() => setCurrentlyEditing(null)}
                   onEditStatus={() => handleEditStatus('title')}
@@ -382,7 +355,7 @@ const NotePage: FC = ({ params }: any): JSX.Element => {
                   <EditableForm
                     field="company"
                     params={params}
-                    data={data}
+                    data={SWR?.data || null}
                     isEditing={currentlyEditing === 'company'}
                     setIsEditing={() => setCurrentlyEditing(null)}
                     onEditStatus={() => handleEditStatus('company')}
@@ -391,7 +364,7 @@ const NotePage: FC = ({ params }: any): JSX.Element => {
                   <EditableForm
                     field="department"
                     params={params}
-                    data={data}
+                    data={SWR?.data || null}
                     isEditing={currentlyEditing === 'department'}
                     setIsEditing={() => setCurrentlyEditing(null)}
                     onEditStatus={() => handleEditStatus('department')}

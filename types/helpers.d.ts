@@ -6,6 +6,7 @@ export type TRequestCommonProps = {
 }
 
 export type TRequestData = {
+  key?: string
   avatar?: string
   collectionId?: string
   collectionName?: string

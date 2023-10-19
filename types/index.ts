@@ -1,8 +1,10 @@
 export type { TNotesPageNotesData } from './app'
 export type {
+  TAvatarProps,
   TButtonProps,
   TCardProps,
   TCommonProps,
+  TEditableFormProps,
   TFormProps,
   THeadingProps,
   TLayoutProps,
@@ -21,4 +23,5 @@ export type {
   TRequestData,
   TRequestProps,
 } from './helpers'
+export type { TUseRedirect } from './hooks'
 export type { TAxiosErrorResponse } from './lib'
