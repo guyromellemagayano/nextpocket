@@ -1,5 +1,8 @@
+import { TArrayFilterProps } from '@types'
+
 /**
  * Filters an array of objects based on the values of specified keys.
+ *
  * @param array - The array to filter.
  * @param key - The key to filter by.
  * @param values - The values to filter by. If conditionValue is provided, values is used for the "truthy" condition, otherwise for both "truthy" and "falsy" conditions.
@@ -7,13 +10,13 @@
  * @param exclude - If set to true, the function will filter out items that match the values, instead of including them.
  * @returns The filtered array of objects.
  */
-const arrayFilter = (
-  array: any[],
-  key: string,
-  values: any[],
-  conditionValue?: any,
-  exclude?: boolean,
-): any[] => {
+const arrayFilter = ({
+  array,
+  key,
+  values,
+  conditionValue,
+  exclude = false,
+}: TArrayFilterProps): any[] => {
   if (conditionValue) {
     return array.filter(item =>
       conditionValue ? values.includes(item[key]) : !values.includes(item[key]),
