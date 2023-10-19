@@ -148,14 +148,19 @@ const request = async <T = unknown>({
 }: TRequestProps): Promise<void | Awaited<T>> => {
   switch (method) {
     case 'GET':
+    case 'get':
       return await handleGet<T>({ url, options })
     case 'POST':
+    case 'post':
       return await handlePost<T>({ url, data, options })
     case 'PUT':
+    case 'put':
       return await handlePut<T>({ url, data, options })
     case 'PATCH':
+    case 'patch':
       return await handlePatch<T>({ url, data, options })
     case 'DELETE':
+    case 'delete':
       return await handleDelete<T>({ url, options })
     default:
       throw new Error('Invalid request method.')
