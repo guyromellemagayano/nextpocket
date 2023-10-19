@@ -10,13 +10,13 @@ import { TArrayFilterProps } from '@types'
  * @param exclude - If set to true, the function will filter out items that match the values, instead of including them.
  * @returns The filtered array of objects.
  */
-const arrayFilter = ({
+const arrayFilter: TArrayFilterProps = (
   array,
   key,
   values,
   conditionValue,
   exclude = false,
-}: TArrayFilterProps): any[] => {
+) => {
   if (conditionValue) {
     return array.filter(item =>
       conditionValue ? values.includes(item[key]) : !values.includes(item[key]),
