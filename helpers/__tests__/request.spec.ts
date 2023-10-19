@@ -16,7 +16,7 @@ jest.mock('@lib', () => ({
 import { API_HOST_LOCAL } from '@config'
 import { axios } from '@lib'
 
-describe('Request Helper', () => {
+describe('request()', () => {
   const API_MOCK = `${API_HOST_LOCAL}/api`
 
   beforeEach(() => {

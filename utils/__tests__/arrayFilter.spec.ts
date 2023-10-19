@@ -1,6 +1,6 @@
 import { arrayFilter } from '@utils'
 
-describe('arrayFilter', () => {
+describe('arrayFilter()', () => {
   const sampleArray = [
     { id: 1, name: 'John' },
     { id: 2, name: 'Jane' },
