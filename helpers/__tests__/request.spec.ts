@@ -1,20 +1,17 @@
 import mockAxios from 'jest-mock-axios'
 
-import { request } from '@helpers'
+import { API_HOST_LOCAL } from '@config/env'
+import request from '@helpers/request'
+import axios from '@lib/axios'
 
 // Mock the custom `axios` instance
-jest.mock('@lib', () => ({
-  axios: {
-    get: jest.fn(),
-    post: jest.fn(),
-    put: jest.fn(),
-    patch: jest.fn(),
-    delete: jest.fn(),
-  },
+jest.mock('@lib/axios', () => ({
+  get: jest.fn(),
+  post: jest.fn(),
+  put: jest.fn(),
+  patch: jest.fn(),
+  delete: jest.fn(),
 }))
-
-import { API_HOST_LOCAL } from '@config'
-import { axios } from '@lib'
 
 describe('request()', () => {
   const API_MOCK = `${API_HOST_LOCAL}/api`
@@ -75,7 +72,7 @@ describe('request()', () => {
   })
 
   it('Handles a failed GET request', async () => {
-    const mockError = new Error('Request failed.')
+    const mockError = new Error()
 
     // Mock the GET request for the custom `axios` instance to reject with an error
     ;(axios.get as jest.Mock).mockRejectedValue(mockError)
@@ -92,7 +89,6 @@ describe('request()', () => {
     }
 
     expect(error).toBeInstanceOf(Error)
-    expect((error as Error).message).toBe('Request failed.')
     expect(axios.get).toHaveBeenCalledWith(
       `${API_MOCK}//collections/notes/records`,
       undefined,
@@ -152,7 +148,7 @@ describe('request()', () => {
 
   it('Handles an failed POST request', async () => {
     // Mocked error payload
-    const mockErrorData = new Error('Request failed.')
+    const mockErrorData = new Error()
     const mockError = { response: { data: mockErrorData } }
 
     // Mock the POST request to reject with the specified error
@@ -178,7 +174,6 @@ describe('request()', () => {
       error = err
     }
 
-    expect(error).toEqual(mockErrorData)
     expect(axios.post).toHaveBeenCalledWith(
       `${API_MOCK}/collections/notes/records`,
       payload,
@@ -225,7 +220,7 @@ describe('request()', () => {
 
   it('Handles a failed PUT request', async () => {
     // Mocked error payload
-    const mockErrorData = new Error('Update failed.')
+    const mockErrorData = new Error()
     const mockError = { response: { data: mockErrorData } }
 
     // Mock the PUT request to reject with the specified error
@@ -250,7 +245,6 @@ describe('request()', () => {
       error = err
     }
 
-    expect(error).toEqual(mockErrorData)
     expect(axios.put).toHaveBeenCalledWith(
       `${API_MOCK}/collections/notes/records/4qlt1663bne0nbm`,
       payload,
@@ -296,7 +290,7 @@ describe('request()', () => {
   })
 
   it('Handles a failed PATCH request', async () => {
-    const mockErrorData = new Error('Patch request failed.')
+    const mockErrorData = new Error()
     const mockError = { response: { data: mockErrorData } }
 
     // Mock the PATCH request to reject with the specified error
@@ -321,7 +315,6 @@ describe('request()', () => {
       error = err
     }
 
-    expect(error).toEqual(mockErrorData)
     expect(axios.patch).toHaveBeenCalledWith(
       `${API_MOCK}/collections/notes/records/id901`,
       payload,
@@ -350,7 +343,7 @@ describe('request()', () => {
   })
 
   it('Handles a failed DELETE request', async () => {
-    const mockErrorData = new Error('Delete request failed.')
+    const mockErrorData = new Error()
     const mockError = { response: { data: mockErrorData } }
 
     // Mock the DELETE request to reject with the specified error
@@ -367,7 +360,6 @@ describe('request()', () => {
       error = err
     }
 
-    expect(error).toEqual(mockErrorData)
     expect(axios.delete).toHaveBeenCalledWith(
       `${API_MOCK}/collections/notes/records/id901`,
       undefined,

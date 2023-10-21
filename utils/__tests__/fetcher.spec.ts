@@ -2,11 +2,9 @@ import request from '@helpers/request'
 import fetcher from '@utils/fetcher'
 
 // Mock the request helper function
-jest.mock('@helpers', () => ({
-  request: jest.fn(),
-}))
+jest.mock('@helpers/request', () => jest.fn())
 
-describe('fetcher', () => {
+describe('fetcher()', () => {
   beforeEach(() => {
     // Clear all instances and calls to the mock
     ;(request as jest.Mock).mockClear()

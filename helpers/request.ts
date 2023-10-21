@@ -1,42 +1,46 @@
-'use client'
+import instance, { AXIOS_INSTANCE, handleError } from '@lib/axios'
 
-import { AxiosError } from 'axios'
+type TRequestCommonProps = {
+  url: string
+  options?: typeof AXIOS_INSTANCE
+}
 
-import { axios } from '@lib'
-import {
-  TAxiosErrorResponse,
-  THandleDeleteProps,
-  THandleGetProps,
-  THandlePostProps,
-  THandlePutProps,
-  TRequestProps,
-} from '@types'
+type TRequestData = {
+  key?: string
+  avatar?: string
+  collectionId?: string
+  collectionName?: string
+  company?: string
+  created?: string
+  department?: string
+  id?: string
+  name?: string
+  title?: string
+  updated?: string
+}
 
-/**
- * Handles errors thrown by Axios requests.
- *
- * @param err - The error object thrown by Axios.
- * @returns If the error is not a server response error, returns void. Otherwise, returns a promise that resolves to type T.
- * @throws An error message describing the error that occurred.
- */
-const handleError = <T = any>(
-  err: AxiosError<TAxiosErrorResponse>,
-): void | Awaited<T> => {
-  const axiosError = err as AxiosError<TAxiosErrorResponse>
+type THandleGetProps = TRequestCommonProps
 
-  if (axiosError.response) {
-    // Server responded with a status other than 2xx
-    throw new Error(
-      axiosError.response.data.message ||
-        'An error occurred while fetching data.',
-    )
-  } else if (axiosError.request) {
-    // Request was made, but no response received
-    throw new Error('No response received from server.')
-  } else {
-    // Error setting up the request
-    throw new Error(axiosError.message)
-  }
+type THandlePostProps = TRequestCommonProps & {
+  data?: TRequestData | object
+}
+
+type THandlePutProps = THandlePostProps
+
+type THandleDeleteProps = TRequestCommonProps
+
+type TRequestProps = THandlePostProps & {
+  method:
+    | 'GET'
+    | 'get'
+    | 'POST'
+    | 'post'
+    | 'PUT'
+    | 'put'
+    | 'PATCH'
+    | 'patch'
+    | 'DELETE'
+    | 'delete'
 }
 
 /**
@@ -51,7 +55,7 @@ const handleGet = async <T = any>({
   url,
   options,
 }: THandleGetProps): Promise<void | Awaited<T>> =>
-  await axios
+  await instance
     .get<T>(url, options)
     .then(res => res.data)
     .catch(err => handleError(err))
@@ -70,7 +74,7 @@ const handlePost = async <T = any>({
   data,
   options,
 }: THandlePostProps): Promise<void | Awaited<T>> =>
-  await axios
+  await instance
     .post<T>(url, data, options)
     .then(res => res.data)
     .catch(err => handleError(err))
@@ -89,7 +93,7 @@ const handlePut = async <T = any>({
   data,
   options,
 }: THandlePutProps): Promise<void | Awaited<T>> =>
-  await axios
+  await instance
     .put<T>(url, data, options)
     .then(res => res.data)
     .catch(err => handleError(err))
@@ -107,7 +111,7 @@ const handlePatch = async <T = any>({
   data,
   options,
 }: THandlePutProps): Promise<void | Awaited<T>> =>
-  await axios
+  await instance
     .patch<T>(url, data, options)
     .then(res => res.data)
     .catch(err => handleError(err))
@@ -125,7 +129,7 @@ const handleDelete = async <T = any>({
   url,
   options,
 }: THandleDeleteProps): Promise<void | Awaited<T>> =>
-  await axios
+  await instance
     .delete<T>(url, options)
     .then(res => res.data)
     .catch(err => handleError(err))
