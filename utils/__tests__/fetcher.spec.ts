@@ -1,5 +1,5 @@
-import { request } from '@helpers'
-import { fetcher } from '@utils'
+import request from '@helpers/request'
+import fetcher from '@utils/fetcher'
 
 // Mock the request helper function
 jest.mock('@helpers', () => ({

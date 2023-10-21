@@ -1,4 +1,10 @@
-import { TArrayFilterProps } from '@types'
+type TArrayFilterProps = (
+  array: any[],
+  key: string,
+  values: any[],
+  conditionValue?: any,
+  exclude?: boolean,
+) => any[]
 
 /**
  * Filters an array of objects based on the values of specified keys.

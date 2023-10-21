@@ -1,5 +1,6 @@
-import { request } from '@helpers'
-import { TFetcherProps } from '@types'
+import request from '@helpers/request'
+
+type TFetcherProps = <T>(url: string) => Promise<void | Awaited<T>>
 
 /**
  * Fetches data from the specified URL using a GET request.
