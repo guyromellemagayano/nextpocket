@@ -1,4 +1,4 @@
-import { arrayFilter } from '@utils'
+import arrayFilter from '@utils/arrayFilter'
 
 describe('arrayFilter()', () => {
   const sampleArray = [

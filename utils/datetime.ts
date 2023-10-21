@@ -1,4 +1,4 @@
-import { TDatetimeProps } from '@types'
+type TDatetimeProps = (data: string) => string
 
 /**
  * Returns a formatted date and time string.
