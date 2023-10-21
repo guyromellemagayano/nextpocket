@@ -1,4 +1,17 @@
-import { TNotesCollectionFormData, TPageLinks } from '@types'
+export type TNotesCollectionFormData = {
+  id: string
+  placeholder: string
+  type: string
+  required: boolean
+  minLength: number
+  maxLength: number
+}
+
+export type TPageLinks = {
+  name: string
+  slug: string
+  href: string
+}
 
 export const NOTES_COLLECTION_FORM_DATA: TNotesCollectionFormData[] = [
   {
