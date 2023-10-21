@@ -142,7 +142,7 @@
     }
   },
   "lint-staged": {
-    "**/*.{ts,tsx,json}": [
+    "**/*.{js,ts,tsx,json}": [
       "yarn lint"
     ]
   },
