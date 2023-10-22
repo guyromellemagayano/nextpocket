@@ -4516,15 +4516,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/tailwindcss@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "@types/tailwindcss@npm:3.1.0"
-  dependencies:
-    tailwindcss: "*"
-  checksum: de91e6e6a33fe3e7ef00e323db4f1cbbc4802f2b667e416755c754dae1e86d5be2916654462db47d40ce0fbeb23ef546ecd52c653ff438c8ad918b370135c6ef
-  languageName: node
-  linkType: hard
-
 "@types/tough-cookie@npm:*":
   version: 4.0.4
   resolution: "@types/tough-cookie@npm:4.0.4"
@@ -8000,15 +7991,6 @@ __metadata:
   peerDependencies:
     eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
   checksum: 20e334e60bf5e56cf9f760598411847525c3ff826e6ae7757c8efdc60b33d47a97ddbe1b94ce95956ea9f7bbef37995b19c716be50bd44e6a1e789cba08b6224
-  languageName: node
-  linkType: hard
-
-"eslint-plugin-react-hooks@npm:^4.6.0":
-  version: 4.6.0
-  resolution: "eslint-plugin-react-hooks@npm:4.6.0"
-  peerDependencies:
-    eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
-  checksum: 23001801f14c1d16bf0a837ca7970d9dd94e7b560384b41db378b49b6e32dc43d6e2790de1bd737a652a86f81a08d6a91f402525061b47719328f586a57e86c3
   languageName: node
   linkType: hard
 
@@ -12557,7 +12539,6 @@ __metadata:
     "@types/react": ^18.2.31
     "@types/react-dom": ^18.2.14
     "@types/react-transition-group": ^4.4.8
-    "@types/tailwindcss": ^3.1.0
     "@typescript-eslint/eslint-plugin": ^6.8.0
     "@typescript-eslint/parser": ^6.8.0
     autoprefixer: 10.4.16
@@ -12577,7 +12558,6 @@ __metadata:
     eslint-plugin-jsx-a11y: ^6.7.1
     eslint-plugin-prettier: ^5.0.1
     eslint-plugin-react: ^7.33.2
-    eslint-plugin-react-hooks: ^4.6.0
     eslint-plugin-testing-library: ^6.1.0
     focus-visible: ^5.2.0
     git-cz: ^4.9.0
@@ -12611,6 +12591,7 @@ __metadata:
     sharp: ^0.32.6
     start-server-and-test: ^2.0.1
     styled-jsx: ^5.1.2
+    swr: ^2.2.4
     tailwindcss: 3.3.3
     ts-jest: ^29.1.1
     ts-node: ^10.9.1
@@ -15488,6 +15469,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"swr@npm:^2.2.4":
+  version: 2.2.4
+  resolution: "swr@npm:2.2.4"
+  dependencies:
+    client-only: ^0.0.1
+    use-sync-external-store: ^1.2.0
+  peerDependencies:
+    react: ^16.11.0 || ^17.0.0 || ^18.0.0
+  checksum: d1398f89fd68af0e0cb6100a5769b1e17c0dbe8a778898643ad28456acda64add43344754c7d919e3f2ca82854adf86ff7d465aba25a2d555bcb669e457138f8
+  languageName: node
+  linkType: hard
+
 "symbol-observable@npm:^1.1.0":
   version: 1.2.0
   resolution: "symbol-observable@npm:1.2.0"
@@ -15519,7 +15512,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:*, tailwindcss@npm:3.3.3":
+"tailwindcss@npm:3.3.3":
   version: 3.3.3
   resolution: "tailwindcss@npm:3.3.3"
   dependencies:
@@ -16449,6 +16442,15 @@ __metadata:
   version: 9.0.0
   resolution: "urlpattern-polyfill@npm:9.0.0"
   checksum: d3658b78a10eaee514c464f5a4336c408c70cf01e9b915cb1df5892b3c49003d1ed4042dc72d1b18493b8b847883e84fbf2bf358abb5dff84b2725d5e8463bcb
+  languageName: node
+  linkType: hard
+
+"use-sync-external-store@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "use-sync-external-store@npm:1.2.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 5c639e0f8da3521d605f59ce5be9e094ca772bd44a4ce7322b055a6f58eeed8dda3c94cabd90c7a41fb6fa852210092008afe48f7038792fd47501f33299116a
   languageName: node
   linkType: hard
 
