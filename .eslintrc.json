@@ -34,14 +34,7 @@
     "sourceType": "module",
     "requireConfigFile": true
   },
-  "plugins": [
-    "react",
-    "jsx-a11y",
-    "prettier",
-    "testing-library",
-    "jest",
-    "react-hooks"
-  ],
+  "plugins": ["react", "jsx-a11y", "prettier", "testing-library", "jest"],
   "rules": {
     "@typescript-eslint/ban-ts-comment": "warn",
     "@typescript-eslint/semi": ["error", "never"],

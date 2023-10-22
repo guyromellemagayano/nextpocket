@@ -8,7 +8,8 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "typeRoots": ["./node_modules/@types"],
+    "types": ["node", "jest", "next"],
+    "typeRoots": ["./node_modules/@types", "./types"],
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
@@ -24,17 +25,16 @@
     "baseUrl": "./",
     "paths": {
       "@app/*": ["./app/*"],
-      "@components/*": ["./components/*"],
-      "@config/*": ["./config/*"],
-      "@helpers/*": ["./helpers/*"],
-      "@hooks/*": ["./hooks/*"],
-      "@interfaces/*": ["./interfaces/*"],
-      "@lib/*": ["./lib/*"],
-      "@providers/*": ["./providers/*"],
+      "@components": ["./components"],
+      "@config": ["./config"],
+      "@helpers": ["./helpers"],
+      "@hooks": ["./hooks"],
+      "@lib": ["./lib"],
+      "@providers": ["./providers"],
       "@public/*": ["./public/*"],
       "@styles/*": ["./styles/*"],
       "@types/*": ["./types/*"],
-      "@utils/*": ["./utils/*"]
+      "@utils": ["./utils"]
     },
     "plugins": [
       {
@@ -42,6 +42,6 @@
       }
     ]
   },
-  "include": ["**/*.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["**/*.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
