@@ -1,4 +1,4 @@
-import datetime from '@utils/datetime'
+import { datetime } from '@utils'
 
 describe('datetime()', () => {
   it('should format a valid date string correctly', () => {

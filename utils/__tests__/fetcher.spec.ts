@@ -1,8 +1,10 @@
-import request from '@helpers/request'
-import fetcher from '@utils/fetcher'
+import { request } from '@helpers'
+import { fetcher } from '@utils'
 
 // Mock the request helper function
-jest.mock('@helpers/request', () => jest.fn())
+jest.mock('@helpers', () => ({
+  request: jest.fn()
+}))
 
 describe('fetcher()', () => {
   beforeEach(() => {
@@ -21,7 +23,7 @@ describe('fetcher()', () => {
 
     expect(request).toHaveBeenCalledWith({
       method: 'GET',
-      url: mockURL,
+      url: mockURL
     })
     expect(result).toEqual(mockData)
   })

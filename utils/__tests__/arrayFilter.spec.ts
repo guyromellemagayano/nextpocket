@@ -1,18 +1,18 @@
-import arrayFilter from '@utils/arrayFilter'
+import { arrayFilter } from '@utils'
 
 describe('arrayFilter()', () => {
   const sampleArray = [
     { id: 1, name: 'John' },
     { id: 2, name: 'Jane' },
     { id: 3, name: 'Doe' },
-    { id: 4, name: 'Smith' },
+    { id: 4, name: 'Smith' }
   ]
 
   it('filters by key and value array (include)', () => {
     const result = arrayFilter(sampleArray, 'name', ['John', 'Jane'])
     expect(result).toEqual([
       { id: 1, name: 'John' },
-      { id: 2, name: 'Jane' },
+      { id: 2, name: 'Jane' }
     ])
   })
 
@@ -20,7 +20,7 @@ describe('arrayFilter()', () => {
     const result = arrayFilter(sampleArray, 'name', ['Doe', 'Smith'], true)
     expect(result).toEqual([
       { id: 3, name: 'Doe' },
-      { id: 4, name: 'Smith' },
+      { id: 4, name: 'Smith' }
     ])
   })
 
@@ -28,7 +28,7 @@ describe('arrayFilter()', () => {
     const result = arrayFilter(sampleArray, 'name', ['John', 'Jane'], true)
     expect(result).toEqual([
       { id: 1, name: 'John' },
-      { id: 2, name: 'Jane' },
+      { id: 2, name: 'Jane' }
     ])
   })
 
@@ -36,7 +36,7 @@ describe('arrayFilter()', () => {
     const result = arrayFilter(sampleArray, 'name', ['Doe', 'Smith'], false)
     expect(result).toEqual([
       { id: 3, name: 'Doe' },
-      { id: 4, name: 'Smith' },
+      { id: 4, name: 'Smith' }
     ])
   })
 })
