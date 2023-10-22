@@ -1,257 +1,37 @@
 'use client'
 
-import { ChangeEvent, FC, KeyboardEvent, useState } from 'react'
-
 import { TrashIcon } from '@heroicons/react/20/solid'
-import { useRouter } from 'next/navigation'
-import { Fragment, useRef } from 'react'
+import { redirect, useRouter } from 'next/navigation'
+import { FC, useState } from 'react'
 import useSWR, { mutate } from 'swr'
-
-import { Dialog, Transition } from '@headlessui/react'
-import clsx from 'clsx'
 
 import {
   Article,
+  AuthCheck,
   Button,
-  Image,
+  EditableForm,
   Message,
-  Paragraph,
-  Section,
+  Section
 } from '@components'
-import { NOTES_COLLECTION_FORM_DATA, NOTE_PAGE_API_URL } from '@config'
+import { NOTE_PAGE_API_URL } from '@config'
 import { request } from '@helpers'
 import { useRedirect } from '@hooks'
-import { TAvatarProps, TEditableFormProps, TRequestData } from '@types'
 import { fetcher } from '@utils'
-
-const EditableForm: FC<TEditableFormProps> = ({
-  field,
-  params,
-  data,
-  isEditing,
-  width,
-  height,
-  setIsEditing,
-  onEditStatus,
-  ...props
-}) => {
-  const [editableData, setEditableData] = useState<TRequestData | null>(null)
-
-  const collection = data
-    ? NOTES_COLLECTION_FORM_DATA.map(item => ({
-        ...item,
-        value: data[item.id],
-      }))
-    : NOTES_COLLECTION_FORM_DATA
-
-  const selectedField = collection.find(item => item.id === field) || null
-
-  if (data && !editableData) {
-    setEditableData(data)
-  }
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setEditableData(prevData => ({ ...prevData, [field]: e.target.value }))
-  }
-
-  const handleKeyPress = async (
-    e: KeyboardEvent<HTMLInputElement>,
-  ): Promise<void> => {
-    if (e.key === 'Enter') {
-      const req = await request({
-        method: 'PATCH',
-        url: `${NOTE_PAGE_API_URL + params.id}`,
-        data: editableData,
-      })
-      mutate(`${NOTE_PAGE_API_URL + params.id}`, req, false)
-      setIsEditing()
-    } else if (e.key === 'Escape') {
-      mutate(`${NOTE_PAGE_API_URL + params.id}`, data, false)
-      console.log(field)
-
-      setIsEditing()
-    }
-  }
-
-  if (!selectedField || !editableData) return null
-
-  if (
-    editableData?.[field] &&
-    selectedField.type === 'url' &&
-    width &&
-    height
-  ) {
-    return (
-      <Avatar
-        src={editableData[field]}
-        width={width}
-        height={height}
-        field={field}
-        params={params}
-        data={data}
-        selectedField={selectedField}
-        editableData={editableData}
-        isEditing={isEditing}
-        setIsEditing={setIsEditing}
-        onChange={handleInputChange}
-        onKeyPress={handleKeyPress}
-        onEditStatus={onEditStatus}
-        {...props}
-      />
-    )
-  }
-
-  if (selectedField.type !== 'text' && selectedField.type !== 'url') {
-    return null
-  }
-
-  return isEditing && editableData?.[field] ? (
-    <input
-      type={selectedField.type}
-      name={selectedField.id}
-      placeholder={selectedField.placeholder}
-      onChange={handleInputChange}
-      onKeyDown={handleKeyPress}
-      value={editableData[field]}
-      className="my-2 block w-full rounded-md border-0 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-    />
-  ) : (
-    <Paragraph
-      className="text-sm font-semibold leading-6 text-gray-900"
-      onClick={onEditStatus}
-      {...props}
-    >
-      {data?.[field]}
-    </Paragraph>
-  )
-}
-
-const Avatar: FC<TAvatarProps> = ({
-  src,
-  field,
-  selectedField,
-  editableData,
-  isEditing,
-  setIsEditing,
-  width,
-  height,
-  onChange,
-  onKeyPress,
-  onEditStatus,
-  ...props
-}): JSX.Element => {
-  const [open, setOpen] = useState<boolean>(false)
-  const cancelButtonRef = useRef(null)
-
-  return (
-    <>
-      <Transition.Root show={open} as={Fragment}>
-        <Dialog
-          as="div"
-          className="relative z-10"
-          initialFocus={cancelButtonRef}
-          onClose={setOpen}
-        >
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-          </Transition.Child>
-
-          <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-            <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                enterTo="opacity-100 translate-y-0 sm:scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-                leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-              >
-                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
-                  <div>
-                    <Image
-                      src={src}
-                      width={width}
-                      height={height}
-                      alt=""
-                      className="mx-auto mt-3 flex h-12 w-12 items-center justify-center rounded-full"
-                      {...props}
-                    />
-                    <div className="mt-3 text-center sm:mt-5">
-                      {isEditing && editableData?.[field] ? (
-                        <input
-                          type={selectedField.type}
-                          name={selectedField.id}
-                          placeholder={selectedField.placeholder}
-                          onChange={onChange}
-                          onKeyDown={onKeyPress}
-                          value={editableData[field]}
-                          className="my-2 block w-full rounded-md border-0 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        />
-                      ) : (
-                        <Paragraph
-                          className="truncate text-ellipsis text-sm text-gray-500"
-                          onClick={onEditStatus}
-                          {...props}
-                        >
-                          {editableData?.[field]}
-                        </Paragraph>
-                      )}
-                    </div>
-                  </div>
-                  <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-1 sm:gap-3">
-                    <Button
-                      ref={cancelButtonRef}
-                      type="button"
-                      className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
-                      onClick={() => setOpen(false)}
-                    >
-                      Close
-                    </Button>
-                  </div>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition.Root>
-
-      <Button
-        type="button"
-        className={clsx(
-          'flex-none overflow-hidden rounded-full bg-gray-50',
-          width && `w-${width}px`,
-          height && `h-${height}px`,
-        )}
-        onClick={() => {
-          setIsEditing
-          setOpen(true)
-        }}
-      >
-        <Image src={src} width={width} height={height} alt="" {...props} />
-      </Button>
-    </>
-  )
-}
 
 /**
  * Renders a page for a specific note.
+ *
  * @param {Object} params - The parameters for the note page.
  * @param {string} params.id - The ID of the note.
  * @returns {JSX.Element} - The note page component.
  */
-const NotePage: FC<any> = ({ params }): JSX.Element => {
+const NotePage: FC<any> = ({ params }) => {
   const { session, status } = useRedirect()
 
-  const SWR = useSWR(`${NOTE_PAGE_API_URL + params?.id}`, fetcher)
+  const { data, isValidating, error, isLoading } = useSWR(
+    `${NOTE_PAGE_API_URL + params?.id}`,
+    fetcher
+  )
   const [currentlyEditing, setCurrentlyEditing] = useState<string | null>(null)
   const router = useRouter()
 
@@ -266,25 +46,11 @@ const NotePage: FC<any> = ({ params }): JSX.Element => {
   const handleDeleteOnClick = async (): Promise<void> => {
     const req = await request({
       method: 'DELETE',
-      url: `${NOTE_PAGE_API_URL + params.id}`,
+      url: `${NOTE_PAGE_API_URL + params.id}`
     })
     mutate(`${NOTE_PAGE_API_URL + params.id}`, req, false)
     router.push('/notes', { scroll: false })
   }
-
-  if (!session && status === 'unauthenticated')
-    return (
-      <Message className="flex h-full min-h-screen items-center justify-center">
-        Access Denied
-      </Message>
-    )
-
-  if (status === 'loading')
-    return (
-      <Message className="flex h-full min-h-screen items-center justify-center">
-        Loading...
-      </Message>
-    )
 
   if (!params?.id) {
     return (
@@ -294,7 +60,7 @@ const NotePage: FC<any> = ({ params }): JSX.Element => {
     )
   }
 
-  if (SWR?.isLoading || SWR?.isValidating) {
+  if (status === 'loading') {
     return (
       <Message className="flex h-full min-h-screen items-center justify-center">
         Loading...
@@ -302,7 +68,11 @@ const NotePage: FC<any> = ({ params }): JSX.Element => {
     )
   }
 
-  if (SWR?.error) {
+  if (!session && status === 'unauthenticated') {
+    redirect(`/login?callbackUrl=/notes/${params?.id}`)
+  }
+
+  if (error) {
     return (
       <Message className="flex h-full min-h-screen items-center justify-center">
         Failed to load data
@@ -311,82 +81,94 @@ const NotePage: FC<any> = ({ params }): JSX.Element => {
   }
 
   return (
-    <div className="mx-auto my-6 flex w-full max-w-7xl  items-center justify-between gap-x-6 p-6 lg:max-w-3xl lg:px-8">
-      <div className="grid w-full grid-cols-1 gap-x-8 gap-y-8">
-        <Section
-          className="my-6 flex flex-1 flex-col px-6 md:col-span-2 md:px-0"
-          aria-label="Content"
-        >
-          <Article className="flex min-w-0 items-start gap-x-4">
-            <EditableForm
-              field="avatar"
-              params={params}
-              data={SWR?.data || null}
-              isEditing={currentlyEditing === 'avatar'}
-              setIsEditing={() => setCurrentlyEditing(null)}
-              onEditStatus={() => handleEditStatus('avatar')}
-              width={48}
-              height={48}
-            />
-            <div className="flex flex-auto flex-col justify-between gap-y-3 sm:flex-row">
-              <div className="min-w-0">
+    <AuthCheck>
+      <div className="mx-auto my-6 flex w-full max-w-7xl  items-center justify-between gap-x-6 p-6 lg:max-w-3xl lg:px-8">
+        <div className="grid w-full grid-cols-1 gap-x-8 gap-y-8">
+          <Section
+            className="my-6 flex flex-1 flex-col px-6 md:col-span-2 md:px-0"
+            aria-label="Content"
+          >
+            {isLoading || isValidating ? (
+              <Message className="flex h-full min-h-screen items-center justify-center">
+                Loading data...
+              </Message>
+            ) : Object.keys(data).length > 0 ? (
+              <Article className="flex min-w-0 items-start gap-x-4">
                 <EditableForm
-                  field="name"
+                  field="avatar"
                   params={params}
-                  data={SWR?.data || null}
-                  isEditing={currentlyEditing === 'name'}
+                  data={data || null}
+                  isEditing={currentlyEditing === 'avatar'}
                   setIsEditing={() => setCurrentlyEditing(null)}
-                  onEditStatus={() => handleEditStatus('name')}
-                  className="text-sm font-semibold leading-6 text-gray-900"
+                  onEditStatus={() => handleEditStatus('avatar')}
+                  width={48}
+                  height={48}
                 />
-                <EditableForm
-                  field="title"
-                  params={params}
-                  data={SWR?.data || null}
-                  isEditing={currentlyEditing === 'title'}
-                  setIsEditing={() => setCurrentlyEditing(null)}
-                  onEditStatus={() => handleEditStatus('title')}
-                  className="mt-1 truncate text-xs leading-5 text-gray-500"
-                />
-              </div>
+                <div className="flex flex-auto flex-col justify-between gap-y-3 sm:flex-row">
+                  <div className="min-w-0">
+                    <EditableForm
+                      field="name"
+                      params={params}
+                      data={data || null}
+                      isEditing={currentlyEditing === 'name'}
+                      setIsEditing={() => setCurrentlyEditing(null)}
+                      onEditStatus={() => handleEditStatus('name')}
+                      className="text-sm font-semibold leading-6 text-gray-900"
+                    />
+                    <EditableForm
+                      field="title"
+                      params={params}
+                      data={data || null}
+                      isEditing={currentlyEditing === 'title'}
+                      setIsEditing={() => setCurrentlyEditing(null)}
+                      onEditStatus={() => handleEditStatus('title')}
+                      className="mt-1 truncate text-xs leading-5 text-gray-500"
+                    />
+                  </div>
 
-              <div className="shrink-1 flex items-center gap-x-8">
-                <div className="items-start sm:flex sm:flex-col md:items-end">
-                  <EditableForm
-                    field="company"
-                    params={params}
-                    data={SWR?.data || null}
-                    isEditing={currentlyEditing === 'company'}
-                    setIsEditing={() => setCurrentlyEditing(null)}
-                    onEditStatus={() => handleEditStatus('company')}
-                    className="text-sm leading-6 text-gray-900"
-                  />
-                  <EditableForm
-                    field="department"
-                    params={params}
-                    data={SWR?.data || null}
-                    isEditing={currentlyEditing === 'department'}
-                    setIsEditing={() => setCurrentlyEditing(null)}
-                    onEditStatus={() => handleEditStatus('department')}
-                    className="mt-1 text-xs leading-5 text-gray-500"
-                  />
+                  <div className="shrink-1 flex items-center gap-x-8">
+                    <div className="items-start sm:flex sm:flex-col md:items-end">
+                      <EditableForm
+                        field="company"
+                        params={params}
+                        data={data || null}
+                        isEditing={currentlyEditing === 'company'}
+                        setIsEditing={() => setCurrentlyEditing(null)}
+                        onEditStatus={() => handleEditStatus('company')}
+                        className="text-sm leading-6 text-gray-900"
+                      />
+                      <EditableForm
+                        field="department"
+                        params={params}
+                        data={data || null}
+                        isEditing={currentlyEditing === 'department'}
+                        setIsEditing={() => setCurrentlyEditing(null)}
+                        onEditStatus={() => handleEditStatus('department')}
+                        className="mt-1 text-xs leading-5 text-gray-500"
+                      />
+                    </div>
+                    <Button
+                      type="button"
+                      className="h-6 w-6 flex-none overflow-hidden rounded-full bg-gray-50"
+                      onClick={handleDeleteOnClick}
+                    >
+                      <TrashIcon
+                        className="h-6 w-6 flex-none text-red-600"
+                        aria-hidden="true"
+                      />
+                    </Button>
+                  </div>
                 </div>
-                <Button
-                  type="button"
-                  className="h-6 w-6 flex-none overflow-hidden rounded-full bg-gray-50"
-                  onClick={handleDeleteOnClick}
-                >
-                  <TrashIcon
-                    className="h-6 w-6 flex-none text-red-600"
-                    aria-hidden="true"
-                  />
-                </Button>
-              </div>
-            </div>
-          </Article>
-        </Section>
+              </Article>
+            ) : (
+              <Message className="flex h-full min-h-screen items-center justify-center">
+                No data found
+              </Message>
+            )}
+          </Section>
+        </div>
       </div>
-    </div>
+    </AuthCheck>
   )
 }
 
