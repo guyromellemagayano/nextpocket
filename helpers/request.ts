@@ -1,11 +1,11 @@
-import instance, { AXIOS_INSTANCE, handleError } from '@lib/axios'
+import { AXIOS_INSTANCE, axiosInstance, handleError } from '@lib'
 
-type TRequestCommonProps = {
+type TRequesTCommonComponentProps = {
   url: string
   options?: typeof AXIOS_INSTANCE
 }
 
-type TRequestData = {
+export type TRequestData = {
   key?: string
   avatar?: string
   collectionId?: string
@@ -19,15 +19,15 @@ type TRequestData = {
   updated?: string
 }
 
-type THandleGetProps = TRequestCommonProps
+type THandleGetProps = TRequesTCommonComponentProps
 
-type THandlePostProps = TRequestCommonProps & {
+type THandlePostProps = TRequesTCommonComponentProps & {
   data?: TRequestData | object
 }
 
 type THandlePutProps = THandlePostProps
 
-type THandleDeleteProps = TRequestCommonProps
+type THandleDeleteProps = TRequesTCommonComponentProps
 
 type TRequestProps = THandlePostProps & {
   method:
@@ -53,9 +53,9 @@ type TRequestProps = THandlePostProps & {
  */
 const handleGet = async <T = any>({
   url,
-  options,
+  options
 }: THandleGetProps): Promise<void | Awaited<T>> =>
-  await instance
+  await axiosInstance
     .get<T>(url, options)
     .then(res => res.data)
     .catch(err => handleError(err))
@@ -72,9 +72,9 @@ const handleGet = async <T = any>({
 const handlePost = async <T = any>({
   url,
   data,
-  options,
+  options
 }: THandlePostProps): Promise<void | Awaited<T>> =>
-  await instance
+  await axiosInstance
     .post<T>(url, data, options)
     .then(res => res.data)
     .catch(err => handleError(err))
@@ -91,9 +91,9 @@ const handlePost = async <T = any>({
 const handlePut = async <T = any>({
   url,
   data,
-  options,
+  options
 }: THandlePutProps): Promise<void | Awaited<T>> =>
-  await instance
+  await axiosInstance
     .put<T>(url, data, options)
     .then(res => res.data)
     .catch(err => handleError(err))
@@ -109,9 +109,9 @@ const handlePut = async <T = any>({
 const handlePatch = async <T = any>({
   url,
   data,
-  options,
+  options
 }: THandlePutProps): Promise<void | Awaited<T>> =>
-  await instance
+  await axiosInstance
     .patch<T>(url, data, options)
     .then(res => res.data)
     .catch(err => handleError(err))
@@ -127,9 +127,9 @@ const handlePatch = async <T = any>({
  */
 const handleDelete = async <T = any>({
   url,
-  options,
+  options
 }: THandleDeleteProps): Promise<void | Awaited<T>> =>
-  await instance
+  await axiosInstance
     .delete<T>(url, options)
     .then(res => res.data)
     .catch(err => handleError(err))
@@ -148,7 +148,7 @@ const request = async <T = unknown>({
   method,
   url,
   data,
-  options,
+  options
 }: TRequestProps): Promise<void | Awaited<T>> => {
   switch (method) {
     case 'GET':

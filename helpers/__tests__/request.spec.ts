@@ -1,16 +1,18 @@
 import mockAxios from 'jest-mock-axios'
 
-import { API_HOST_LOCAL } from '@config/env'
-import request from '@helpers/request'
-import axios from '@lib/axios'
+import { API_HOST_LOCAL } from '@config'
+import { request } from '@helpers'
+import { axiosInstance } from '@lib'
 
 // Mock the custom `axios` instance
-jest.mock('@lib/axios', () => ({
-  get: jest.fn(),
-  post: jest.fn(),
-  put: jest.fn(),
-  patch: jest.fn(),
-  delete: jest.fn(),
+jest.mock('@lib', () => ({
+  axiosInstance: {
+    get: jest.fn(),
+    post: jest.fn(),
+    put: jest.fn(),
+    patch: jest.fn(),
+    delete: jest.fn()
+  }
 }))
 
 describe('request()', () => {
@@ -18,11 +20,11 @@ describe('request()', () => {
 
   beforeEach(() => {
     // Reset `axios` mocks
-    ;(axios.get as jest.Mock).mockReset()
-    ;(axios.post as jest.Mock).mockReset()
-    ;(axios.put as jest.Mock).mockReset()
-    ;(axios.patch as jest.Mock).mockReset()
-    ;(axios.delete as jest.Mock).mockReset()
+    ;(axiosInstance.get as jest.Mock).mockReset()
+    ;(axiosInstance.post as jest.Mock).mockReset()
+    ;(axiosInstance.put as jest.Mock).mockReset()
+    ;(axiosInstance.patch as jest.Mock).mockReset()
+    ;(axiosInstance.delete as jest.Mock).mockReset()
 
     // Reset other axios mocks (if using `jest-mock-axios`)
     mockAxios.reset()
@@ -51,23 +53,23 @@ describe('request()', () => {
           id: 'id456',
           name: 'GenericName',
           title: 'GenericTitle',
-          updated: '2023-01-01 00:01:00.000Z',
-        },
-      ],
+          updated: '2023-01-01 00:01:00.000Z'
+        }
+      ]
     }
 
     // Mock the GET request for the custom `axios` instance
-    ;(axios.get as jest.Mock).mockResolvedValue({ data: mockResponse })
+    ;(axiosInstance.get as jest.Mock).mockResolvedValue({ data: mockResponse })
 
     const result = await request({
       method: 'get',
-      url: `${API_MOCK}/collections/notes/records`,
+      url: `${API_MOCK}/collections/notes/records`
     })
 
     expect(result).toEqual(mockResponse)
-    expect(axios.get).toHaveBeenCalledWith(
+    expect(axiosInstance.get).toHaveBeenCalledWith(
       `${API_MOCK}/collections/notes/records`,
-      undefined,
+      undefined
     )
   })
 
@@ -75,23 +77,23 @@ describe('request()', () => {
     const mockError = new Error()
 
     // Mock the GET request for the custom `axios` instance to reject with an error
-    ;(axios.get as jest.Mock).mockRejectedValue(mockError)
+    ;(axiosInstance.get as jest.Mock).mockRejectedValue(mockError)
 
     let error: unknown
 
     try {
       await request({
         method: 'get',
-        url: `${API_MOCK}//collections/notes/records`,
+        url: `${API_MOCK}//collections/notes/records`
       })
     } catch (err) {
       error = err
     }
 
     expect(error).toBeInstanceOf(Error)
-    expect(axios.get).toHaveBeenCalledWith(
+    expect(axiosInstance.get).toHaveBeenCalledWith(
       `${API_MOCK}//collections/notes/records`,
-      undefined,
+      undefined
     )
   })
 
@@ -112,9 +114,9 @@ describe('request()', () => {
           id: 'id456',
           name: 'GenericName',
           title: 'GenericTitle',
-          updated: '2023-01-01 00:01:00.000Z',
-        },
-      ],
+          updated: '2023-01-01 00:01:00.000Z'
+        }
+      ]
     }
     const payload = {
       avatar: 'https://example.com/image2.jpg',
@@ -126,33 +128,33 @@ describe('request()', () => {
       id: 'id012',
       name: 'AnotherGenericName',
       title: 'AnotherGenericTitle',
-      updated: '2023-01-02 00:01:00.000Z',
+      updated: '2023-01-02 00:01:00.000Z'
     }
 
     // Mock the POST request for the custom `axios` instance
-    ;(axios.post as jest.Mock).mockResolvedValue({ data: mockData })
+    ;(axiosInstance.post as jest.Mock).mockResolvedValue({ data: mockData })
 
     const result = await request({
       method: 'post',
       url: `${API_MOCK}/collections/notes/records`,
-      data: payload,
+      data: payload
     })
 
     expect(result).toEqual(mockData)
-    expect(axios.post).toHaveBeenCalledWith(
+    expect(axiosInstance.post).toHaveBeenCalledWith(
       `${API_MOCK}/collections/notes/records`,
       payload,
-      undefined,
+      undefined
     )
   })
 
-  it('Handles an failed POST request', async () => {
+  it('Handles a failed POST request', async () => {
     // Mocked error payload
     const mockErrorData = new Error()
     const mockError = { response: { data: mockErrorData } }
 
     // Mock the POST request to reject with the specified error
-    ;(axios.post as jest.Mock).mockRejectedValue(mockError)
+    ;(axiosInstance.post as jest.Mock).mockRejectedValue(mockError)
 
     let error: unknown
 
@@ -161,23 +163,24 @@ describe('request()', () => {
       company: 'YetAnotherGenericCompany',
       department: 'YetAnotherGenericDepartment',
       name: 'YetAnotherGenericName',
-      title: 'YetAnotherGenericTitle',
+      title: 'YetAnotherGenericTitle'
     }
 
     try {
       await request({
         method: 'post',
         url: `${API_MOCK}/collections/notes/records`,
-        data: payload,
+        data: payload
       })
     } catch (err) {
       error = err
     }
 
-    expect(axios.post).toHaveBeenCalledWith(
+    expect(error).toBeInstanceOf(Error)
+    expect(axiosInstance.post).toHaveBeenCalledWith(
       `${API_MOCK}/collections/notes/records`,
       payload,
-      undefined,
+      undefined
     )
   })
 
@@ -192,29 +195,29 @@ describe('request()', () => {
       id: 'id678',
       name: 'SomeGenericName',
       title: 'SomeGenericTitle',
-      updated: '2023-01-03 00:01:00.000Z',
+      updated: '2023-01-03 00:01:00.000Z'
     }
     const payload = {
       company: 'UpdatedGenericCompany',
       department: 'UpdatedGenericDepartment',
       name: 'UpdatedGenericName',
-      title: 'UpdatedGenericTitle',
+      title: 'UpdatedGenericTitle'
     }
 
     // Mock the PUT request for the custom `axios` instance
-    ;(axios.put as jest.Mock).mockResolvedValue({ data: mockData })
+    ;(axiosInstance.put as jest.Mock).mockResolvedValue({ data: mockData })
 
     const result = await request({
       method: 'put',
       url: `${API_MOCK}/collections/notes/records/4qlt1663bne0nbm`,
-      data: payload,
+      data: payload
     })
 
     expect(result).toEqual(mockData)
-    expect(axios.put).toHaveBeenCalledWith(
+    expect(axiosInstance.put).toHaveBeenCalledWith(
       `${API_MOCK}/collections/notes/records/4qlt1663bne0nbm`,
       payload,
-      undefined,
+      undefined
     )
   })
 
@@ -224,7 +227,7 @@ describe('request()', () => {
     const mockError = { response: { data: mockErrorData } }
 
     // Mock the PUT request to reject with the specified error
-    ;(axios.put as jest.Mock).mockRejectedValue(mockError)
+    ;(axiosInstance.put as jest.Mock).mockRejectedValue(mockError)
 
     let error: unknown
 
@@ -232,23 +235,24 @@ describe('request()', () => {
       company: 'UpdatedGenericCompany',
       department: 'UpdatedGenericDepartment',
       name: 'UpdatedGenericName',
-      title: 'UpdatedGenericTitle',
+      title: 'UpdatedGenericTitle'
     }
 
     try {
       await request({
         method: 'put',
         url: `${API_MOCK}/collections/notes/records/4qlt1663bne0nbm`,
-        data: payload,
+        data: payload
       })
     } catch (err) {
       error = err
     }
 
-    expect(axios.put).toHaveBeenCalledWith(
+    expect(error).toBeInstanceOf(Error)
+    expect(axiosInstance.put).toHaveBeenCalledWith(
       `${API_MOCK}/collections/notes/records/4qlt1663bne0nbm`,
       payload,
-      undefined,
+      undefined
     )
   })
 
@@ -263,29 +267,29 @@ describe('request()', () => {
       id: 'id901',
       name: 'PatchedGenericName',
       title: 'PatchedGenericTitle',
-      updated: '2023-01-04 00:01:00.000Z',
+      updated: '2023-01-04 00:01:00.000Z'
     }
     const payload = {
       company: 'PatchedAgainGenericCompany',
       department: 'PatchedAgainGenericDepartment',
       name: 'PatchedAgainGenericName',
-      title: 'PatchedAgainGenericTitle',
+      title: 'PatchedAgainGenericTitle'
     }
 
     // Mock the PATCH request for the custom axios instance
-    ;(axios.patch as jest.Mock).mockResolvedValue({ data: mockData })
+    ;(axiosInstance.patch as jest.Mock).mockResolvedValue({ data: mockData })
 
     const result = await request({
       method: 'patch',
       url: `${API_MOCK}/collections/notes/records/id901`,
-      data: payload,
+      data: payload
     })
 
     expect(result).toEqual(mockData)
-    expect(axios.patch).toHaveBeenCalledWith(
+    expect(axiosInstance.patch).toHaveBeenCalledWith(
       `${API_MOCK}/collections/notes/records/id901`,
       payload,
-      undefined,
+      undefined
     )
   })
 
@@ -294,7 +298,7 @@ describe('request()', () => {
     const mockError = { response: { data: mockErrorData } }
 
     // Mock the PATCH request to reject with the specified error
-    ;(axios.patch as jest.Mock).mockRejectedValue(mockError)
+    ;(axiosInstance.patch as jest.Mock).mockRejectedValue(mockError)
 
     let error: unknown
 
@@ -302,43 +306,44 @@ describe('request()', () => {
       company: 'FailedPatchCompany',
       department: 'FailedPatchDepartment',
       name: 'FailedPatchName',
-      title: 'FailedPatchTitle',
+      title: 'FailedPatchTitle'
     }
 
     try {
       await request({
         method: 'patch',
         url: `${API_MOCK}/collections/notes/records/id901`,
-        data: payload,
+        data: payload
       })
     } catch (err) {
       error = err
     }
 
-    expect(axios.patch).toHaveBeenCalledWith(
+    expect(error).toBeInstanceOf(Error)
+    expect(axiosInstance.patch).toHaveBeenCalledWith(
       `${API_MOCK}/collections/notes/records/id901`,
       payload,
-      undefined,
+      undefined
     )
   })
 
   it('Handles a successful DELETE request', async () => {
     const mockData = {
-      message: 'Record successfully deleted',
+      message: 'Record successfully deleted'
     }
 
     // Mock the DELETE request for the custom axios instance
-    ;(axios.delete as jest.Mock).mockResolvedValue({ data: mockData })
+    ;(axiosInstance.delete as jest.Mock).mockResolvedValue({ data: mockData })
 
     const result = await request({
       method: 'delete',
-      url: `${API_MOCK}/collections/notes/records/id901`,
+      url: `${API_MOCK}/collections/notes/records/id901`
     })
 
     expect(result).toEqual(mockData)
-    expect(axios.delete).toHaveBeenCalledWith(
+    expect(axiosInstance.delete).toHaveBeenCalledWith(
       `${API_MOCK}/collections/notes/records/id901`,
-      undefined,
+      undefined
     )
   })
 
@@ -347,22 +352,23 @@ describe('request()', () => {
     const mockError = { response: { data: mockErrorData } }
 
     // Mock the DELETE request to reject with the specified error
-    ;(axios.delete as jest.Mock).mockRejectedValue(mockError)
+    ;(axiosInstance.delete as jest.Mock).mockRejectedValue(mockError)
 
     let error: unknown
 
     try {
       await request({
         method: 'delete',
-        url: `${API_MOCK}/collections/notes/records/id901`,
+        url: `${API_MOCK}/collections/notes/records/id901`
       })
     } catch (err) {
       error = err
     }
 
-    expect(axios.delete).toHaveBeenCalledWith(
+    expect(error).toBeInstanceOf(Error)
+    expect(axiosInstance.delete).toHaveBeenCalledWith(
       `${API_MOCK}/collections/notes/records/id901`,
-      undefined,
+      undefined
     )
   })
 })
