@@ -1,3 +1,5 @@
+import { TRequestData } from '@helpers'
+
 export type TNotesCollectionFormData = {
   id: string
   placeholder: string
@@ -13,6 +15,18 @@ export type TPageLinks = {
   href: string
 }
 
+export type TNotesPageNotesData = TRequestData & {
+  value?: string
+}
+
+export type TNotesListData = {
+  page: number
+  perPage: number
+  totalItems: number
+  totalPages: number
+  items: TNotesPageNotesData[]
+}
+
 export const NOTES_COLLECTION_FORM_DATA: TNotesCollectionFormData[] = [
   {
     id: 'title',
@@ -20,7 +34,7 @@ export const NOTES_COLLECTION_FORM_DATA: TNotesCollectionFormData[] = [
     type: 'text',
     required: true,
     minLength: 2,
-    maxLength: 255,
+    maxLength: 255
   },
   {
     id: 'company',
@@ -28,7 +42,7 @@ export const NOTES_COLLECTION_FORM_DATA: TNotesCollectionFormData[] = [
     type: 'text',
     required: true,
     minLength: 1,
-    maxLength: 255,
+    maxLength: 255
   },
   {
     id: 'avatar',
@@ -36,7 +50,7 @@ export const NOTES_COLLECTION_FORM_DATA: TNotesCollectionFormData[] = [
     type: 'url',
     required: true,
     minLength: 8,
-    maxLength: 512,
+    maxLength: 512
   },
   {
     id: 'name',
@@ -44,7 +58,7 @@ export const NOTES_COLLECTION_FORM_DATA: TNotesCollectionFormData[] = [
     type: 'text',
     required: true,
     minLength: 2,
-    maxLength: 255,
+    maxLength: 255
   },
   {
     id: 'department',
@@ -52,8 +66,8 @@ export const NOTES_COLLECTION_FORM_DATA: TNotesCollectionFormData[] = [
     type: 'text',
     required: true,
     minLength: 2,
-    maxLength: 255,
-  },
+    maxLength: 255
+  }
 ]
 
 export const PAGE_LINKS: TPageLinks[] = [
@@ -61,5 +75,5 @@ export const PAGE_LINKS: TPageLinks[] = [
   { name: 'Notes', slug: 'notes', href: '/notes' },
   { name: 'Log in', slug: 'login', href: '/login' },
   { name: 'View profile', slug: 'profile', href: '/profile' },
-  { name: 'Log out', slug: 'logout', href: '/logout' },
+  { name: 'Log out', slug: 'logout', href: '/logout' }
 ]
