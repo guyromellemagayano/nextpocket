@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios'
 
-import { API_HOST_LOCAL } from '@config/env'
+import { API_HOST_LOCAL } from '@config'
 
 export type TAxiosErrorResponse = {
   message?: string
@@ -9,8 +9,8 @@ export type TAxiosErrorResponse = {
 export const AXIOS_INSTANCE = {
   baseURL: API_HOST_LOCAL,
   headers: {
-    'Cache-Control': 'no-cache',
-  },
+    'Cache-Control': 'no-cache'
+  }
 }
 
 /**
@@ -21,7 +21,7 @@ export const AXIOS_INSTANCE = {
  * @throws An error message describing the error that occurred.
  */
 export const handleError = <T = any>(
-  err: AxiosError<TAxiosErrorResponse>,
+  err: AxiosError<TAxiosErrorResponse>
 ): void | Awaited<T> => {
   const axiosError = err as AxiosError<TAxiosErrorResponse>
 
@@ -29,7 +29,7 @@ export const handleError = <T = any>(
     // Server responded with a status other than 2xx
     throw new Error(
       axiosError.response.data.message ||
-        'An error occurred while fetching data.',
+        'An error occurred while fetching data.'
     )
   } else if (axiosError.request) {
     // Request was made, but no response received
@@ -46,23 +46,22 @@ export const handleError = <T = any>(
  * @param config - The configuration object for the Axios instance.
  * @returns The newly created Axios instance.
  */
-const instance = axios.create(AXIOS_INSTANCE)
+const axiosInstance = axios.create(AXIOS_INSTANCE)
 
-instance.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   config => {
     config.params = {
-      ...config.params,
-      _: Date.now(),
+      ...config.params
     }
 
     return config
   },
-  error => Promise.reject(error),
+  error => Promise.reject(error)
 )
 
-instance.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   response => response,
-  (error: AxiosError) => Promise.reject(error),
+  (error: AxiosError) => Promise.reject(error)
 )
 
-export default instance
+export default axiosInstance
