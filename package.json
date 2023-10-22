@@ -54,6 +54,7 @@
     "next-auth": "^4.24.3",
     "next-compose-plugins": "^2.2.1",
     "next-pwa": "^5.6.0",
+    "pocketbase": "^0.19.0",
     "postcss-focus-visible": "^9.0.0",
     "postgres": "^3.4.0",
     "query-string": "^8.1.0",
