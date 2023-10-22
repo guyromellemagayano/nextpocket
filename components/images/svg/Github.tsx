@@ -2,15 +2,18 @@
 
 import { FC } from 'react'
 
-import { TSvgImageProps } from '@types'
+import { TCommonComponentProps } from '@components'
+
+type TSvgImageProps = TCommonComponentProps
 
 /**
  * Renders a GitHub SVG image.
+ *
+ * @param className - The CSS class name for the SVG image.
+ * @param props - The SVG image props.
+ * @returns A GitHub SVG image element.
  */
-const GithubSvgImage: FC<TSvgImageProps> = ({
-  className,
-  ...props
-}): JSX.Element => (
+const GithubSvgImage: FC<TSvgImageProps> = ({ className, ...props }) => (
   <svg
     className={className}
     aria-hidden="true"

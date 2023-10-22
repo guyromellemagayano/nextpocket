@@ -1,22 +1,31 @@
 'use client'
 
-import { FC } from 'react'
-
 import { yupResolver } from '@hookform/resolvers/yup'
 import clsx from 'clsx'
+import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import { Button } from '@components'
-import { TFormProps } from '@types'
+import { TNotesCollectionFormData } from '@config'
+
+export type TFormProps = {
+  data: TNotesCollectionFormData[]
+  onSubmit: (e: any) => void
+  [key: string]: any
+}
 
 /**
  * Defines the Yup validation schema for the form.
+ *
+ * @param data - The form data.
+ * @param onSubmit - The form submit handler.
+ * @returns A form element.
  */
-const Form: FC<TFormProps> = ({ data, onSubmit }): JSX.Element => {
+const Form: FC<TFormProps> = ({ data, onSubmit, ...props }) => {
   const formSchema = yup.object().shape(
     data.reduce(
-      (acc, curr) => {
+      (acc: any, curr: any) => {
         switch (curr.type) {
           case 'email':
             acc[curr.id] = yup
@@ -45,18 +54,18 @@ const Form: FC<TFormProps> = ({ data, onSubmit }): JSX.Element => {
 
         return acc
       },
-      {} as { [key: string]: yup.StringSchema },
-    ),
+      {} as { [key: string]: yup.StringSchema }
+    )
   )
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
     resolver: yupResolver(formSchema),
     mode: 'onSubmit',
-    reValidateMode: 'onChange',
+    reValidateMode: 'onChange'
   })
 
   return (
@@ -64,39 +73,38 @@ const Form: FC<TFormProps> = ({ data, onSubmit }): JSX.Element => {
       className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2"
       onSubmit={handleSubmit(onSubmit)}
       noValidate
+      {...props}
     >
       <div className="px-4 py-6 sm:p-8">
         <div className="grid grid-cols-1 gap-x-6 gap-y-3">
-          {data.map(
-            ({ id, placeholder, type }): JSX.Element => (
-              <div key={id} className="sm:col-span-4">
-                <div className="mt-2">
-                  <div
+          {data.map(({ id, placeholder, type }) => (
+            <div key={id} className="sm:col-span-4">
+              <div className="mt-2">
+                <div
+                  className={clsx(
+                    'flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset ',
+                    errors[id]
+                      ? 'focus-within:ring-red-600'
+                      : 'focus-within:ring-indigo-600'
+                  )}
+                >
+                  <input
+                    type={type}
+                    id={id}
                     className={clsx(
-                      'flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset ',
+                      'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6',
                       errors[id]
-                        ? 'focus-within:ring-red-600'
-                        : 'focus-within:ring-indigo-600',
+                        ? 'focus:ring-red-600'
+                        : 'focus:ring-indigo-600'
                     )}
-                  >
-                    <input
-                      type={type}
-                      id={id}
-                      className={clsx(
-                        'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6',
-                        errors[id]
-                          ? 'focus:ring-red-600'
-                          : 'focus:ring-indigo-600',
-                      )}
-                      placeholder={placeholder}
-                      aria-invalid={errors[id] ? true : false}
-                      {...register(id)}
-                    />
-                  </div>
+                    placeholder={placeholder}
+                    aria-invalid={errors[id] ? true : false}
+                    {...register(id)}
+                  />
                 </div>
               </div>
-            ),
-          )}
+            </div>
+          ))}
         </div>
       </div>
       <div className="flex justify-evenly border-t border-gray-900/10 px-4 py-4 sm:px-8">

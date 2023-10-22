@@ -1,10 +1,9 @@
+import { useSession } from 'next-auth/react'
 import { FC } from 'react'
 
-import { useSession } from 'next-auth/react'
+import { TCommonComponentProps } from '@components'
 
-import { TCommonProps } from '@types'
-
-const AuthCheck: FC<TCommonProps> = ({ children }): JSX.Element => {
+const AuthCheck: FC<TCommonComponentProps> = ({ children }) => {
   const { data: session, status } = useSession()
 
   if (session && status === 'authenticated') {

@@ -1,20 +1,29 @@
 'use client'
 
-import { FC } from 'react'
+import { FC, HTMLAttributes } from 'react'
 
-import { Card } from '@components'
-import { TListProps, TRequestData } from '@types'
+import { Card, TCommonComponentProps } from '@components'
+import { TNotesPageNotesData } from '@config'
+import { TRequestData } from '@helpers'
+
+type TListProps = HTMLAttributes<HTMLUListElement | HTMLOListElement> &
+  TCommonComponentProps & {
+    data: TNotesPageNotesData[]
+    ordered?: boolean
+  }
 
 /**
  * Renders a list of items with cards.
+ *
+ * @param data - The list data.
+ * @param ordered - The list type.
+ * @param className - The CSS class name for the list.
+ * @param props - The list props.
+ * @returns A list element.
  */
-const List: FC<TListProps> = ({
-  ordered = false,
-  data = [],
-  ...props
-}): JSX.Element => {
+const List: FC<TListProps> = ({ ordered = false, data = [], ...props }) => {
   const renderList = data.map(
-    ({ id, company, avatar, title }: TRequestData): JSX.Element => {
+    ({ id, company, avatar, title }: TRequestData) => {
       const notesLink = `/notes/${id}`
 
       return (
@@ -30,7 +39,7 @@ const List: FC<TListProps> = ({
           />
         </li>
       )
-    },
+    }
   )
 
   if (data.length === 0) return null
