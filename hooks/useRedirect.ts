@@ -1,9 +1,9 @@
 import { Session } from 'next-auth'
 import { useSession } from 'next-auth/react'
 
-import { PAGE_LINKS, TPageLinks } from '@config/data'
+import { PAGE_LINKS, TPageLinks } from '@config'
 
-type TUseRedirect = {
+type TUseRedirect = () => {
   navigation: TPageLinks[]
   session: Session
   status: string
@@ -14,7 +14,7 @@ type TUseRedirect = {
  *
  * @returns An object containing navigation links, session data, and status.
  */
-const useRedirect = (): TUseRedirect => {
+const useRedirect: TUseRedirect = () => {
   const { data: session, status } = useSession()
 
   const navigation = PAGE_LINKS
