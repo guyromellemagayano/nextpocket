@@ -12573,6 +12573,7 @@ __metadata:
     next-auth: ^4.24.3
     next-compose-plugins: ^2.2.1
     next-pwa: ^5.6.0
+    pocketbase: ^0.19.0
     postcss: ^8.4.31
     postcss-focus-visible: ^9.0.0
     postgres: ^3.4.0
@@ -13383,6 +13384,13 @@ __metadata:
   dependencies:
     find-up: ^4.0.0
   checksum: 9863e3f35132bf99ae1636d31ff1e1e3501251d480336edb1c211133c8d58906bed80f154a1d723652df1fda91e01c7442c2eeaf9dc83157c7ae89087e43c8d6
+  languageName: node
+  linkType: hard
+
+"pocketbase@npm:^0.19.0":
+  version: 0.19.0
+  resolution: "pocketbase@npm:0.19.0"
+  checksum: 6f95787cabd1cdb87165b404c1a35d14a42054718cc45d438bf685bfde8519c333df6bee5e9a5692c5e523a6d6ad6ff03c08642f63c5440fe6db8063c753c86f
   languageName: node
   linkType: hard
 
