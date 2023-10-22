@@ -7,7 +7,7 @@ import { Article, Section } from '@components'
 /**
  * Renders the Home page
  */
-const HomePage: FC = (): JSX.Element => {
+const HomePage: FC = () => {
   return (
     <Section className="mx-auto my-6 flex min-h-screen w-full items-center justify-center">
       <Article className="text-center">
