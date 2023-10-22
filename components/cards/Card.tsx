@@ -1,25 +1,39 @@
 'use client'
 
+import Link from 'next/link'
 import { FC } from 'react'
 
-import Link from 'next/link'
-
 import { Image, Paragraph } from '@components'
-import { TCardProps } from '@types'
+
+type TCardProps = {
+  heading?: string
+  subheading?: string
+  image?: string
+  href?: string
+  [key: string]: any
+}
 
 /**
- * Renders a card component.
+ * A reusable card component.
+ *
+ * @param heading - The card heading.
+ * @param subheading - The card subheading.
+ * @param image - The card image.
+ * @param href - The card link.
+ * @returns A card element.
  */
 const Card: FC<TCardProps> = ({
   heading = '',
   subheading = '',
   image = '#',
   href = '#',
-}): JSX.Element => {
+  ...props
+}) => {
   return (
     <Link
       href={href}
       className="flex w-full items-center justify-between space-x-6 p-6"
+      {...props}
     >
       <div className="flex-1 truncate">
         <div className="flex items-center space-x-3">

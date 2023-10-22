@@ -1,16 +1,41 @@
-import { FC } from 'react'
+import { FC, HTMLAttributes, Ref } from 'react'
 
-import { THeadingProps } from '@types'
+import { TCommonComponentProps } from '@components'
+
+type THeadingProps = HTMLAttributes<HTMLHeadingElement> &
+  HTMLAttributes<MouseEvent> &
+  TCommonComponentProps & {
+    ref?: Ref<HTMLHeadingElement>
+    size?:
+      | 'h1'
+      | 'H1'
+      | 'h2'
+      | 'H2'
+      | 'h3'
+      | 'H3'
+      | 'h4'
+      | 'H4'
+      | 'h5'
+      | 'H5'
+      | 'h6'
+      | 'H6'
+  }
 
 /**
  * Heading component that renders any valid heading from `h1` to `h6`.
+ *
+ * @param children - The heading children.
+ * @param className - The CSS class name for the heading.
+ * @param size - The heading size.
+ * @param props - The heading props.
+ * @returns A heading element.
  */
 const Heading: FC<THeadingProps> = ({
   children,
   className,
   size,
   ...props
-}): JSX.Element => {
+}) => {
   switch (size) {
     case 'h1':
     case 'H1':

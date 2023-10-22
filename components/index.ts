@@ -1,13 +1,20 @@
-export { default as AuthCheck } from './auth/AuthCheck'
-export { default as Button } from './buttons/Button'
-export { default as Card } from './cards/Card'
-export { default as Form } from './forms/Form'
-export { default as Image } from './images/Image'
-export { default as GithubSvgImage } from './images/svg/Github'
-export { Article, Main, Section } from './layouts/Content'
-export { default as Header } from './layouts/Header'
-export { default as Sidebar } from './layouts/Sidebar'
-export { default as List } from './lists/List'
-export { default as Message } from './messages/Message'
-export { default as Heading } from './typography/Heading'
-export { default as Paragraph } from './typography/Paragraph'
+import { ReactNode } from 'react'
+
+export type TCommonComponentProps = {
+  children?: ReactNode
+  className?: string
+  [key: string]: any
+}
+
+export type TLayoutProps = TCommonComponentProps
+
+export { AuthCheck } from './auth'
+export { Avatar } from './avatar'
+export { Button } from './buttons'
+export { Card } from './cards'
+export { EditableForm, Form } from './forms'
+export { GithubSvgImage, Image } from './images'
+export { Article, Header, Main, Section, Sidebar } from './layouts'
+export { List } from './lists'
+export { Message } from './messages'
+export { Heading, Paragraph } from './typography'

@@ -1,13 +1,20 @@
 'use client'
 
-import { FC } from 'react'
+import { ButtonHTMLAttributes, FC } from 'react'
 
-import { TButtonProps } from '@types'
+import { TCommonComponentProps } from '@components'
+
+type TButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
+  TCommonComponentProps
 
 /**
  * A reusable button component.
+ *
+ * @param className - The CSS class name for the button.
+ * @param props - The button props.
+ * @returns A button element.
  */
-const Button: FC<TButtonProps> = ({ className, ...props }): JSX.Element => {
+const Button: FC<TButtonProps> = ({ className, ...props }) => {
   return <button className={className} {...props} />
 }
 

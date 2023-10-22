@@ -1,22 +1,21 @@
 'use client'
 
-import { FC, useState } from 'react'
-
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
-import { signOut } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { signOut } from 'next-auth/react'
+import { FC, useState } from 'react'
 
-import { Button } from '@components'
+import { AuthCheck, Button } from '@components'
 import { useRedirect } from '@hooks'
 import { arrayFilter } from '@utils'
 
 /**
  * Header component that displays the navigation bar and menu for the NextPocket website.
  */
-const Header: FC = (): JSX.Element => {
+const Header: FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false)
   const { navigation, session, status } = useRedirect()
 
@@ -54,49 +53,74 @@ const Header: FC = (): JSX.Element => {
           </Link>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
-          {middleLinks.map(item => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="text-sm font-semibold leading-6 text-gray-900"
-            >
-              {item.name}
-            </Link>
-          ))}
+          {middleLinks.map(item =>
+            item.slug === 'notes' ? (
+              <AuthCheck key={item.name}>
+                <Link
+                  href={item.href}
+                  className="text-sm font-semibold leading-6 text-gray-900"
+                >
+                  {item.name}
+                </Link>
+              </AuthCheck>
+            ) : (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="text-sm font-semibold leading-6 text-gray-900"
+              >
+                {item.name}
+              </Link>
+            )
+          )}
         </div>
         <div className="flex flex-1 items-center justify-end gap-x-6">
           {rightLinks
             .sort(
               (a, b) =>
                 (a.slug === 'profile' || a.slug === 'login' ? -1 : 1) -
-                (b.slug === 'profile' || a.slug === 'login' ? -1 : 1),
+                (b.slug === 'profile' || a.slug === 'login' ? -1 : 1)
             )
             .map(item =>
-              item.slug === 'profile' || item.slug === 'login' ? (
+              item.slug === 'profile' ? (
+                <AuthCheck key={item.name}>
+                  <Link
+                    href={item.href}
+                    className={clsx(
+                      item.slug === 'profile' || item.slug === 'login'
+                        ? 'rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+                        : 'hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900'
+                    )}
+                  >
+                    {item.name}
+                  </Link>
+                </AuthCheck>
+              ) : item.slug === 'login' ? (
                 <Link
                   key={item.name}
                   href={item.href}
                   className={clsx(
                     item.slug === 'profile' || item.slug === 'login'
                       ? 'rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-                      : 'hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900',
+                      : 'hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900'
                   )}
                 >
                   {item.name}
                 </Link>
               ) : (
-                <Button
-                  key={item.name}
-                  className="hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900"
-                  onClick={() =>
-                    signOut({
-                      callbackUrl: '/login',
-                    })
-                  }
-                >
-                  {item.name}
-                </Button>
-              ),
+                <AuthCheck key={item.name}>
+                  <Button
+                    className="hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900"
+                    onClick={() =>
+                      signOut({
+                        callbackUrl: '/login'
+                      })
+                    }
+                  >
+                    {item.name}
+                  </Button>
+                </AuthCheck>
+              )
             )}
         </div>
         <div className="flex lg:hidden">
