@@ -1,8 +1,8 @@
 'use client'
 
 import clsx from 'clsx'
-import { redirect } from 'next/navigation'
 import { signIn } from 'next-auth/react'
+import { redirect } from 'next/navigation'
 import { FC } from 'react'
 
 import {
