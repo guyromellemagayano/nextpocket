@@ -31,9 +31,8 @@
       "@hooks": ["./hooks"],
       "@lib": ["./lib"],
       "@providers": ["./providers"],
-      "@public/*": ["./public/*"],
+      "@scripts": ["./scripts"],
       "@styles/*": ["./styles/*"],
-      "@types/*": ["./types/*"],
       "@utils": ["./utils"]
     },
     "plugins": [
