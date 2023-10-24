@@ -15,7 +15,7 @@ import useRedirect from '@hooks/useRedirect'
 /**
  * Render the Login page
  *
- * @returns {JSX.Element} - The Login page component
+ * @returns The Login page component
  */
 const LoginPage: FC = () => {
   const { session, status } = useRedirect()

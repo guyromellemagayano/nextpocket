@@ -13,7 +13,7 @@ import useRedirect from '@hooks/useRedirect'
 /**
  * Renders the Profile page
  *
- * @returns {JSX.Element} - The Profile page component
+ * @returns The Profile page component
  */
 const ProfilePage: FC = () => {
   const { session, status } = useRedirect()

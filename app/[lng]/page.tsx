@@ -7,7 +7,7 @@ import { Article, Section } from '@components/layouts/Content'
 /**
  * Renders the Home page
  *
- * @returns {JSX.Element} - The Home page component
+ * @returns The Home page component
  */
 const HomePage: FC = () => {
   return (

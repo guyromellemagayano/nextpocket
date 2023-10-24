@@ -23,7 +23,7 @@ import fetcher from '@utils/fetcher'
 /**
  * Renders the Notes page
  *
- * @returns {JSX.Element} - The Notes page component
+ * @returns The Notes page component
  */
 const NotesPage: FC = () => {
   const { session, status } = useRedirect()

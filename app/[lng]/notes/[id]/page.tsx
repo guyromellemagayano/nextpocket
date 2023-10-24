@@ -15,17 +15,23 @@ import request from '@helpers/request'
 import useRedirect from '@hooks/useRedirect'
 import fetcher from '@utils/fetcher'
 
+type TNotePage = {
+  params: {
+    id: string
+  }
+}
+
 /**
  * Renders a page for a specific note.
  *
- * @param {Object} params - The parameters for the note page.
- * @returns {JSX.Element} - The note page component.
+ * @param id - The note ID.
+ * @returns The Note page component
  */
-const NotePage: FC<any> = ({ params }) => {
+const NotePage: FC<TNotePage> = ({ params: { id } }) => {
   const { session, status } = useRedirect()
 
   const { data, isValidating, error, isLoading } = useSWR(
-    `${NOTE_PAGE_API_URL + params?.id}`,
+    `${NOTE_PAGE_API_URL + id}`,
     fetcher
   )
   const [currentlyEditing, setCurrentlyEditing] = useState<string | null>(null)
@@ -42,13 +48,13 @@ const NotePage: FC<any> = ({ params }) => {
   const handleDeleteOnClick = async (): Promise<void> => {
     const req = await request({
       method: 'DELETE',
-      url: `${NOTE_PAGE_API_URL + params.id}`
+      url: `${NOTE_PAGE_API_URL + id}`
     })
-    mutate(`${NOTE_PAGE_API_URL + params.id}`, req, false)
+    mutate(`${NOTE_PAGE_API_URL + id}`, req, false)
     router.push('/notes', { scroll: false })
   }
 
-  if (!params?.id) {
+  if (!id) {
     return (
       <Message className="flex h-full min-h-screen items-center justify-center">
         Error: No note ID provided
@@ -65,7 +71,7 @@ const NotePage: FC<any> = ({ params }) => {
   }
 
   if (!session && status === 'unauthenticated') {
-    redirect(`/login?callbackUrl=/notes/${params?.id}`)
+    redirect(`/login?callbackUrl=/notes/${id}`)
   }
 
   if (error) {
@@ -92,7 +98,7 @@ const NotePage: FC<any> = ({ params }) => {
               <Article className="flex min-w-0 items-start gap-x-4">
                 <EditableForm
                   field="avatar"
-                  params={params}
+                  id={id}
                   data={data || null}
                   isEditing={currentlyEditing === 'avatar'}
                   setIsEditing={() => setCurrentlyEditing(null)}
@@ -104,7 +110,7 @@ const NotePage: FC<any> = ({ params }) => {
                   <div className="min-w-0">
                     <EditableForm
                       field="name"
-                      params={params}
+                      id={id}
                       data={data || null}
                       isEditing={currentlyEditing === 'name'}
                       setIsEditing={() => setCurrentlyEditing(null)}
@@ -113,7 +119,7 @@ const NotePage: FC<any> = ({ params }) => {
                     />
                     <EditableForm
                       field="title"
-                      params={params}
+                      id={id}
                       data={data || null}
                       isEditing={currentlyEditing === 'title'}
                       setIsEditing={() => setCurrentlyEditing(null)}
@@ -126,7 +132,7 @@ const NotePage: FC<any> = ({ params }) => {
                     <div className="items-start sm:flex sm:flex-col md:items-end">
                       <EditableForm
                         field="company"
-                        params={params}
+                        id={id}
                         data={data || null}
                         isEditing={currentlyEditing === 'company'}
                         setIsEditing={() => setCurrentlyEditing(null)}
@@ -135,7 +141,7 @@ const NotePage: FC<any> = ({ params }) => {
                       />
                       <EditableForm
                         field="department"
-                        params={params}
+                        id={id}
                         data={data || null}
                         isEditing={currentlyEditing === 'department'}
                         setIsEditing={() => setCurrentlyEditing(null)}

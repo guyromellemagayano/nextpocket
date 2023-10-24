@@ -11,7 +11,7 @@ import request, { TRequestData } from '@helpers/request'
 
 type TEditableFormProps = {
   field: keyof TNotesPageNotesData
-  params?: any
+  id: string
   data?: TNotesPageNotesData
   width?: number
   height?: number
@@ -22,7 +22,7 @@ type TEditableFormProps = {
  * A reusable editable form component.
  *
  * @param field - The field to edit
- * @param params - The params of the component
+ * @param id - The id of the component
  * @param data - The data of the component
  * @param width - The width of the component
  * @param height - The height of the component
@@ -30,7 +30,7 @@ type TEditableFormProps = {
  */
 const EditableForm: FC<TEditableFormProps> = ({
   field,
-  params,
+  id,
   data,
   isEditing,
   width,
@@ -64,13 +64,13 @@ const EditableForm: FC<TEditableFormProps> = ({
     if (e.key === 'Enter') {
       const req = await request({
         method: 'PATCH',
-        url: `${NOTE_PAGE_API_URL + params.id}`,
+        url: `${NOTE_PAGE_API_URL + id}`,
         data: editableData
       })
-      mutate(`${NOTE_PAGE_API_URL + params.id}`, req, false)
+      mutate(`${NOTE_PAGE_API_URL + id}`, req, false)
       setIsEditing()
     } else if (e.key === 'Escape') {
-      mutate(`${NOTE_PAGE_API_URL + params.id}`, data, false)
+      mutate(`${NOTE_PAGE_API_URL + id}`, data, false)
 
       setIsEditing()
     }
@@ -90,7 +90,6 @@ const EditableForm: FC<TEditableFormProps> = ({
         width={width}
         height={height}
         field={field}
-        params={params}
         data={data}
         selectedField={selectedField}
         editableData={editableData}
