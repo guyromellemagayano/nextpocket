@@ -1,7 +1,7 @@
 /* eslint-disable import/order */
 import mockAxios from 'jest-mock-axios'
 
-import { API_HOST_LOCAL } from '@config'
+import { API_HOST_LOCAL } from '@config/env'
 
 // Mock the default `axios` instance
 // Mock only the `create` method of `axios` and return a mocked instance with interceptors
@@ -32,9 +32,7 @@ jest.mock('axios', () => {
   }
 })
 
-import { AXIOS_INSTANCE, axiosInstance, handleError } from '@lib'
-
-afterEach(() => {})
+import axiosInstance, { AXIOS_INSTANCE, handleError } from '@lib/axios'
 
 describe('handleError()', () => {
   it('throws an error with server response message', () => {

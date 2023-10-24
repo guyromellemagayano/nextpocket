@@ -1,4 +1,4 @@
-import { TRequestData } from '@helpers'
+import { TRequestData } from '@helpers/request'
 
 export type TNotesCollectionFormData = {
   id: string

@@ -4,17 +4,21 @@ import { redirect } from 'next/navigation'
 import { FC } from 'react'
 import useSWR, { mutate } from 'swr'
 
-import { AuthCheck, Form, List, Message, Section, Sidebar } from '@components'
+import AuthCheck from '@components/auth/AuthCheck'
+import Form from '@components/forms/Form'
+import { Section } from '@components/layouts/Content'
+import Sidebar from '@components/layouts/Sidebar'
+import List from '@components/lists/List'
+import Message from '@components/messages/Message'
+import { NOTES_PAGE_API_URL, NOTE_PAGE_API_URL } from '@config/api'
 import {
   NOTES_COLLECTION_FORM_DATA,
-  NOTES_PAGE_API_URL,
-  NOTE_PAGE_API_URL,
   TNotesListData,
   TNotesPageNotesData
-} from '@config'
-import { request } from '@helpers'
-import { useRedirect } from '@hooks'
-import { fetcher } from '@utils'
+} from '@config/data'
+import request from '@helpers/request'
+import useRedirect from '@hooks/useRedirect'
+import fetcher from '@utils/fetcher'
 
 /**
  * Renders the Notes page

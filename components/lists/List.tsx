@@ -2,22 +2,21 @@
 
 import { FC, HTMLAttributes } from 'react'
 
-import { Card, TCommonComponentProps } from '@components'
-import { TNotesPageNotesData } from '@config'
-import { TRequestData } from '@helpers'
+import Card from '@components/cards/Card'
+import { TNotesPageNotesData } from '@config/data'
+import { TRequestData } from '@helpers/request'
 
-type TListProps = HTMLAttributes<HTMLUListElement | HTMLOListElement> &
-  TCommonComponentProps & {
-    data: TNotesPageNotesData[]
-    ordered?: boolean
-  }
+type TListProps = HTMLAttributes<HTMLUListElement | HTMLOListElement> & {
+  data: TNotesPageNotesData[]
+  ordered?: boolean
+  [key: string]: any
+}
 
 /**
  * Renders a list of items with cards.
  *
  * @param data - The list data.
  * @param ordered - The list type.
- * @param className - The CSS class name for the list.
  * @param props - The list props.
  * @returns A list element.
  */

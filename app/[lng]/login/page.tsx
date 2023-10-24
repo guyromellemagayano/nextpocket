@@ -5,14 +5,12 @@ import { signIn } from 'next-auth/react'
 import { redirect } from 'next/navigation'
 import { FC } from 'react'
 
-import {
-  Button,
-  GithubSvgImage,
-  Heading,
-  Message,
-  Paragraph
-} from '@components'
-import { useRedirect } from '@hooks'
+import Button from '@components/buttons/Button'
+import GithubSvgImage from '@components/images/svg/Github'
+import Message from '@components/messages/Message'
+import Heading from '@components/typography/Heading'
+import Paragraph from '@components/typography/Paragraph'
+import useRedirect from '@hooks/useRedirect'
 
 /**
  * Render the Login page

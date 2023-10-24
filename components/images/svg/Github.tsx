@@ -2,9 +2,10 @@
 
 import { FC } from 'react'
 
-import { TCommonComponentProps } from '@components'
-
-type TSvgImageProps = TCommonComponentProps
+type TSvgImageProps = {
+  className?: string
+  [key: string]: any
+}
 
 /**
  * Renders a GitHub SVG image.

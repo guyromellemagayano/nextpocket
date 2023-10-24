@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios'
 
-import { API_HOST_LOCAL } from '@config'
+import { API_HOST_LOCAL } from '@config/env'
 
 export type TAxiosErrorResponse = {
   message?: string

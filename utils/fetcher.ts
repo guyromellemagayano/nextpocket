@@ -1,4 +1,4 @@
-import { request } from '@helpers'
+import request from '@helpers/request'
 
 type TFetcherProps = <T>(url: string) => Promise<void | Awaited<T> | any>
 

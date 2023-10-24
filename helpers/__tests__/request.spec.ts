@@ -1,8 +1,8 @@
 import mockAxios from 'jest-mock-axios'
 
-import { API_HOST_LOCAL } from '@config'
-import { request } from '@helpers'
-import { axiosInstance } from '@lib'
+import { API_HOST_LOCAL } from '@config/env'
+import request from '@helpers/request'
+import axiosInstance from '@lib/axios'
 
 // Mock the custom `axios` instance
 jest.mock('@lib', () => ({

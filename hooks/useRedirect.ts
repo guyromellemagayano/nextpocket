@@ -1,7 +1,7 @@
 import { Session } from 'next-auth'
 import { useSession } from 'next-auth/react'
 
-import { PAGE_LINKS, TPageLinks } from '@config'
+import { PAGE_LINKS, TPageLinks } from '@config/data'
 
 type TUseRedirect = () => {
   navigation: TPageLinks[]

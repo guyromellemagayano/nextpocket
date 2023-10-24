@@ -11,9 +11,11 @@ import {
   useState
 } from 'react'
 
-import { Button, Image, Paragraph } from '@components'
-import { TNotesCollectionFormData, TNotesPageNotesData } from '@config'
-import { TRequestData } from '@helpers'
+import Button from '@components/buttons/Button'
+import Image from '@components/images/Image'
+import Paragraph from '@components/typography/Paragraph'
+import { TNotesCollectionFormData, TNotesPageNotesData } from '@config/data'
+import { TRequestData } from '@helpers/request'
 
 type TAvatarProps = {
   src: string
@@ -30,6 +32,22 @@ type TAvatarProps = {
   [key: string]: any
 }
 
+/**
+ * Avatar component that displays an image and allows editing of a specific field.
+ *
+ * @param src - The image source
+ * @param width - The image width
+ * @param height - The image height
+ * @param field - The field to edit
+ * @param selectedField - The selected field
+ * @param editableData - The editable data
+ * @param isEditing - The editing status
+ * @param setIsEditing - The editing status setter
+ * @param onChange - The change event handler
+ * @param onKeyPress - The key press event handler
+ * @param onEditStatus - The edit status event handler
+ * @returns The avatar component
+ */
 const Avatar: ForwardRefRenderFunction<HTMLButtonElement, TAvatarProps> = (
   {
     src,

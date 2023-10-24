@@ -3,7 +3,8 @@
 import Link from 'next/link'
 import { FC } from 'react'
 
-import { Image, Paragraph } from '@components'
+import Image from '@components/images/Image'
+import Paragraph from '@components/typography/Paragraph'
 
 type TCardProps = {
   heading?: string
@@ -16,11 +17,12 @@ type TCardProps = {
 /**
  * A reusable card component.
  *
- * @param heading - The card heading.
- * @param subheading - The card subheading.
- * @param image - The card image.
- * @param href - The card link.
- * @returns A card element.
+ * @param heading - The card heading
+ * @param subheading - The card subheading
+ * @param image - The card image
+ * @param href - The card link
+ * @param props - The props of the component
+ * @returns The card component
  */
 const Card: FC<TCardProps> = ({
   heading = '',

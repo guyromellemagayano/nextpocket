@@ -1,4 +1,4 @@
-import { AXIOS_INSTANCE, axiosInstance, handleError } from '@lib'
+import axiosInstance, { AXIOS_INSTANCE, handleError } from '@lib/axios'
 
 type TRequesTCommonComponentProps = {
   url: string

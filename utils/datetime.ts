@@ -26,18 +26,18 @@ const datetime: TDatetimeProps = data => {
     'Sep',
     'Oct',
     'Nov',
-    'Dec',
+    'Dec'
   ]
   const hours = date.getUTCHours()
   const period = hours < 12 ? 'AM' : 'PM'
 
   return `${days[date.getUTCDay()]} ${months[date.getUTCMonth()]} ${String(
-    date.getUTCDate(),
+    date.getUTCDate()
   ).padStart(2, '0')} ${date.getUTCFullYear()} at ${hours % 12 || 12}:${String(
-    date.getUTCMinutes(),
+    date.getUTCMinutes()
   ).padStart(2, '0')}:${String(date.getUTCSeconds()).padStart(
     2,
-    '0',
+    '0'
   )} ${period}`
 }
 

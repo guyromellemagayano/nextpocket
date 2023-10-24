@@ -3,7 +3,7 @@ type TArrayFilterProps = (
   key: string,
   values: any[],
   conditionValue?: any,
-  exclude?: boolean,
+  exclude?: boolean
 ) => any[]
 
 /**
@@ -21,11 +21,11 @@ const arrayFilter: TArrayFilterProps = (
   key,
   values,
   conditionValue,
-  exclude = false,
+  exclude = false
 ) => {
   if (conditionValue) {
     return array.filter(item =>
-      conditionValue ? values.includes(item[key]) : !values.includes(item[key]),
+      conditionValue ? values.includes(item[key]) : !values.includes(item[key])
     )
   }
 

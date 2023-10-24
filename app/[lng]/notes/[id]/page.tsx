@@ -5,24 +5,20 @@ import { redirect, useRouter } from 'next/navigation'
 import { FC, useState } from 'react'
 import useSWR, { mutate } from 'swr'
 
-import {
-  Article,
-  AuthCheck,
-  Button,
-  EditableForm,
-  Message,
-  Section
-} from '@components'
-import { NOTE_PAGE_API_URL } from '@config'
-import { request } from '@helpers'
-import { useRedirect } from '@hooks'
-import { fetcher } from '@utils'
+import AuthCheck from '@components/auth/AuthCheck'
+import Button from '@components/buttons/Button'
+import EditableForm from '@components/forms/EditableForm'
+import { Article, Section } from '@components/layouts/Content'
+import Message from '@components/messages/Message'
+import { NOTE_PAGE_API_URL } from '@config/api'
+import request from '@helpers/request'
+import useRedirect from '@hooks/useRedirect'
+import fetcher from '@utils/fetcher'
 
 /**
  * Renders a page for a specific note.
  *
  * @param {Object} params - The parameters for the note page.
- * @param {string} params.id - The ID of the note.
  * @returns {JSX.Element} - The note page component.
  */
 const NotePage: FC<any> = ({ params }) => {
@@ -147,6 +143,7 @@ const NotePage: FC<any> = ({ params }) => {
                         className="mt-1 text-xs leading-5 text-gray-500"
                       />
                     </div>
+
                     <Button
                       type="button"
                       className="h-6 w-6 flex-none overflow-hidden rounded-full bg-gray-50"

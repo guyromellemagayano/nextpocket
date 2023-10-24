@@ -1,9 +1,11 @@
 'use client'
 
 import { SessionProvider } from 'next-auth/react'
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
-import { TLayoutProps } from '@components'
+type TAuthProvider = {
+  children?: ReactNode
+}
 
 /**
  * Provides authentication context to the app.
@@ -11,7 +13,7 @@ import { TLayoutProps } from '@components'
  * @param children - The child components to render.
  * @returns The authentication provider component.
  */
-const AuthProvider: FC<TLayoutProps> = ({ children }) => (
+const AuthProvider: FC<TAuthProvider> = ({ children }) => (
   <SessionProvider>{children}</SessionProvider>
 )
 

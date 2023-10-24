@@ -3,13 +3,11 @@
 import { ChangeEvent, FC, KeyboardEvent, useState } from 'react'
 import { mutate } from 'swr'
 
-import { Avatar, Paragraph } from '@components'
-import {
-  NOTES_COLLECTION_FORM_DATA,
-  NOTE_PAGE_API_URL,
-  TNotesPageNotesData
-} from '@config'
-import { TRequestData, request } from '@helpers'
+import Avatar from '@components/avatar/Avatar'
+import Paragraph from '@components/typography/Paragraph'
+import { NOTE_PAGE_API_URL } from '@config/api'
+import { NOTES_COLLECTION_FORM_DATA, TNotesPageNotesData } from '@config/data'
+import request, { TRequestData } from '@helpers/request'
 
 type TEditableFormProps = {
   field: keyof TNotesPageNotesData
@@ -20,6 +18,16 @@ type TEditableFormProps = {
   [key: string]: any
 }
 
+/**
+ * A reusable editable form component.
+ *
+ * @param field - The field to edit
+ * @param params - The params of the component
+ * @param data - The data of the component
+ * @param width - The width of the component
+ * @param height - The height of the component
+ * @returns The editable form component
+ */
 const EditableForm: FC<TEditableFormProps> = ({
   field,
   params,
@@ -63,7 +71,6 @@ const EditableForm: FC<TEditableFormProps> = ({
       setIsEditing()
     } else if (e.key === 'Escape') {
       mutate(`${NOTE_PAGE_API_URL + params.id}`, data, false)
-      console.log(field)
 
       setIsEditing()
     }

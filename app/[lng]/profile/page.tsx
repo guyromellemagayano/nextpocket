@@ -4,8 +4,11 @@ import clsx from 'clsx'
 import { redirect } from 'next/navigation'
 import { FC } from 'react'
 
-import { AuthCheck, Image, Message, Paragraph } from '@components'
-import { useRedirect } from '@hooks'
+import AuthCheck from '@components/auth/AuthCheck'
+import Image from '@components/images/Image'
+import Message from '@components/messages/Message'
+import Paragraph from '@components/typography/Paragraph'
+import useRedirect from '@hooks/useRedirect'
 
 /**
  * Renders the Profile page

@@ -6,10 +6,10 @@ import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { Button } from '@components'
-import { TNotesCollectionFormData } from '@config'
+import Button from '@components/buttons/Button'
+import { TNotesCollectionFormData } from '@config/data'
 
-export type TFormProps = {
+type TFormProps = {
   data: TNotesCollectionFormData[]
   onSubmit: (e: any) => void
   [key: string]: any
@@ -19,8 +19,9 @@ export type TFormProps = {
  * Defines the Yup validation schema for the form.
  *
  * @param data - The form data.
- * @param onSubmit - The form submit handler.
- * @returns A form element.
+ * @param onSubmit - The submit event handler.
+ * @param props - The props of the component.
+ * @returns The form component.
  */
 const Form: FC<TFormProps> = ({ data, onSubmit, ...props }) => {
   const formSchema = yup.object().shape(

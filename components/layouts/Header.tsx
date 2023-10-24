@@ -3,17 +3,20 @@
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
+import { signOut } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { signOut } from 'next-auth/react'
 import { FC, useState } from 'react'
 
-import { AuthCheck, Button } from '@components'
-import { useRedirect } from '@hooks'
-import { arrayFilter } from '@utils'
+import AuthCheck from '@components/auth/AuthCheck'
+import Button from '@components/buttons/Button'
+import useRedirect from '@hooks/useRedirect'
+import arrayFilter from '@utils/arrayFilter'
 
 /**
  * Header component that displays the navigation bar and menu for the NextPocket website.
+ *
+ * @returns The header component
  */
 const Header: FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false)

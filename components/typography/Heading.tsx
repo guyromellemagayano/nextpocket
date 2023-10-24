@@ -1,11 +1,10 @@
-import { FC, HTMLAttributes, Ref } from 'react'
-
-import { TCommonComponentProps } from '@components'
+import { FC, HTMLAttributes, ReactNode, Ref } from 'react'
 
 type THeadingProps = HTMLAttributes<HTMLHeadingElement> &
-  HTMLAttributes<MouseEvent> &
-  TCommonComponentProps & {
+  HTMLAttributes<MouseEvent> & {
+    [key: string]: any
     ref?: Ref<HTMLHeadingElement>
+    children?: ReactNode
     size?:
       | 'h1'
       | 'H1'
@@ -25,60 +24,30 @@ type THeadingProps = HTMLAttributes<HTMLHeadingElement> &
  * Heading component that renders any valid heading from `h1` to `h6`.
  *
  * @param children - The heading children.
- * @param className - The CSS class name for the heading.
  * @param size - The heading size.
  * @param props - The heading props.
  * @returns A heading element.
  */
-const Heading: FC<THeadingProps> = ({
-  children,
-  className,
-  size,
-  ...props
-}) => {
+const Heading: FC<THeadingProps> = ({ children, size, ...props }) => {
   switch (size) {
     case 'h1':
     case 'H1':
-      return (
-        <h1 className={className} {...props}>
-          {children}
-        </h1>
-      )
+      return <h1 {...props}>{children}</h1>
     case 'h2':
     case 'H2':
-      return (
-        <h2 className={className} {...props}>
-          {children}
-        </h2>
-      )
+      return <h2 {...props}>{children}</h2>
     case 'h3':
     case 'H3':
-      return (
-        <h3 className={className} {...props}>
-          {children}
-        </h3>
-      )
+      return <h3 {...props}>{children}</h3>
     case 'h4':
     case 'H4':
-      return (
-        <h4 className={className} {...props}>
-          {children}
-        </h4>
-      )
+      return <h4 {...props}>{children}</h4>
     case 'h5':
     case 'H5':
-      return (
-        <h5 className={className} {...props}>
-          {children}
-        </h5>
-      )
+      return <h5 {...props}>{children}</h5>
     case 'h6':
     case 'H6':
-      return (
-        <h6 className={className} {...props}>
-          {children}
-        </h6>
-      )
+      return <h6 {...props}>{children}</h6>
     default:
       return null
   }
