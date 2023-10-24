@@ -9,7 +9,7 @@
     "jsx": "preserve",
     "lib": ["dom", "dom.iterable", "esnext"],
     "types": ["node", "jest", "next"],
-    "typeRoots": ["./node_modules/@types", "./types"],
+    "typeRoots": ["./node_modules/@types", "./@types"],
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
@@ -25,15 +25,15 @@
     "baseUrl": "./",
     "paths": {
       "@app/*": ["./app/*"],
-      "@components": ["./components"],
-      "@config": ["./config"],
-      "@helpers": ["./helpers"],
-      "@hooks": ["./hooks"],
-      "@lib": ["./lib"],
-      "@providers": ["./providers"],
-      "@scripts": ["./scripts"],
+      "@components/*": ["./components/*"],
+      "@config/*": ["./config/*"],
+      "@contexts/*": ["./contexts/*"],
+      "@helpers/*": ["./helpers/*"],
+      "@hooks/*": ["./hooks/*"],
+      "@lib/*": ["./lib/*"],
+      "@public/*": ["./public/*"],
       "@styles/*": ["./styles/*"],
-      "@utils": ["./utils"]
+      "@utils/*": ["./utils/*"]
     },
     "plugins": [
       {
@@ -46,7 +46,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "config/index.ts",
     "next.config.mjs"
   ],
   "exclude": ["node_modules"]
