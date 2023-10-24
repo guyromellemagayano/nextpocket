@@ -1,6 +1,7 @@
 import type { Config } from 'jest'
 import nextJest from 'next/jest.js'
 import { pathsToModuleNameMapper } from 'ts-jest'
+
 import { compilerOptions } from './tsconfig.json'
 
 const createJestConfig = nextJest({
@@ -25,7 +26,8 @@ const config: Config = {
     '<rootDir>/components/**/*.[jt]sx?$',
     '<rootDir>/helpers/**/*.[jt]sx?$',
     '<rootDir>/hooks/**/*.[jt]sx?$',
-    '<rootDir>/providers/**/*.[jt]sx?$',
+    '<rootDir>/lib/**/*.[jt]sx?$',
+    '<rootDir>/contexts/**/*.[jt]sx?$',
     '<rootDir>/utils/**/*.[jt]sx?$',
   ],
 }
