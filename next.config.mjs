@@ -1,7 +1,7 @@
-import NextBundleAnalyzer from '@next/bundle-analyzer'
+// import NextBundleAnalyzer from '@next/bundle-analyzer'
 import CircularDependencyPlugin from 'circular-dependency-plugin'
 import dotenv from 'dotenv'
-import nextPWA from 'next-pwa'
+// import nextPWA from 'next-pwa'
 
 // Load environment variables
 dotenv.config()
@@ -108,6 +108,9 @@ const nextConfig = {
           cwd: process.cwd()
         })
       )
+
+      // Handle `fs` fallback
+      config.resolve.fallback.fs = false
     }
 
     // SVG handling
@@ -123,10 +126,10 @@ const nextConfig = {
   }
 }
 
-const withPWA = nextPWA({ dest: 'public' })
-const withBundleAnalyzer = NextBundleAnalyzer({
-  enabled: process.env.BUNDLE_ANALYZE,
-  openAnalyzer: false
-})
+// const withPWA = nextPWA({ dest: 'public' })
+// const withBundleAnalyzer = NextBundleAnalyzer({
+//   enabled: process.env.BUNDLE_ANALYZE,
+//   openAnalyzer: false
+// })
 
-export default withPWA(withBundleAnalyzer(nextConfig))
+export default nextConfig
