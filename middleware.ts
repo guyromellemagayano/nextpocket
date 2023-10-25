@@ -1,10 +1,10 @@
 import { i18nRouter } from 'next-i18n-router'
 import { NextRequest } from 'next/server'
 
-import { I18N } from '@config'
+import i18nConfig from './configs/i18n'
 
 export const middleware = (request: NextRequest) => {
-  return i18nRouter(request, I18N)
+  return i18nRouter(request, i18nConfig)
 }
 
 export const config = {

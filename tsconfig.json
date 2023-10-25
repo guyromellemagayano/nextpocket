@@ -9,7 +9,7 @@
     "jsx": "preserve",
     "lib": ["dom", "dom.iterable", "esnext"],
     "types": ["node", "jest", "next"],
-    "typeRoots": ["./node_modules/@types", "./@types"],
+    "typeRoots": ["./node_modules/@types", "./types"],
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
@@ -20,20 +20,20 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "strictNullChecks": false,
+    "strictNullChecks": true,
     "target": "esnext",
     "baseUrl": "./",
     "paths": {
-      "@app/*": ["./app/*"],
-      "@components/*": ["./components/*"],
-      "@config/*": ["./config/*"],
-      "@contexts/*": ["./contexts/*"],
-      "@helpers/*": ["./helpers/*"],
-      "@hooks/*": ["./hooks/*"],
-      "@lib/*": ["./lib/*"],
-      "@public/*": ["./public/*"],
-      "@styles/*": ["./styles/*"],
-      "@utils/*": ["./utils/*"]
+      "@configs/*": ["./configs/*"],
+      "@types/*": ["./types/*"],
+      "@components/*": ["./src/components/*"],
+      "@contexts/*": ["./src/contexts/*"],
+      "@helpers/*": ["./src/helpers/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@utils/*": ["./src/utils/*"]
     },
     "plugins": [
       {
@@ -42,11 +42,13 @@
     ]
   },
   "include": [
+    "**/*.js",
+    "**/*.mjs",
     "**/*.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    "next.config.mjs"
+    "**/*.json",
+    ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

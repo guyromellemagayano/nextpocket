@@ -1,7 +1,6 @@
-// import NextBundleAnalyzer from '@next/bundle-analyzer'
+import NextBundleAnalyzer from '@next/bundle-analyzer'
 import CircularDependencyPlugin from 'circular-dependency-plugin'
 import dotenv from 'dotenv'
-// import nextPWA from 'next-pwa'
 
 // Load environment variables
 dotenv.config()
@@ -52,9 +51,9 @@ const polyfills = config => {
 
     if (
       entries['main.js'] &&
-      !entries['main.js'].includes('./utils/polyfills.ts')
+      !entries['main.js'].includes('/src/utils/polyfills.ts')
     ) {
-      entries['main.js'].unshift('./utils/polyfills.ts')
+      entries['main.js'].unshift('/src/utils/polyfills.ts')
     }
 
     return entries
@@ -65,6 +64,11 @@ const polyfills = config => {
 const nextConfig = {
   // Environment variables
   env: {
+    BUNDLE_ANALYZE: process.env.BUNDLE_ANALYZE,
+    NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
+    NEXT_PUBLIC_BASE_API_URL: process.env.NEXT_PUBLIC_BASE_API_URL,
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    I18NEXUS_API_KEY: process.env.I18NEXUS_API_KEY,
     GITHUB_ID: process.env.GITHUB_ID,
     GITHUB_SECRET: process.env.GITHUB_SECRET,
     CONTENTFUL_SPACE_ID: process.env.CONTENTFUL_SPACE_ID,
@@ -103,7 +107,7 @@ const nextConfig = {
       config.plugins.push(
         new CircularDependencyPlugin({
           exclude: /a\.js|node_modules/,
-          failOnError: false,
+          failOnError: true,
           allowAsyncCycles: true,
           cwd: process.cwd()
         })
@@ -126,10 +130,9 @@ const nextConfig = {
   }
 }
 
-// const withPWA = nextPWA({ dest: 'public' })
-// const withBundleAnalyzer = NextBundleAnalyzer({
-//   enabled: process.env.BUNDLE_ANALYZE,
-//   openAnalyzer: false
-// })
+const withBundleAnalyzer = NextBundleAnalyzer({
+  enabled: process.env.BUNDLE_ANALYZE !== 'false',
+  openAnalyzer: process.env.NODE_ENV !== 'production'
+})
 
-export default nextConfig
+export default withBundleAnalyzer(nextConfig)
