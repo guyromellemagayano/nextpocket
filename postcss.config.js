@@ -3,7 +3,7 @@ module.exports = {
     tailwindcss: {},
     autoprefixer: {},
     'postcss-focus-visible': {
-      replaceWith: '[data-focus-visible-added]',
-    },
-  },
+      replaceWith: '[data-focus-visible-added]'
+    }
+  }
 }

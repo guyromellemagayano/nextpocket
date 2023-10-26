@@ -1,14 +1,15 @@
 import type { Config } from 'jest'
 import nextJest from 'next/jest.js'
 import { pathsToModuleNameMapper } from 'ts-jest'
+
 import { compilerOptions } from './tsconfig.json'
 
 const createJestConfig = nextJest({
-  dir: './',
+  dir: './'
 })
 
 const moduleNameMapper = pathsToModuleNameMapper(compilerOptions.paths, {
-  prefix: '<rootDir>/',
+  prefix: '<rootDir>/'
 })
 
 const config: Config = {
@@ -21,13 +22,14 @@ const config: Config = {
   transformIgnorePatterns: ['node_modules/(?!(jose)/)'],
   collectCoverage: true,
   collectCoverageFrom: [
-    '<rootDir>/app/**/*.[jt]sx?$',
-    '<rootDir>/components/**/*.[jt]sx?$',
-    '<rootDir>/helpers/**/*.[jt]sx?$',
-    '<rootDir>/hooks/**/*.[jt]sx?$',
-    '<rootDir>/providers/**/*.[jt]sx?$',
-    '<rootDir>/utils/**/*.[jt]sx?$',
-  ],
+    '<rootDir>/src/components/**/*.[jt]sx?$',
+    '<rootDir>/src/contexts/**/*.[jt]sx?$',
+    '<rootDir>/src/helpers/**/*.[jt]sx?$',
+    '<rootDir>/src/hooks/**/*.[jt]sx?$',
+    '<rootDir>/src/lib/**/*.[jt]sx?$',
+    '<rootDir>/src/pages/**/*.[jt]sx?$',
+    '<rootDir>/src/utils/**/*.[jt]sx?$'
+  ]
 }
 
 export default createJestConfig(config)
