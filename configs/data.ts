@@ -9,25 +9,7 @@ export type TNotesCollectionFormData = {
   maxLength: number
 }
 
-export type TPageLinks = {
-  name: string
-  slug: string
-  href: string
-}
-
-export type TNotesPageNotesData = TRequestData & {
-  value?: string
-}
-
-export type TNotesListData = {
-  page: number
-  perPage: number
-  totalItems: number
-  totalPages: number
-  items: TNotesPageNotesData[]
-}
-
-export const NOTES_COLLECTION_FORM_DATA: TNotesCollectionFormData[] = [
+export const notesCollectionFormData: TNotesCollectionFormData[] = [
   {
     id: 'title',
     placeholder: 'Title',
@@ -70,10 +52,28 @@ export const NOTES_COLLECTION_FORM_DATA: TNotesCollectionFormData[] = [
   }
 ]
 
-export const PAGE_LINKS: TPageLinks[] = [
+export type TPageLinks = {
+  name: string
+  slug: string
+  href: string
+}
+
+export const pageLinks: TPageLinks[] = [
   { name: 'Home', slug: 'home', href: '/' },
   { name: 'Notes', slug: 'notes', href: '/notes' },
   { name: 'Log in', slug: 'login', href: '/login' },
   { name: 'View profile', slug: 'profile', href: '/profile' },
   { name: 'Log out', slug: 'logout', href: '/logout' }
 ]
+
+export type TNotesPageNotesData = TRequestData & {
+  value?: string
+}
+
+export type TNotesListData = {
+  page: number
+  perPage: number
+  totalItems: number
+  totalPages: number
+  items: TNotesPageNotesData[]
+}

@@ -9,7 +9,7 @@
     "jsx": "preserve",
     "lib": ["dom", "dom.iterable", "esnext"],
     "types": ["node", "jest", "next"],
-    "typeRoots": ["./node_modules/@types", "./types"],
+    "typeRoots": ["./node_modules/@types"],
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
@@ -24,16 +24,16 @@
     "target": "esnext",
     "baseUrl": "./",
     "paths": {
+      "@app/*": ["./app/*"],
+      "@components/*": ["./components/*"],
       "@configs/*": ["./configs/*"],
-      "@types/*": ["./types/*"],
-      "@components/*": ["./src/components/*"],
-      "@contexts/*": ["./src/contexts/*"],
-      "@helpers/*": ["./src/helpers/*"],
-      "@hooks/*": ["./src/hooks/*"],
-      "@lib/*": ["./src/lib/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@styles/*": ["./src/styles/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@contexts/*": ["./contexts/*"],
+      "@helpers/*": ["./helpers/*"],
+      "@hooks/*": ["./hooks/*"],
+      "@lib/*": ["./lib/*"],
+      "@styles/*": ["./styles/*"],
+      "types/*": ["./types/*"],
+      "@utils/*": ["./utils/*"]
     },
     "plugins": [
       {
@@ -43,7 +43,6 @@
   },
   "include": [
     "**/*.js",
-    "**/*.mjs",
     "**/*.d.ts",
     "**/*.ts",
     "**/*.tsx",

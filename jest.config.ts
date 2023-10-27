@@ -22,13 +22,13 @@ const config: Config = {
   transformIgnorePatterns: ['node_modules/(?!(jose)/)'],
   collectCoverage: true,
   collectCoverageFrom: [
-    '<rootDir>/src/components/**/*.[jt]sx?$',
-    '<rootDir>/src/contexts/**/*.[jt]sx?$',
-    '<rootDir>/src/helpers/**/*.[jt]sx?$',
-    '<rootDir>/src/hooks/**/*.[jt]sx?$',
-    '<rootDir>/src/lib/**/*.[jt]sx?$',
-    '<rootDir>/src/pages/**/*.[jt]sx?$',
-    '<rootDir>/src/utils/**/*.[jt]sx?$'
+    '<rootDir>/components/**/*.[jt]sx?$',
+    '<rootDir>/contexts/**/*.[jt]sx?$',
+    '<rootDir>/helpers/**/*.[jt]sx?$',
+    '<rootDir>/hooks/**/*.[jt]sx?$',
+    '<rootDir>/lib/**/*.[jt]sx?$',
+    '<rootDir>/pages/**/*.[jt]sx?$',
+    '<rootDir>/utils/**/*.[jt]sx?$'
   ]
 }
 
