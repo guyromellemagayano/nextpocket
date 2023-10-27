@@ -5,7 +5,7 @@ import type { Config } from 'tailwindcss'
 import defaultTheme from 'tailwindcss/defaultTheme'
 
 const config: Config = {
-  content: ['./src/{components,pages}/**/*.{js?(x),ts?(x)}'],
+  content: ['./{components,app}/**/*.{js?(x),ts?(x)}'],
   darkMode: 'class',
   theme: {
     extend: {
