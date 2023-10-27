@@ -1,6 +1,8 @@
-import NextBundleAnalyzer from '@next/bundle-analyzer'
-import CircularDependencyPlugin from 'circular-dependency-plugin'
-import dotenv from 'dotenv'
+const NextBundleAnalyzer = require('@next/bundle-analyzer')
+const CircularDependencyPlugin = require('circular-dependency-plugin')
+const dotenv = require('dotenv')
+
+const { i18n } = require('./i18n.config.js')
 
 // Load environment variables
 dotenv.config()
@@ -36,7 +38,7 @@ const securityHeaders = [
   }
 ]
 
-const headers = async () => [
+const headers = () => [
   {
     source: '/:path*',
     headers: securityHeaders
@@ -51,9 +53,9 @@ const polyfills = config => {
 
     if (
       entries['main.js'] &&
-      !entries['main.js'].includes('/src/utils/polyfills.ts')
+      !entries['main.js'].includes('/utils/polyfills.ts')
     ) {
-      entries['main.js'].unshift('/src/utils/polyfills.ts')
+      entries['main.js'].unshift('/utils/polyfills.ts')
     }
 
     return entries
@@ -66,7 +68,7 @@ const nextConfig = {
   env: {
     BUNDLE_ANALYZE: process.env.BUNDLE_ANALYZE,
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
-    NEXT_PUBLIC_BASE_API_URL: process.env.NEXT_PUBLIC_BASE_API_URL,
+    NEXT_PUBLIC_POCKETBASE_API_URL: process.env.NEXT_PUBLIC_POCKETBASE_API_URL,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     I18NEXUS_API_KEY: process.env.I18NEXUS_API_KEY,
     GITHUB_ID: process.env.GITHUB_ID,
@@ -89,12 +91,22 @@ const nextConfig = {
   images: {
     dangerouslyAllowSVG: true,
     deviceSizes: [320, 420, 768, 1024, 1200, 1600],
-    domains: [
-      'images.ctfassets.net',
-      'images.eu.ctfassets.net',
-      'images.unsplash.com',
-      'avatars.githubusercontent.com',
-      'tailwindui.com'
+    remotePatterns: [
+      {
+        hostname: 'images.ctfassets.net'
+      },
+      {
+        hostname: 'images.eu.ctfassets.net'
+      },
+      {
+        hostname: 'images.unsplash.com'
+      },
+      {
+        hostname: 'avatars.githubusercontent.com'
+      },
+      {
+        hostname: 'tailwindui.com'
+      }
     ],
     path: '/_next/image',
     loader: 'default'
@@ -131,8 +143,7 @@ const nextConfig = {
 }
 
 const withBundleAnalyzer = NextBundleAnalyzer({
-  enabled: process.env.BUNDLE_ANALYZE !== 'false',
-  openAnalyzer: process.env.NODE_ENV !== 'production'
+  enabled: process.env.BUNDLE_ANALYZE !== 'false'
 })
 
-export default withBundleAnalyzer(nextConfig)
+module.exports = withBundleAnalyzer(nextConfig)
