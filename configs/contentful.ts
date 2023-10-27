@@ -1,10 +1,31 @@
-const CONTENTFUL_SPACE_ID = process.env.CONTENTFUL_SPACE_ID || ''
-const CONTENTFUL_ACCESS_TOKEN = process.env.CONTENTFUL_ACCESS_TOKEN || ''
-const CONTENTFUL_PREVIEW_ACCESS_TOKEN =
-  process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN || ''
-const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || ''
+import {
+  CONTENTFUL_ACCESS_TOKEN,
+  CONTENTFUL_PREVIEW_ACCESS_TOKEN,
+  CONTENTFUL_SPACE_ID,
+  NEXT_PUBLIC_BASE_URL
+} from './env'
 
-export const contentfulConfigs = {
+export type TContentfulConfig = {
+  cms: {
+    space_id: string
+    cda_token: string
+    cpa_token: string
+  }
+  meta: {
+    title: string
+    description: string
+    url: string
+    image: string
+  }
+  icon: {
+    light: string
+    dark: string
+    width: number
+    height: number
+  }
+}
+
+export const contentful: TContentfulConfig = {
   cms: {
     space_id: CONTENTFUL_SPACE_ID,
     cda_token: CONTENTFUL_ACCESS_TOKEN,
